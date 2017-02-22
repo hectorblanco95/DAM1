@@ -19,10 +19,13 @@ function insertarCamion($matricula, $modelo, $capacidad, $conductor) {
     desconectar($con);
 }
 
-// Función que devuelve dni y nombre de todos los conductores
-function selectDniAndNameConductores() {
-    $con = conectar("transport");
-    $select = "select dni, name from truckdriver";
+// Función que devuelve el nombre de todos los entrenadores
+function selectNameEntrenadores() {
+    $con = conectar("stukemon");
+    $select = "SELECT trainer.name
+                FROM trainer LEFT JOIN pokemon ON trainer.name = pokemon.trainer
+                GROUP BY trainer.name
+                HAVING COUNT(pokemon.trainer) < 6;";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
@@ -52,15 +55,15 @@ function selectCiudadbyCodigoPostal($codigopostal) {
     return $resultado;
 }
 
-// Función que inserta un conductor en la bbdd
+// Función que inserta un pokemon en la bbdd
 // Recibe todos sus datos como parámetro
-function insertarConductor($dni, $nombre, $telefono, $sueldo) {
-    $con = conectar("transport");
-    $insert = "insert into truckdriver values ('$dni', '$nombre', '$telefono', $sueldo)";
+function insertarPokemon($nom, $tipo, $habilidad, $ataque, $defensa, $velocidad, $vida, $entrenador) {
+    $con = conectar("stukemon");
+    $insert = "insert into pokemon values ('$nom', '$tipo', '$habilidad', $ataque, $defensa, $velocidad, $vida, 0, '$entrenador')";
     // Ejecutamos la consulta
     if (mysqli_query($con, $insert)) {
         // Si ha ido bien
-        echo "Conductor dado de alta.";
+        echo "Pokemon dado de alta.";
     } else {
         // Sino mostramos el error
         echo mysqli_error($con);
@@ -96,11 +99,11 @@ function selectAllCiudades() {
 // Recibe un nombre, pokeballs y pociones como parámetro
 function insertarEntrenador($nom, $pokeballs, $pociones) {
     $con = conectar("stukemon");
-    $insert = "insert into city values ('$codigopostal', '$nombre')";
+    $insert = "insert into trainer values ('$nom', $pokeballs, $pociones, 0)";
     // Ejecutamos la consulta
     if (mysqli_query($con, $insert)) {
         // Si ha ido bien
-        echo "Ciudad dada de alta.";
+        echo "Entrenador dado de alta.";
     } else {
         // Sino mostramos el error
         echo mysqli_error($con);
@@ -111,7 +114,7 @@ function insertarEntrenador($nom, $pokeballs, $pociones) {
 
 // Función para conectar con la bbdd
 function conectar($database) {
-    $con = mysqli_connect("localhost", "root", "root", $database)
+    $con = mysqli_connect("localhost", "root", "", $database)
             or die("No se ha podido conectar con la BBDD.");
     return $con;
 }

@@ -10,7 +10,7 @@ que vamos a implementar en php
     </head>
     <body>
         <a href="altaEntrenador.php">Dar de alta entrenador</a><br>
-        <a href="altaconductor.php">Dar de alta un pokemon</a><br>
+        <a href="altaPokemon.php">Dar de alta un pokemon</a><br>
         <a href="listadociudades.php">Batalla</a><br>
         <a href="listadociudades.php">Mejorar vida</a><br>
         <a href="listadociudades.php">Conseguir pociones de salud</a><br>
