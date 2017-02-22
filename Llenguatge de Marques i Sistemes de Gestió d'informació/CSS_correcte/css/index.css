@@ -1,0 +1,149 @@
+/**MAIN**/
+/*31 Selecciona el node amb id mitgPrincipal i aconseguieix que tingui:
+marge superior de 10px
+una amplada del 80% 
+els seus elements inline es mostrin ocupant tot l'espai que puguin (justificats)*/
+#mitgPrincipal{
+    width: 80%;
+    text-align: justify;
+    margin-top: 10px;
+}
+/*32 Selecciona el node amb id addPrincipal,
+indica que la seva altura sigui el total de l'altura del seu pare, 
+indica que els seus elements inline es mostrin alineats a la dreta, 
+indica que tingui una amplada corresponent al 20% del seu pare'*/
+#addPrincipal {
+    height: 100%;
+    overflow: hidden;
+    text-align: right;
+    width: 20%;
+}
+/*33 Selecciona les imatges contingudes dins el node amb id addPrincipal i indica que tinguin:
+una altura del 100%
+una amplada del 90%
+una máxima altura i amplada de 300px
+pading a l'esquerre del 10%
+*/
+#addPrincipal img {
+    height: 100%;
+    padding-left: 10%;
+    width: 90%;
+    max-height: 300px;
+    max-width: 300px;
+}
+
+
+/*** TOPS   */
+
+/**34
+Selecciona els header fills de la clase .topTable i  indica que:
+tinguin un color de fons
+un color de text blanc
+el text en negreta
+el text centrat
+una amplada del 100%
+*/
+.topTable>header{
+    background-color: #0099cc;
+    color:white;
+        font-weight: bold;
+    text-align: center;
+    font-size: 1em;
+    width: 100%;
+}
+/*TODO*/
+/*35 Selecciona los elementos de la clase topTable dentro de #mitgPrincipal i indica que tinguin:
+una ombra de color #ccffff situada 2 pixels per sobre l'element, 3px a la dreta i un difuminat de 5px
+un display que permeti afegir elements al seu costat
+una amplada del 30% del seu pare
+el text alineat a l'esquerre
+una amplada mínima de 200px
+*/
+#mitgPrincipal .topTable{
+    box-shadow: 2px 3px 5px blue;
+    display: inline-block;
+    min-width: 200px;
+    text-align: left;
+    width: 30%;
+}
+
+
+  /*36 Selecciona les celes de les taules 
+  situades dins un element de la clase
+  .topTable i indica que tingui:
+el text justificat
+  un padding de 3px
+*/
+.topTable table td{
+     text-align: justify;
+     padding:3px;
+}
+
+/*37 Selecciona  els span de la clase dreta
+situats dins un element de la clase topTable
+i indica que tinguin:
+un marge a l'esquerre de 3px
+que tinguin la propietat float a la dreta
+*/
+.topTable span.dreta{
+ /*   font-size: 0.9em;
+    width: 5em;*/
+    float: right;
+    margin-left: 3px;
+   /* background-color: #999;*/
+}
+/**38
+Selecciona les imatges situades dins un span
+de la clase dreta i indica que tinguin:
+una amplada i altura de 5em
+*/
+ span.dreta img{
+    width: 5em;
+    height: 5em;
+}
+
+/*39 Selecciona les files parelles de les 
+taules situades dins un element de la clase
+.topTable i indica que tingui:
+el color de fons groc
+*/
+ .topTable table tr:nth-child(2n){
+    background-color:yellow;
+}
+/*40 Selecciona les files senars de les taules situades dins un element de la clase .topTable i indica que tingui:
+el color de fons gris
+*/
+ .topTable table tr:nth-child(2n-1){
+    background-color:#dddddd;
+}
+/*41 Selecciona les files parelles de les taules situades dins un element de la clase .topTable i indica que, quan el ratoli es situi sobre, tinguin:
+el color de fons negre
+la lletra en color blanc
+una altura de 250px
+*/
+.topTable table tr:nth-child(2n):hover{
+    height: 250px;
+    background-color: black;
+    color:white;
+}
+
+/*42 Selecciona les files senars de les taules situades dins un element de la clase .topTable i indica que, quan el ratoli es situi sobre, tinguin:
+una posicio fixed, es a dir, segons la finestra del navegador
+una distancia a la part superior del 20%;
+una distáncia a la part esquerre del 10%;
+una amplada del 80%;
+una altura del 80%;
+una valor en el eix z de 15
+*/
+/*
+#mitgPrincipal .topTable table tr:nth-child(2n-1):hover{
+    width: 80%;
+    height: 80%;
+    position:fixed;
+    top:20%;
+    left:10%;
+    z-index: 15;
+}
+*/
+
+

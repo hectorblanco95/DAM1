@@ -1,0 +1,109 @@
+/*Ocultem middleHeader quan la pantalla sigui petita*/
+#headerTop>.middle{
+    display: none;
+}
+#mitgPrincipal  #topLlista1{
+    width:45%;
+}
+#mitgPrincipal  #topLlista2{
+    width:45%;
+}
+#mitgPrincipal  #topLlista3{
+    width: 90%;
+    margin:5%;
+}
+@media all and (max-width:690px) {
+    #main {
+        padding: 10px;
+    }   
+    
+    #mitgPrincipal{
+        width: 100%;
+    }
+    #mitgPrincipal .topTable{
+        width: 100%;
+        border: 1px solid black;
+        margin:0px;
+        margin-bottom:40px;
+    }
+    
+    #addPrincipal{
+        position:fixed;
+        bottom:0px;
+        width: 100%;
+        left:0px;
+        margin:0px;
+        margin:0px;
+        height: 15%;
+        overflow: hidden;
+        z-index: 100;
+        background-color: black;
+        border-top: 2px solid black;
+    }
+    #addPrincipal img{
+        padding:0px;
+        margin:0px;
+        width: 49%;
+    }
+    body{
+        padding-bottom: 15%;
+    }
+    #concerts img {
+        height: 250px;
+        width: 100%;
+    }
+
+
+    #concerts section {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+@media all and (max-width:650px) {
+    .sectionSlider {
+        height: 100%;
+        overflow: hidden;
+        width: 100%;
+    }
+    .botoSlider{
+        display:none !important;
+    }
+
+    .sobreOhhMusic h4{
+        font-size: 1em;
+    }
+
+    .botonsTop{
+        display: block;
+    }
+
+
+
+    .sectionSlider {
+        margin-bottom: 5px;
+    }
+    #main {
+        padding: 0px;
+        height: 400px;
+    }
+    header {
+        background-color: #eee;
+    }
+
+    #socialLinks{
+        position:fixed;
+        top:2px;
+        left:2px;
+    }
+    
+    
+    #mitgPrincipal  #topLlista1{
+    width:99%; margin:0px;
+}
+#mitgPrincipal  #topLlista2{
+    width:99%;margin:0px;
+}
+#mitgPrincipal  #topLlista3{
+    width: 99%;margin:0px;
+}
+}
