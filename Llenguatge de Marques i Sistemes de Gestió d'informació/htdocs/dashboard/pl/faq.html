@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>XAMPP FAQs for Mac OS X</title>
+
+    <meta name="description" content="Instructions on how to install XAMPP for OSX distributions." />
+    
+
+    <link href="/dashboard/stylesheets/normalize.css" rel="stylesheet" type="text/css" /><link href="/dashboard/stylesheets/all.css" rel="stylesheet" type="text/css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/dashboard/javascripts/modernizr.js" type="text/javascript"></script>
+
+
+    <link href="/dashboard/images/favicon.png" rel="icon" type="image/png" />
+
+
+  </head>
+
+  <body class="pl pl_faq">
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=277385395761685";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="contain-to-grid">
+      <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+          <li class="name">
+            <h1><a href="/dashboard/pl/index.html">Apache Friends</a></h1>
+          </li>
+          <li class="toggle-topbar menu-icon">
+            <a href="#">
+              <span>Menu</span>
+            </a>
+          </li>
+        </ul>
+
+        <section class="top-bar-section">
+          <!-- Right Nav Section -->
+          <ul class="right">
+              <li class=""><a href="/applications.html">Applications</a></li>
+              <li class="active"><a href="/dashboard/pl/faq.html">Najczęściej zadawane pytania</a></li>
+              <li class=""><a href="/dashboard/pl/howto.html">HOW-TO Guides</a></li>
+              <li class=""><a target="_blank" href="/dashboard/phpinfo.php">PHPInfo</a></li>
+              <li class=""><a href="/phpmyadmin/">phpMyAdmin</a></li>
+          </ul>
+        </section>
+      </nav>
+    </div>
+
+    <div id="wrapper">
+      <div class="hero">
+  <div class="row">
+    <div class="large-12 columns">
+      <h1>OS X <span>Najczęściej zadawane pytania</span></h1>
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="large-8 columns">
+    <dl class="accordion">
+      <dt>Jak mogę zainstalować XAMPP w systemie MAC OS X?</dt>
+      <dd>
+      <p>Aby zainstalować XAMPP po prostu wykonaj następujące czynności:</p>
+      <ul>
+        <li>Otwórz obraz DMG.</li>
+        <li>Podwójne kliknięcie na obrazku uruchamia proces instalacji.</li></ul>
+      <p>To wszystko. XAMPP został zainstalowany w katalogu /Applications/XAMPP.</p>
+      </dd>
+      <dt>Does XAMPP include MySQL or MariaDB?</dt>
+      <dd>
+        <p>Since XAMPP 5.5.30 and 5.6.14, XAMPP ships MariaDB instead of MySQL. The commands and tools are the same for both.</p>
+      </dd>
+      <dt>Jak uruchomić XAMPP?</dt>
+      <dd>
+      <p>Aby łatwo uruchomić XAMPP, otwórz Panel Kontrolny XAMPP i uruchom Apache, MySQL i ProFTPD. Nazwa Panelu XAMPP to "manager-osx"</p>      
+      </dd>
+      <dt>Jak zatrzymać XAMPP?</dt>
+      <dd>
+      <p>Aby łatwo zatrzymać XAMPP, otwórz Panel Kontrolny XAMPP i zatrzymaj serwery. Nazwa Panelu XAMPP to "manager-osx".</p>      
+      </dd>
+      <dt>Jak mogę przetestować, kiedy wszystko pracuje?</dt>
+      <dd>
+      <p>Wpisz następujący adres URL w przeglądarce internetowej:</p>
+      <p><code>http://localhost</code></p>
+
+      <p>Now you should see the XAMPP start page.</p>
+        <img src="/dashboard/images/screenshots/xampp-macosx-start.jpg" />    
+      </dd>
+      <dt>Czy XAMPP jest gotowy do środowiska produkcyjnego?</dt>
+      <dd><p>XAMPP nie jest przeznaczony do zastosowań produkcyjnych, ale na środowisko deweloperskie. Sposób w jaki XAMPP jest skonfigurowany by być otwartym jak to tylko możliwe umożliwia deweloperom robić co zechcą. Do zastosowań deweloperskich jest to wspaniałe, ale do zastosowań produkcyjnych może być fatalne.</p>
+      <p>To jest lista pominiętych zabezpieczeń w XAMPP:</p>
+      <ol>
+        <li>Administrator MySQL (root) nie ma hasła.</li>
+        <li>Usługa MySQL jest dostępna przez sieć.</li>
+        <li>ProFTPD ma ustawione hasło "lampp" dla użytkownika "daemon".</li>
+        <li>PHPMyAdmin jest dostępny przez sieć.</li>
+      </ol>
+      <p>Aby naprawić większość luk w zabezpieczeniach należy po prostu wywołać następujące polecenie:</p>
+      <p><code>sudo /Applications/XAMPP/xamppfiles/xampp security</code></p>
+      <p>To wzbudzi małe sprawdzenie bezpieczeństwa, aby sprawdzić czy instalacja XAMPP jest zabezpieczona.</p></dd>
+
+      <dt>Co oznaczają komunikaty błędów, które widzę po uruchomieniu XAMPP?</dt>
+      <dd>
+        <p>Możesz otrzymać kilka komunikatów błędów przy uruchamianiu XAMPP:</p>
+        <p><code>LAMPP-Apache is already running.<br />
+            An Apache daemon is already running.</code></p>
+        <p>Skrypt startowy LAMPP nie może uruchomić XAMPP-Apache ponieważ jest już uruchomiona inna instancja programu Apache. By uruchomić XAMPP prawidłowo XAMPP, najpierw musisz zatrzymać tamtą usługę Apache</p>
+        <p><code>LAMPP-MySQL is already running.<br />
+            A MySQL daemon is already running.</code></p>
+        <p>Jest to przeważnie spowodowane tym samym co powyższy błąd. Skrypt startowy LAMPP znalazł już uruchomioną usługę MySQL w twoim systemie. By uruchomić LAMPP prawidłowo, najpierw musisz zatrzymać tę usługę.</p>
+      </dd>
+
+      <dt>Wydaje się, że Apache się nie uruchomił. Co mogę zrobić?</dt>
+      <dd>
+        <p>Ten błąd może występować z kilku powodów. Apache wyświetla ten błąd w różnych okolicznościach. Aby znaleźć właściwy powód musimy zrobić pewne badania:</p>
+        <p><code>tail -2 /Applications/XAMPP/logs/error_log</code></p>
+        <p>Jeżeli otrzymujesz jakieś wiadomości o błędach, odwiedź <a href="/community.html">nasze strony społecznościowe</a> aby uzyskać pomoc.</p>
+      </dd>
+
+    <dt>Jak mogę sprawić by moja instalacja XAMPP była lepiej zabezpieczona?</dt>
+    <dd>
+      <p>W domyślnej instalacji XAMPP nie ma ustawionego hasła i nie zaleca się uruchamiania XAMPP w takiej konfiguracji dostępnego dla innych.</p>
+      <p>Wystarczy wpisać następującą komendę (jako root) by uruchomić prosty test zabezpieczeń:</p>
+      <p><code>sudo /Applications/XAMPP/xamppfiles/xampp security</code></p>
+      <p>Teraz powinieneś zobaczyć na ekranie następujące okno dialogowe:</p>
+      <p><code>
+XAMPP: Quick security check...</br>
+XAMPP: Your XAMPP pages are NOT secured by a password.</br>
+XAMPP: Do you want to set a password? [yes] yes (1)</br>
+XAMPP: Password: ******</br>
+XAMPP: Password (again): ******</br>
+XAMPP: Password protection active. Please use 'lampp' as user name!</br>
+XAMPP: MySQL is accessable via network.</br>
+XAMPP: Normaly that's not recommended. Do you want me to turn it off? [yes] yes</br>
+XAMPP: Turned off.</br>
+XAMPP: Stopping MySQL...</br>
+XAMPP: Starting MySQL...</br>
+XAMPP: The MySQL/phpMyAdmin user pma has no password set!!!</br>
+XAMPP: Do you want to set a password? [yes] yes</br>
+XAMPP: Password: ******</br>
+XAMPP: Password (again): ******</br>
+XAMPP: Setting new MySQL pma password.</br>
+XAMPP: Setting phpMyAdmin's pma password to the new one.</br>
+XAMPP: MySQL has no root passwort set!!!</br>
+XAMPP: Do you want to set a password? [yes] yes</br>
+XAMPP: Write the passworde somewhere down to make sure you won't forget it!!!</br>
+XAMPP: Password: ******</br>
+XAMPP: Password (again): ******</br>
+XAMPP: Setting new MySQL root password.</br>
+XAMPP: Setting phpMyAdmin's root password to the new one.</br>
+XAMPP: The FTP password for user 'nobody' is still set to 'lampp'.</br>
+XAMPP: Do you want to change the password? [yes] yes</br>
+XAMPP: Password: ******</br>
+XAMPP: Password (again): ******</br>
+XAMPP: Reload ProFTPD...</br>
+XAMPP: Done.</br>
+</code></p>
+      <p>(1) Ustawienie hasła pozwoli zabezpieczyć strony demo XAMPP (http://localhost/xampp/) tym hasłem. Nazwa użytkownika to 'lampp'!</p>
+      <p>Po wywołaniu tej komendy twoja instalacja XAMPP powinna być lepiej zabezpieczona.</p>
+    </dd>
+
+    <dt>Jak mogę aktywować rozszerzenie OCI8/Oracle dla PHP?</dt>
+    <dd>
+      <p>By aktywować rozszerzenie OCI8/Oracle dla PHP wykonaj poniższe komendy:</p>
+      <p><code>sudo /Applications/XAMPP/xamppfiles/lampp oci8</code></p>
+      <p>Uruchomi się następujące okno dialogowe:</p>
+      <p><code>Please enter the path to your Oracle or Instant Client installation:</br>
+[/Applications/XAMPP/xamppfiles/lib/instantclient-11.2.0.3.0] </br>
+installing symlinks...</br>
+patching php.ini...</br>
+OCI8 add-on activation likely successful.</br>
+LAMPP: Stopping Apache with SSL...</br>
+LAMPP: Starting Apache with SSL...</code></p>
+      <p>Teraz rozszerzenie powinno być aktywne.</p>
+    </dd>
+
+    <dt>How do I enable access to phpMyAdmin from the outside?</dt>
+    <dd>
+    <p>In the basic configuration of XAMPP, phpMyAdmin is accessible only from the same host that XAMPP is running on, at http://127.0.0.1 or http://localhost.</p>
+    <p>To enable remote access to phpMyAdmin, follow these steps:</p>
+    <ul>
+      <li>Edit the etc/extra/httpd-xampp.conf file in your XAMPP installation directory.</li>
+        <li>Within this file, find the line below and update it to remove 'phpmyadmin' from the list of locations. 
+        <p><code>
+        &lt;LocationMatch "^/(?i:(?:xampp|security|licenses|phpmyadmin|webalizer|server-status|server-info))"&gt;</code></p>
+        </li>
+      <li>Restart the Apache server using the XAMPP control panel.</li>
+    </ul>
+    </dd>
+    
+    <dt>Jak mogę wykonać kopię bezpieczeństwa (lub przywrócić z kopii) mojego systemu XAMPP?</dt>
+    <dd>
+      <p><strong>Ostrzeżenie:</strong> Wykonywanie kopii bezpieczeństwa i odzyskiwanie z kopii jest wciąż w trakcie tworzenia i może działać niepoprawnie.</p>
+      <p>Możesz wykonać backup wywołując polecenie:</p>
+      <p><code>sudo /Applications/XAMPP/xamppfiles/xampp backup</code></p>
+      <p>lub</p>
+      <p><code>sudo /Applications/XAMPP/xamppfiles/xampp backup secret</code></p>
+      <p>Gdzie "secret" jest twoim hasłem roota w MySQL. Ta komenda utworzy następujące wyjście:</p>
+      <p><code>Backing up databases...</br>
+Backing up configuration, log and htdocs files...</br>
+Calculating checksums...</br>
+Building final backup file...</br>
+Backup finished.</br>
+Take care of /Applications/XAMPP/xamppfiles/backup/xampp-backup-22-01-14.sh</code></p>
+
+      <p>Plik /Applications/XAMPP/xamppfiles/backup/xampp-backup-22-01-14.sh (w przykładzie poniżej) zawiera twoją kopię zapasową. Przenieś ten plik w bezpieczne miejsce.</p>
+
+      <p>Na nowym komputerze powinieneś mieć taką samą wersję XAMPP jak na źródłowym komputerze.</p>
+      <p><code>sudo sh xampp-backup-22-01-14.sh</code></p>
+      <p>Powinieneś zobaczyć coś podobnego do tego:</p>
+      <p><code>Checking integrity of files...</br>
+Restoring configuration, log and htdocs files...</br>
+Checking versions...</br>
+Installed: XAMPP 1.4.2</br>
+Backup from: XAMPP 1.4.2</br>
+Restoring MySQL databases...</br>
+Restoring MySQL user databases...</br>
+Backup complete. Have fun!</br>
+You may need to restart XAMPP to complete the restore.</br>
+</code></p>
+      <p>To wszystko. Należy pamiętać, że jest to wersja beta.</p>
+    </dd>
+
+    </dl>
+
+  </div>
+</div>
+
+    </div>
+
+    <footer>
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-8 columns">
+              <ul class="social">
+  <li class="twitter"><a href="https://twitter.com/apachefriends">Follow us on Twitter</a></li>
+  <li class="facebook"><a href="https://www.facebook.com/we.are.xampp">Like us on Facebook</a></li>
+  <li class="google"><a href="https://plus.google.com/+xampp/posts">Add us to your G+ Circles</a></li>
+</ul>
+
+              <ul class="inline-list">
+                <li><a href="https://www.apachefriends.org/blog.html">Blog</a></li>
+                <li><a href="https://www.apachefriends.org/privacy_policy.html">Polityka prywatności</a></li>
+                <li>
+<a target="_blank" href="http://www.fastly.com/">                    CDN dostarczone przez
+                    <img width="48" data-2x="/dashboard/images/fastly-logo@2x.png" src="/dashboard/images/fastly-logo.png" />
+</a>                </li>
+              </ul>
+            </div>
+            <div class="large-4 columns">
+              <p class="text-right">Prawa zastrzeżone (c) 2015, Apache Friends</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JS Libraries -->
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="/dashboard/javascripts/all.js" type="text/javascript"></script>
+  </body>
+</html>

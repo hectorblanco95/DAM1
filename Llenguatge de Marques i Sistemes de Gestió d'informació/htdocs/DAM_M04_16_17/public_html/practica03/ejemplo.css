@@ -1,0 +1,12 @@
+#logoweb{
+    height: 40px;
+    width: 100%;
+}
+h2{
+    color: #66ff00;
+    background-color: #3333ff;
+    border-width: 2px; /*anchura borde*/
+    border-color: background;
+    border-style: solid; /*estilo borde*/
+    
+}

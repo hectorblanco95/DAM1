@@ -1,0 +1,88 @@
+html,body{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+#logoweb2{
+    display: inline-block;
+    height: 78px;
+    width: 81%;
+}
+.complet{
+    width: 100%;
+}
+.titul{
+    color: purple;
+    vertical-align: top;
+    background-color: white;
+    border-width: 2px; /*anchura borde*/
+    border-color: green;
+    border-style: dashed;
+    text-align: center;
+    display: inline-block;
+}
+h1{
+    color: purple;
+    background-color: white;
+    border-width: 2px; /*anchura borde*/
+    border-color: green;
+    border-style: dashed;
+    text-align: center;
+
+}
+#div{
+    color: blue;
+}
+.link{
+    color: white;
+    background-color: black;
+    text-align: center;
+    text-decoration: none;
+}
+.tipusInline{
+    display: inline;
+}
+h2{
+    color: red;
+    background-color: white;
+    border-width: 2px; /*anchura borde*/
+    border-color: purple;
+    border-style: solid;
+    text-align: center;  
+}
+.centrar{
+    text-align: center;
+    width: 100%;
+}
+.centrado{
+    display: inline-block;
+    width: auto;
+}
+.item{
+    width: 100%;
+}
+.tabla{
+    background-color: greenyellow;
+    padding: 2px;
+}
+.tabla2{
+    background-color: #33ccff;
+    padding: 2px;
+}
+.tabla3{
+    background-color: orange;
+    padding: 2px;
+}
+
+
+
+
+#footer_body{
+    color: plum;
+    background-color: white;
+    border-width: 0.5px; /*anchura borde*/
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+}

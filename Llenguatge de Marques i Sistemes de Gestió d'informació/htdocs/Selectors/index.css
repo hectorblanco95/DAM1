@@ -1,0 +1,78 @@
+/**MAIN**/
+/*31 Selecciona el node amb id mitgPrincipal i aconseguieix que tingui:
+marge superior de 10px
+una amplada del 80% 
+els seus elements inline es mostrin ocupant tot l'espai que puguin (justificats)*/
+
+/*32 Selecciona el node amb id addPrincipal,
+indica que la seva altura sigui el total de l'altura del seu pare, 
+indica que els seus elements inline es mostrin alineats a la dreta, 
+indica que tingui una amplada corresponent al 20% del seu pare'*/
+
+/*33 Selecciona les imatges contingudes dins el node amb id addPrincipal i indica que tinguin:
+una altura del 100%
+una amplada del 90%
+una máxima altura i amplada de 300px
+pading a l'esquerre del 10%
+*/
+
+
+
+/*** TOPS   */
+
+/**34
+Selecciona els header fills de la clase .topTable i  indica que:
+tinguin un color de fons
+un color de text blanc
+el text en negreta
+el text centrat
+una amplada del 100%
+*/
+
+/*TODO*/
+/*35 Selecciona los elementos de la clase topTable dentro de #mitgPrincipal i indica que tinguin:
+una ombra de color #ccffff situada 2 pixels per sobre l'element, 3px a la dreta i un difuminat de 5px
+un display que permeti afegir elements al seu costat
+una amplada del 30% del seu pare
+el text alineat a l'esquerre
+una amplada mínima de 200px
+*/
+
+
+  /*36 Selecciona les celes de les taules 
+  situades dins un element de la clase
+  .topTable i indica que tingui:
+el text justificat
+  un padding de 3px
+*/
+
+
+/*37 Selecciona  els span de la clase dreta
+situats dins un element de la clase topTable
+i indica que tinguin:
+un marge a l'esquerre de 3px
+que tinguin la propietat float a la dreta
+*/
+
+/**38
+Selecciona les imatges situades dins un span
+de la clase dreta i indica que tinguin:
+una amplada i altura de 5em
+*/
+
+
+/*39 Selecciona les files parelles de les 
+taules situades dins un element de la clase
+.topTable i indica que tingui:
+el color de fons groc
+*/
+
+/*40 Selecciona les files senars de les taules situades dins un element de la clase .topTable i indica que tingui:
+el color de fons gris
+*/
+
+/*41 Selecciona les files parelles de les taules situades dins un element de la clase .topTable i indica que, quan el ratoli es situi sobre, tinguin:
+el color de fons negre
+la lletra en color blanc
+una altura de 250px
+*/

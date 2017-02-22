@@ -1,0 +1,44 @@
+html,body{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+div,header{
+     display: inline-block;
+     vertical-align: top;
+     position: relative;
+}
+#uno{
+    width: 80%;
+    height: 100%;
+    display: inline-block;
+    background-color: yellow;
+}
+#dos{
+    width: 20%;
+    height: 100%;
+    display: inline-block;
+    background-color: red;
+}
+header{
+    width: 100%;
+    height: 20%;
+    display: inline-block;
+    background-color: green; 
+}
+#tres{
+    width: 100%;
+    height: 80%;
+    display: inline-block;
+    background-color: white;
+    text-align: center;
+}
+.cuatro{
+    width: 60%;
+    height: 35%;
+    display: inline-block;
+    background-color: yellow; 
+    vertical-align: top;
+    margin-top: 70px;
+}

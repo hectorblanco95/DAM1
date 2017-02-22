@@ -1,0 +1,206 @@
+/*Estils per netejar els estils que per defecte aplica el navegador*/
+/*2Selecciona tots els ul, li, h1, h2, h3, h4, h5, h6, body, html.
+assigna'ls un marge de 0px i un padding de 0 0px'*/
+html,body,h6,h5,h4,h3,h2,h1,li,ul{
+    padding: 0;
+    margin: 0;
+}
+/*3 Selecciona el html i el body i indica'n que:
+tinguin una amplada i altura del 100%
+*/
+html,body{
+    width: 100%;
+    height: 100%;
+}
+/*4 selecciona tots els div, span, header, article, aside, nav, ul i li indica que:
+la seva posició sigui relativa 
+utilitzant display indica que acceptin altres elements al seu costat i que puguin tenir unes mesures.
+estiguin alineats verticalment a dalt
+*/
+div,span,header,article,aside,nav,ul,li{
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+}
+/**** ELEMENTS GENERALS**/
+/*5 Selecciona tots els tags a, i indica que:
+no tinguin subratllat i assignali un color al text*/
+a{
+    text-decoration:none;
+}
+/*6 Selecciona els links quan el ratolí estigui a sobre (hover)i indica un color a la lletra*/
+a:hover{
+    color: #ccffff;
+}
+/*7 Selecciona tots els nodes de la clase withSpace , 
+indica que tigui una amplada de 100%*/
+
+
+/*8Selecciona tots els nodes e la classe button i indica que tinguin:
+ una vora arrodonida d'un color i una amlada de 2px 
+un coor de fons i un color de text.
+un cursor sigui del tipus pointer al situar el cursor per sobre.
+una ombra de color #ccffff situada 2pixels per sota l'element, 2px a la dreta i un difuminat de 2px 
+Indica que tingui un padding a la dreta i a l'esquerre de 0.3em
+*/
+
+
+/**9
+Selecciona els links de dins la clase button i indica que tinguin:
+un color de lletra blanc
+*/
+
+
+/*10 Selecciona els tags de la clase button quan el ratolí estigui sobre i indica que tinguin:
+    una ombra de color blanc situada 1pixels per sota l'element, 1px a la dreta i un difuminat de 20px 
+*/
+
+
+/**ESTRUCTURA DE LA WEB***/
+/*11 Selecciona el body, indica que el text tingui una mida d'1em, que la lletra sigui del tipus "sans-serif"
+i el tingui una imatge  (per exemple: "http://lorempixel.com/550/400/nature/4/")
+ de fons escalada a l'amplada de la pantalla(background-size)
+*/ 
+
+
+/*12 Selecciona el header fill de body i indica que tingui:
+una amplada de 100%, 
+un color de fons negre 
+un color de lletra blanc.
+*/
+
+
+/*13 Selecciona l'element amb el id "main",
+indica que el display sigui del tipus block,
+indica que tingui una amplada del 95%, 
+indica que tingui un marge superior i inferior de 0, i un marge automátic a la dreta i esquerre per aconseguir centrar-ho.
+*/
+
+
+/*14 Selecciona el primer div fill de l'element
+de la clase right i indica que tingui:
+una posicio fixed, perqué es situi segons la finestra del navegador
+una distancia a la part inferior de 5px
+una distancia a la dreta de 5px
+una amplada de 90px
+situat en la posició 15 del eix Z
+amb una opacitat del 0.5*/
+
+
+/*15 Selecciona cual el ratolí es situa sobre el primer div fill de l'element de la clase right i indica que tingui:
+una opactitat del 1
+una amplada de 200px
+*/
+
+
+/**16 Selecciona les imatges dins el primer 
+div fill de l'element de la clase right i indica que tingui:
+una amplada del 45%
+*/
+
+
+
+/**17
+Selecciona  el primer div fill de l'element de la 
+clase withSpace fill de #main i indica que tingui:
+una altura i amplada del 100%
+una posició absoluta
+situat a 0px de la part superior i de l'esquerre
+un color de fons blanc
+una opacitat de 0.5
+*/
+
+
+/*18 Selecciona el footer fill de Body i indica
+que tingui:
+el text centrat
+el color de fons negre
+el color de la lletra en blanc
+*/
+
+
+
+/***HEADER TOP***/
+/*19 Selecciona l'element amb id headerTop i indica que tingui:
+ una altura de 150px 
+ el seus continguts inline alineats de
+forma justificada*/
+
+
+/*20 Selecciona els elements de la clase left
+fills de l'element amb id headerTop
+indica que tinguin una altura de 100%*/
+
+
+/*21 Seleciona les imatges filles dels elements 
+de la clase left fills de l'element amb id headerTop,
+indica que tinguin una altura del 100% y una amplada del 100%
+
+*/
+
+
+/*22 Selecciona els nodes de la classe middle 
+fills de l'element amb id headerTop, indica que
+tinguin una altura del 100%
+Indica que el permeti elements al seu costat i tenir mesures*/
+
+
+/*23 Seleciona les imatges filles dels elements
+de la clase middle fills de l'element amb id headerTop,
+indica que tinguin una altura del 100%*/
+
+
+/*24 Selecciona els nodes de la clase right fills del node amb id headerTop,
+indica que la seva posició sigui absoluta per que pugui quedar per devant els seus germans,
+situal a una distáncia de 30px a la dreta del seu pare i a 0px de la part superior, 
+indica que tingui una amplada mínima de 150px, */
+
+
+
+
+
+/*25 Selecciona tots els elements fills del 
+forulari  dins el node de clase contDesplegable
+indica que el seu display sigui del tipus block*/
+
+
+/*26 Selecciona els nodes de clase hidDesplegable 
+fills dels nodes de clase contDesplegable indica que tinguin
+un dispay none perque  no es visualitzi ni ocupin espai, 
+una posició sigui absoluta per aconseguir que es mostri per sobre els seus germans, 
+elements inline alineats a l'esquerre, 
+indica una posició en l'eix Z de 15
+una vora arrodonida 5% i de color blanc
+una ombra de color #ccffff situada 3 pixels per sota l'element, 3px a la dreta i sense difuminat
+*/
+
+
+/*27 Selecciona els nodes de clase hidDesplegable
+fills dels nodes de clase contDesplegable quan
+el ratolí estigui sobre contDesplegable.
+Indica amb display que sigui de tipus block
+*/
+
+
+/**28 Selecciona el div segon fill del 
+header fill de body, i indica que tingui:
+una amplada del 100%
+els seus elements inline centrats
+*/
+
+
+/**29 Selecciona els divs fills del div segon
+fill del header fill de body, i indica que:
+quan el ratoli es situi a sobre, la seva altura sigui de 35px
+*/
+
+
+/**30 Selecciona els divs amb el ratolí a sobre, 
+fills del div segon fill del header fill de body,
+i indica que:
+ el text es mostri en negreta
+*/
+
+
+
+

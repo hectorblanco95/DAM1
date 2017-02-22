@@ -1,0 +1,76 @@
+html,body{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+div,header{
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+}
+#uno{
+    width: 100%;
+    height: 80%;
+    display: inline-block;
+    background-color: yellow;
+}
+header{
+    width: 100%;
+    height: 20%;
+    display: inline-block;
+    background-color: green;
+    text-align: center;
+}
+#dos{
+    width: 25%;
+    height: 90%;
+    display: inline-block;
+    background-color: blue;
+}
+#tres{
+    width: 35%;
+    height: 90%;
+    display: inline-block;
+    background-color: blue;
+}
+#cuatro{
+    width: 30%;
+    height: 90%;
+    display: inline-block;
+    background-color: blue;
+}
+.cinco{
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+    background-color: grey;
+}
+.nueve{
+    width: 50%;
+    height: 50%;
+    display: inline-block;
+    background-color: red;
+}
+#seis{
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background-color: white;
+}
+#siete{
+    width: 60%;
+    height: 100%;
+}
+#ocho{
+    width: 40%;
+    height: 100%;
+}
+#diez{
+    width: 30%;
+    height: 10%;
+    position: fixed;
+    background-color: orange;
+    bottom: 0px;
+    right: 0px;
+}

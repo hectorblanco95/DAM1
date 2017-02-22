@@ -1,0 +1,91 @@
+import java.io.*;
+public class ex09 {
+
+	public static void main(String[] args) {
+
+		try{
+
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+
+			byte[][] matrix = new byte[3][3];
+			byte v=1;
+
+
+			while(v !=0){
+				System.out.println(" **** MENU PRINCIPAL **** ");
+				System.out.println(" ------------------------ ");
+				System.out.println(" Elige opcion:");
+				System.out.println("    [1] - NIVEL F�CIL");
+				System.out.println("    [2] - NIVEL MEDIO");
+				System.out.println("    [3] - NIVEL AVANZADO");
+				System.out.println("    [0] - SALIR");
+				v = Byte.parseByte(buffer.readLine());
+
+				switch(v){
+
+				case 1:
+					for (int i = 0; i < matrix.length; i++) {
+						matrix[i][(byte) (Math.random()*3)]=1;
+					}
+					byte num=0;
+					System.out.println("Dame un numero de entrada, para la primera puerta:");
+					num = Byte.parseByte(buffer.readLine());
+
+					while (matrix[0][num]!=1){
+						System.out.println("Numero de entrada incorrecto!");
+						System.out.println("Dame un numero de entrada, para la primera puerta:");
+						num = Byte.parseByte(buffer.readLine());
+					}
+					System.out.println("Numero de entrada correcto!");
+					System.out.println("Dame un numero de entrada, para la segunda puerta:");
+					num = Byte.parseByte(buffer.readLine());
+
+					while (matrix[1][num]!=1){
+						System.out.println("Numero de entrada incorrecto!");
+						System.out.println("Dame un numero de entrada, para la segunda puerta:");
+						num = Byte.parseByte(buffer.readLine());
+					}
+					System.out.println("Numero de entrada correcto!");
+					System.out.println("Dame un numero de entrada, para la tercera puerta:");
+					num = Byte.parseByte(buffer.readLine());
+
+					while (matrix[2][num]!=1){
+						System.out.println("Numero de entrada incorrecto!");
+						System.out.println("Dame un numero de entrada, para la tercera puerta:");
+						num = Byte.parseByte(buffer.readLine());
+					}
+					System.out.println("Numero de entrada correcto!");
+					for (int i = 0; i < matrix.length; i++) {
+
+						for (int j = 0; j < matrix[i].length; j++) {
+							System.out.print(matrix[i][j]);
+						}
+						System.out.println();
+
+					}
+					break;
+
+				case 2:
+
+					break;
+
+				case 3:
+
+					break;
+
+				case 0:
+					break;
+
+				default:
+					System.out.println("Opcinon no valida, introduce una opcion correcta!");
+					System.out.println();
+					break;
+				}
+			}	
+		}
+		catch (Exception e){
+
+			System.out.println("Error " + e);
+		}
+	}
+}
