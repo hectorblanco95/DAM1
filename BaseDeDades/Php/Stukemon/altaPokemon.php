@@ -35,14 +35,15 @@ if (isset($_POST['alta'])) {
     echo "Velocidad: <input type='number' name='velocidad'><br>";
     echo "Vida: <input type='number' name='vida'><br>";
     // Para indicar el entrenador el usuario debe escoger
-// de entre los entrenadores que estén en la bbdd
-// Creamos select para mostrar esos entrenadores
+    // de entre los entrenadores que estén en la bbdd
+    // Creamos select para mostrar esos entrenadores
     echo "Selecciona el entrenador: <select name='entrenador'>";
-// traemos los datos de la bbdd
-    while ($fila = mysqli_fetch_array(selectNameEntrenadores())) {
-        extract($fila);
+    // traemos los datos de la bbdd
+    $entrenadores = selectNameEntrenadores();
+   while ($fila = mysqli_fetch_array($entrenadores)) {
+      extract($fila);
         echo "<option value='$name'>$name</option>";
-    }
+  }
     echo "</select><br>";
     echo "<input type='submit' name='alta' value='Alta'>";
     echo "</form>";
