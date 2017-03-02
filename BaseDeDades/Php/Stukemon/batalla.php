@@ -13,7 +13,30 @@ if (isset($_POST['batalla'])) {
    $name = $_POST['trainer'];
    $name2 = $_POST['trainer2'];
     if ($name==$name2){
-        
+        echo "error";
+    } else{
+        //Formulario pokemons
+        echo "<form action ='' method='POST'>";
+        // Para indicar el pokemon el usuario debe escoger
+        // de entre los pokemons que tienen entrenador en la bbdd
+        // Creamos select para mostrar esos pokemons
+        echo "Selecciona los pokemons para la batalla: <select name='pokemon'>";
+        // traemos los datos de la bbdd
+        $pokemons = selectPokemons();
+        while ($fila = mysqli_fetch_array($pokemons)) {
+        extract($fila);
+        echo "<option value='$pokemon'>$pokemon</option>";
+        } 
+        echo "</select>";
+        echo "<select name='pokemon2'>";
+        $pokemons = selectPokemons();
+        while ($fila = mysqli_fetch_array($pokemons)) {
+        extract($fila);
+        echo "<option value='$pokemon'>$pokemon</option>";
+        }
+        echo "</select> ";
+        echo "<input type='submit' name='batalla' value='Batalla'>";
+        echo "</form>";
     }
 } else {
     //Formulario batalla

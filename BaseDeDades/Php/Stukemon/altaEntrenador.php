@@ -15,9 +15,9 @@ if (isset($_POST['alta'])) {
 } else {
 // Formulario de alta entrenador
     echo "<form action ='' method='POST'>";
-    echo "Nombre: <input type='text' name='nombre'><br>";
-    echo "Nº de pokeballs: <input type='number' name='pokeballs'><br>";
-    echo "Nº de pociones: <input type='number' name='pociones'><br>";
+    echo "Nombre: <input type='text' name='nombre' required><br>";
+    echo "Nº de pokeballs: <input type='number' name='pokeballs' required><br>";
+    echo "Nº de pociones: <input type='number' name='pociones' required><br>";
     echo "<input type='submit' name='alta' value='Alta'>";
     echo "</form>";
 }

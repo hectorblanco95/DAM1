@@ -20,20 +20,20 @@ if (isset($_POST['alta'])) {
    // Llamamos a la función que guarda los datos en la bbdd
    insertarPokemon($nom, $tipo, $habilidad, $ataque, $defensa, $velocidad, $vida, $entrenador);
 } else {
-// Formulario de alta pokemon
+    // Formulario de alta pokemon
     echo "<form action ='' method='POST'>";
-    echo "Nombre: <input type='text' name='nombre'><br>";
+    echo "Nombre: <input type='text' name='nombre' required><br>";
     echo "Tipo: <select name='tipo'>
                     <option value='agua'>Agua</option>
                     <option value='fuego'>Fuego</option>
                     <option value='viento'>Viento</option>
                     <option value='tierra'>Tierra</option>
                 </select><br>"; 
-    echo "Habilidad: <input type='text' name='habilidad'><br>";
-    echo "Nivel de ataque: <input type='number' name='ataque'><br>";
-    echo "Nivel de defensa: <input type='number' name='defensa'><br>";
-    echo "Velocidad: <input type='number' name='velocidad'><br>";
-    echo "Vida: <input type='number' name='vida'><br>";
+    echo "Habilidad: <input type='text' name='habilidad' required><br>";
+    echo "Nivel de ataque: <input type='number' name='ataque' required><br>";
+    echo "Nivel de defensa: <input type='number' name='defensa' required><br>";
+    echo "Velocidad: <input type='number' name='velocidad' required><br>";
+    echo "Vida: <input type='number' name='vida' required><br>";
     // Para indicar el entrenador el usuario debe escoger
     // de entre los entrenadores que estén en la bbdd
     // Creamos select para mostrar esos entrenadores

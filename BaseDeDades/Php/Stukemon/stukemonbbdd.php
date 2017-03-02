@@ -4,6 +4,15 @@
  * Fichero que incluirá todas las funciones relacionadas
  * con la base de datos
  */
+ 
+// Función que devuelve los entrenadores con pokemons
+function selectPokemons() {
+    $con = conectar("stukemon");
+    $select = "SELECT name from pokemon;";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
 
 // Función que devuelve los entrenadores con pokemons
 function selectTrainers() {
