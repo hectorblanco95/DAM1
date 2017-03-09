@@ -22,17 +22,17 @@ if (isset($_POST['batalla'])) {
         // Creamos select para mostrar esos pokemons
         echo "Selecciona los pokemons para la batalla: <select name='pokemon'>";
         // traemos los datos de la bbdd
-        $pokemons = selectPokemons();
+        $pokemons = selectPokemons($name);
         while ($fila = mysqli_fetch_array($pokemons)) {
         extract($fila);
-        echo "<option value='$pokemon'>$pokemon</option>";
+        echo "<option value='$name'>$name</option>";
         } 
         echo "</select>";
         echo "<select name='pokemon2'>";
-        $pokemons = selectPokemons();
+        $pokemons = selectPokemons($name2);
         while ($fila = mysqli_fetch_array($pokemons)) {
         extract($fila);
-        echo "<option value='$pokemon'>$pokemon</option>";
+        echo "<option value='$name'>$name</option>";
         }
         echo "</select> ";
         echo "<input type='submit' name='batalla' value='Batalla'>";
