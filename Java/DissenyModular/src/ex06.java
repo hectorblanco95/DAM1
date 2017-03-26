@@ -1,7 +1,7 @@
 import java.io.*;
 // Se desea realizar un programa para almacenar las formas en que ha muerto el personaje de un videojuego. Las muertes pueden ser de 3 tipos:
 public class ex06 {
-	// Mï¿½todo principal de la clase Calculadora que se ejecuta al principio
+	// Método principal de la clase Calculadora que se ejecuta al principio
 	public static void main (String[] args){
 		try{
 
@@ -9,9 +9,9 @@ public class ex06 {
 
 			int v=0;			
 
-			System.out.println("Introduce el nï¿½mero de comerciales con los que deseas trabajar:");
+			System.out.println("Introduce el número de comerciales con los que deseas trabajar:");
 			int n=Integer.parseInt(buffer.readLine());
-			System.out.println("Introduce el nï¿½mero de productos con los que deseas trabajar:");
+			System.out.println("Introduce el número de productos con los que deseas trabajar:");
 			int m=Integer.parseInt(buffer.readLine());
 
 			int[][] matrix = new int[n][m];
@@ -53,7 +53,7 @@ public class ex06 {
 					break;
 
 				default:
-					System.out.println("Opciï¿½n no vï¿½lida, introduce una opciï¿½n correcta!");
+					System.out.println("Opción no válida, introduce una opción correcta!");
 					System.out.println();
 					break;
 				}
@@ -72,7 +72,7 @@ public class ex06 {
 		System.out.println(" Elige opcion:");
 		System.out.println("       [1] - Ventas totales de cada comercial");
 		System.out.println("       [2] - Ventas totales de cada producto");
-		System.out.println("       [3] - Comercial que mï¿½s ha vendido");
+		System.out.println("       [3] - Comercial que más ha vendido");
 		System.out.println("       [4] - Producto menos vendido");
 		System.out.println("       [5] - Salir");
 	}

@@ -6,15 +6,15 @@ public class ex05 {
 		try{
 
 			BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
-			
+
 			int v=0;
 			String[] array = new String[5];
 			String [] abc = {"Ataque enemigo", "Caída", "Bomba"};
 			array = array(array, abc);
 
 			while(v !=6){
-				menu();
-				v = Integer.parseInt(buffer.readLine());
+				v = menu();
+
 				switch(v){
 
 				case 1:
@@ -45,7 +45,7 @@ public class ex05 {
 						}
 					}
 					mostrarArray(cont, cont2, cont3);
-					
+
 					break;
 				case 3:
 					array = new String[5];
@@ -62,15 +62,14 @@ public class ex05 {
 					break;
 				}
 			}
-			 
 		}
 		catch (Exception e){
 
 			System.out.println("Error " + e);
 		}
 	}
-	
-	public static void menu () {
+
+	public static int menu () {
 
 		System.out.println(" **************************************************** MENU **************************************************** ");
 		System.out.println(" -------------------------------------------------------------------------------------------------------------- ");
@@ -79,13 +78,32 @@ public class ex05 {
 		System.out.println("       [2] - Contar cuántas veces ha muerto de cada forma, y mostrar los resultados ordenados de mayor a menor");
 		System.out.println("       [3] - Reiniciar el vector");
 		System.out.println("       [4] - Salir");
-	}
+		try{
+			BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+			String l=buffer.readLine();
+			char opc = l.charAt(0);
+			boolean b = isNumber(opc);
+
+			if (b == true){
+				int w = Integer.parseInt(l);
+			}
+			else{
+				System.out.println("No es numero");
+			}
+		}
+		catch (Exception e){
+
+			System.out.println("Error " + e);
+		}
+
+		return w;
+	}	
 	static String[] array (String[] array, String[] abc) {
 		for (int i=0;i<array.length;i++){
 			array[i]=abc[(int) (Math.random() * 3)];
 		}
 		return array;
-		
+
 	}
 	public static void mostrarArray (int cont, int cont2, int cont3) {
 
@@ -93,19 +111,26 @@ public class ex05 {
 			System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
 			System.out.println("Ha muerto de Caída " + cont2 + " veces");
 			System.out.println("Ha muerto de Bomba " + cont3 + " veces");
-			} else if(cont2>=cont && cont>=cont3){
-				System.out.println("Ha muerto de Caída " + cont2 + " veces");
-				System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
-				System.out.println("Ha muerto de Bomba " + cont3 + " veces");
-			} else if(cont3>=cont2 && cont2>=cont){
-				System.out.println("Ha muerto de Bomba " + cont3 + " veces");
-				System.out.println("Ha muerto de Caída " + cont2 + " veces");
-				System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
-			} else if (cont>=cont3 && cont3>=cont2){
-				System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
-				System.out.println("Ha muerto de Bomba " + cont3 + " veces");
-				System.out.println("Ha muerto de Caída " + cont2 + " veces");
-			}
+		} else if(cont2>=cont && cont>=cont3){
+			System.out.println("Ha muerto de Caída " + cont2 + " veces");
+			System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
+			System.out.println("Ha muerto de Bomba " + cont3 + " veces");
+		} else if(cont3>=cont2 && cont2>=cont){
+			System.out.println("Ha muerto de Bomba " + cont3 + " veces");
+			System.out.println("Ha muerto de Caída " + cont2 + " veces");
+			System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
+		} else if (cont>=cont3 && cont3>=cont2){
+			System.out.println("Ha muerto de Ataque enemigo " + cont + " veces");
+			System.out.println("Ha muerto de Bomba " + cont3 + " veces");
+			System.out.println("Ha muerto de Caída " + cont2 + " veces");
+		}
 	}
-	
+
+	public static boolean isNumber (char c){
+		if(c >= '0' && c<= '9'){
+			return true;
+		}
+		else return false;
+	}
+
 }

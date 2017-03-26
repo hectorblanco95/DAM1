@@ -30,7 +30,3 @@ if (isset($_POST['borrar'])) {
     echo "<input type='submit' name='borrar' value='Borrar'>";
     echo "</form>";
 }
-
-
-
-
