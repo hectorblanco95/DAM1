@@ -9,9 +9,10 @@
         <title>Alta de un alumno</title>
     </head>
     <body>
-        <a href="listadoAlumnes.php">Ver listado de alumnos</a>
-        <br>
-        
+        <a href="listadoAlumnes.php">Ver listado de alumnos</a><br>
+        <a href="modificaralumnos.php">Modificar alumno</a><br>
+        <a href="eliminarAlumno.php">Eliminar alumno</a><br>
+
         <?php
         if (isset($_POST["enviar"])) {
             // Recibimos los datos del formulario (POST)
