@@ -126,7 +126,7 @@
         //ejercicio adicional
         function calcularMedia($array) {
         $suma = 0;
-        foreach ($array as $value)
+        foreach ($array as $value){
          $suma = $suma+$value;
         }
         return $suma/$cont($array);
@@ -134,7 +134,7 @@
         $array = array(4, 6, 8, 2);
         $media = calcularmedia($array);
         echo $media . "<br>";
-        array push($array, 9); //$array[4]=9
+        array_push($array, 9); //$array[4]=9
         $media = caluclarMedia($array);
         echo $media. "<br>";
         ?>
