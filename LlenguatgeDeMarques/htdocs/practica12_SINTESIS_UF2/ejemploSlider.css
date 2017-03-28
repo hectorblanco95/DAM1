@@ -1,0 +1,17 @@
+body {
+    background-color: #99ccff;
+}
+
+.centrar {
+    text-align: center;
+    width: 100%;
+}
+
+.multiple-items {
+    display: inline-block;
+    width: 50%;
+}
+
+.slick-slide img {
+    display: inline-block !important;
+}

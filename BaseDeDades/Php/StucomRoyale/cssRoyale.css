@@ -1,19 +1,30 @@
 body {
-    padding-top: 90px;
+	padding-top: 48px;
+	background: url(./emotes.jpeg);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position-y: 272px;
 }
+
+#tbody {
+	background: white;
+}
+
 .panel-login {
 	border-color: #ccc;
-	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
-	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 }
+
 .panel-login>.panel-heading {
 	color: #00415d;
 	background-color: #fff;
 	border-color: #fff;
-	text-align:center;
+	text-align: center;
 }
-.panel-login>.panel-heading a{
+
+.panel-login>.panel-heading a {
 	text-decoration: none;
 	color: #666;
 	font-weight: bold;
@@ -22,22 +33,27 @@ body {
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
 }
-.panel-login>.panel-heading a.active{
+
+.panel-login>.panel-heading a.active {
 	color: #029f5b;
 	font-size: 18px;
 }
-.panel-login>.panel-heading hr{
+
+.panel-login>.panel-heading hr {
 	margin-top: 10px;
 	margin-bottom: 0px;
 	clear: both;
 	border: 0;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+	background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+	background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+	background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+	background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
 }
-.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+
+.panel-login input[type="text"],
+.panel-login input[type="email"],
+.panel-login input[type="password"] {
 	height: 45px;
 	border: 1px solid #ddd;
 	font-size: 16px;
@@ -45,14 +61,16 @@ body {
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
 }
+
 .panel-login input:hover,
 .panel-login input:focus {
-	outline:none;
+	outline: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
 	border-color: #ccc;
 }
+
 .btn-login {
 	background-color: #59B2E0;
 	outline: none;
@@ -64,16 +82,19 @@ body {
 	text-transform: uppercase;
 	border-color: #59B2E6;
 }
+
 .btn-login:hover,
 .btn-login:focus {
 	color: #fff;
 	background-color: #53A3CD;
 	border-color: #53A3CD;
 }
+
 .forgot-password {
 	text-decoration: underline;
 	color: #888;
 }
+
 .forgot-password:hover,
 .forgot-password:focus {
 	text-decoration: underline;
@@ -91,38 +112,41 @@ body {
 	text-transform: uppercase;
 	border-color: #1CB94A;
 }
+
 .btn-register:hover,
 .btn-register:focus {
 	color: #fff;
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
+
 .page-header {
-    border-bottom: none;
+	border-bottom: none;
 }
 
 .game-name small {
-    display: block;
+	display: block;
 }
 
 .user-stats hr {
-    margin: 10px;
+	margin: 10px;
 }
+
 .user-stats h5 {
-    margin-bottom: 0px;
+	margin-bottom: 0px;
 }
 
 .user-stats .well {
-    margin-top: 10px;
-    padding: 5px 10px;
+	margin-top: 10px;
+	padding: 5px 10px;
 }
 
 .user-stats .progress .progress-bar {
-    text-align: left;
-    padding-left: 5px;
-    min-width: 20px;
+	text-align: left;
+	padding-left: 5px;
+	min-width: 20px;
 }
 
 .page-title {
-    margin-top: 0px;
+	margin-top: 0px;
 }

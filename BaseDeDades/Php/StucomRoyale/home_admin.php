@@ -1,5 +1,7 @@
 <?php
 session_start();
+// incluimos el fichero de la bbdd
+require_once 'bbdd_user.php';
 if (isset($_SESSION["username"])) {
     // Nos aseguramos que el usuario sea administrador
     // Cogemos el tipo de la variable de sesión
@@ -21,10 +23,10 @@ if (isset($_SESSION["username"])) {
         <div class="col-md-3 col-xs-12 user-stats">
             <div class="well">
                 <h5>
-                    <strong>Username: </strong><?php echo $_SESSION["username"]; ?> <span class="label label-info">Admin</span>
+                    <strong>Username: </strong><?php echo $_SESSION["username"];?> <span class="label label-info">Admin</span>
                 </h5>
                 <h5>
-                    <strong>Level: </strong>9000
+                    <strong>Level: </strong><?php echo $_SESSION["level"];?>
                 </h5>
                 <h5>
                     <strong>Cash: </strong>$1,000,000
@@ -42,7 +44,7 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img src="./header.png" alt="image" width="300" height="84"></img> 
+                <img src="./header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -84,47 +86,30 @@ if (isset($_SESSION["username"])) {
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <h3 class="page-title text-center">Travel</h3>
+            <h3 class="page-title text-center">RANKIG</h3>
             <table class="table table-bordered">
                 <thead>
                     <tr class="active">
-                        <th>Location</th>
-                        <th width="100px">Cost</th>
-                        <th width="100px">Time</th>
-                        <th width="60px">Action</th>
+                        <th width="150px">Username</th>
+                        <th width="60px">Wins</th>
+                        <th width="60px">Level</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>London</td>
-                        <td>$450</td>
-                        <td>02:30:00</td>
-                        <td><button class="btn btn-xs">Travel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Paris</td>
-                        <td>$450</td>
-                        <td>02:30:00</td>
-                        <td><button class="btn btn-xs">Travel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Berlin</td>
-                        <td>$450</td>
-                        <td>02:30:00</td>
-                        <td><button class="btn btn-xs">Travel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Madrid</td>
-                        <td>$450</td>
-                        <td>02:30:00</td>
-                        <td><button class="btn btn-xs">Travel</button></td>
-                    </tr>
-                    <tr>
-                        <td>Rome</td>
-                        <td>$450</td>
-                        <td>02:30:00</td>
-                        <td><button class="btn btn-xs">Travel</button></td>
-                    </tr>
+                <tbody id="tbody">
+                    <?php
+                    // Llamamos al método que devuelve todos los datos de los cocineros
+                    $usuarios = selectAllUser();
+                    // Mientras haya datos, leemos la fila y la mostramos
+                    while ($fila = mysqli_fetch_array($usuarios)) {
+                        extract($fila);
+                        // SIEMPRE después de un extract, las variables
+                        // tienen el nombre de los campos de la bbdd
+                        echo "<tr>
+                        <td>$username</td>
+                        <td>$wins</td>
+                        <td>$level</td>
+                      </tr>";
+                    }?>
                 </tbody>
             </table>
         </div>

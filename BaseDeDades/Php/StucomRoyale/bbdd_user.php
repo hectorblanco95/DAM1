@@ -2,6 +2,28 @@
 
 require_once 'bbdd.php';
 
+// Función que devuelve todos los datos de todas los usuarios menos el admin
+function selectAllUser2() {
+    $con = conectar("royal");
+    $select = "select username, wins, level from user where type=0 order by level desc, wins desc;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve todos los datos de todas los usuarios
+function selectAllUser() {
+    $con = conectar("royal");
+    $select = "select username, wins, level from user order by level desc, wins desc;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+} 
+
 // Función que comprueba si un username ya existe en la bbdd
 // Devuelve true si existe, false si no existe
 function existUser($username) {

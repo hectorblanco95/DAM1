@@ -9,6 +9,7 @@ if (isset($_POST["login-submit"])) {
         // Ole ole! el usuario ha hecho login
         // Guardamos el username en una variable de session
         $_SESSION["username"] = $username;
+        $_SESSION["level"] = $level;
         // Comprobamos el tipo para dirigir al user
         $tipo = getTypeByUsername($username);
         // Guardamos el tipo de usuario en la variable de sesión
