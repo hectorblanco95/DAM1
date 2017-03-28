@@ -1,5 +1,6 @@
 body {
     background-color: #99ccff;
+    text-align: center;
 }
 
 .centrar {
@@ -14,4 +15,12 @@ body {
 
 .slick-slide img {
     display: inline-block !important;
+}
+
+.players {
+    width: 268px;
+    height: 25px;
+    background: yellow;
+    display: inline-block;
+    text-align: center;
 }

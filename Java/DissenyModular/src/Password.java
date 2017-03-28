@@ -31,35 +31,24 @@ public class Password {
 
 	// Otros metodos de la clase
 
-	public String generarContra() {
-		String letras = "ABCDEFGHIJKLMN�OPQRSTUVWXYZ�abcdefghijklmn�opqrstuvwxyz�@~!#$-_*+&?�=.1234567890";
+	private String generarContra() {
+		String letras = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZÇabcdefghijklmnñOpqrstuvwxyzç@~!#$-_*+&?/¿¡=.1234567890";
 		for (int i = 0; i <= this.longitud - 1; i++) {
 			contra = contra + letras.charAt((int) (Math.random() * letras.length()));
 		}
-		System.out.println(contra);
 		return contra;
 	}
-	public String esFuerte() {
-		String letras = "ABCDEFGHIJKLMN�OPQRSTUVWXYZ�";
-		String letras2 = "abcdefghijklmn�opqrstuvwxyz�";
-		String letras3 = "@~!#$-_*+&?�=.1234567890";
-		
-		m�s de 2 may�sculas, m�s de 1 min�scula y m�s de 5 n�meros
-		
-		contMayusculas
-		contMinusculas
-		contNumeros
-		
-		si(contra[i].isUpperCase())
-			contMayusculas++;
-		else if(contra[i].isLoweCase){
-			
+	
+	public boolean esFuerte() {
+		int contLetras=0;
+		int contLetras2=0;
+		int contNumeros=0;
+
 		for (int i = 0; i <= this.longitud - 1; i++) {
-			contra = contra + letras.charAt((int) (Math.random() * letras.length()));
+			if(Character.isUpperCase(this.contra.charAt(i))) contLetras++;
+			else if(Character.isLowerCase(this.contra.charAt(i))) contLetras2++;
+			else contNumeros++;
 		}
-		System.out.println(contra);
-		
-		return(contMayusculas>2 && contMinus >1 && contNum >5);
-		return contra;
+		return(contLetras>2 && contLetras2>1 && contNumeros>5);
 	}
 }
