@@ -1,18 +1,30 @@
 <?php
-if (isset($_POST['modificar'])) {
+if (isset($_POST['fight'])) {
     $rand=rand(1,2);
     if ($rand==1){
-        echo "WINNER PLAYER 1";
-        $direc = $_GET['direc1'];
-        $edad = $_GET['edad1'];
-        $persona = $_GET['persona1'];
+        $padre = $_POST['padre1'];
+        $direc = $_POST['direc1'];
+        $edad = $_POST['edad1'];
+        $persona = $_POST['persona1'];
+        echo "WINNER PLAYER 1 <br>";
+        echo "Padre: " . $padre;
+        echo "<br> Direccion: " . $direc;
+        echo "<br> Edad: " . $edad;
+        echo "<br> Personaje: " . $persona;
     } 
     else{ 
-        echo "WINNER PLAYER 2";
-        $direc = $_GET['direc2'];
-        $edad = $_GET['edad2'];
-        $persona = $_GET['persona2'];
-    ?>
+        $padre = $_POST['padre2'];
+        $direc = $_POST['direc2'];
+        $edad = $_POST['edad2'];
+        $persona = $_POST['persona2'];
+        echo "WINNER PLAYER 2 <br>";
+        echo "Padre: " . $padre;
+        echo "<br> Direccion: " . $direc;
+        echo "<br> Edad: " . $edad;
+        echo "<br> Personaje: " . $persona;
+
+    }?>
+<!-- 
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,6 +63,7 @@ if (isset($_POST['modificar'])) {
         </script>
     </body>
 </html>
+-->
 <?php
 } else{
   header("Location: ejemploSlic.html");

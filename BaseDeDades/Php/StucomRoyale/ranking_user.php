@@ -13,7 +13,7 @@ if (isset($_SESSION["username"])) {
             <meta charset="UTF-8">
             <title>Home Page Administrator</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-            <link href="./cssRoyale.css" rel="stylesheet" type="text/css"/>
+            <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
         </head>
         <body>
             <div class="container">
@@ -35,14 +35,14 @@ if (isset($_SESSION["username"])) {
                 <hr />
                 <h5>
                     <a href="" class="pull-left" data-toggle="modal" data-target="#changePassword">Change Password</a>
-                    <a href="./logout.php" class="pull-right">Logout</a>
+                    <a href="logout.php" class="pull-right">Logout</a>
                     <div class="clearfix"></div>
                 </h5>
             </div>
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img src="./header.png" alt="image" width="357" height="113"></img> 
+                <img src="header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -102,7 +102,7 @@ if (isset($_SESSION["username"])) {
                 <tbody>
                     <?php
                     // Llamamos al método que devuelve todos los datos de los cocineros
-                    $usuarios = selectAllUser2();
+                    $usuarios = selectUser2();
                     $i=0;
                     // Mientras haya datos, leemos la fila y la mostramos
                     while ($fila = mysqli_fetch_array($usuarios)) {
@@ -125,7 +125,7 @@ if (isset($_SESSION["username"])) {
         <div class="modal-dialog">
             <div class="modal-content" style="top: 68px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
                     <h2 class="modal-title" id="myModalLabel">New Password</h2>
                 </div>
                 <div class="modal-body">
@@ -152,7 +152,7 @@ if (isset($_SESSION["username"])) {
                                     <input id="newPassword2" name="newPassword2" type="password" placeholder="Confirm New Password" class="form-control input-md" required="">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-fw fa-save"></i>Guardar</button>
+                                        <i class="fa fa-fw fa-save"></i>Save</button>
                             </div>
                             <!-- File Button -->
                             <!-- Button -->
@@ -164,9 +164,9 @@ if (isset($_SESSION["username"])) {
     </div>
 </div>
 <footer></footer>
-<script type="text/javascript " src="./jquery.min.js"></script>
+<script type="text/javascript " src="jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript " src="./jsRoyale.js"></script>
+	<script type="text/javascript " src="jsRoyale.js"></script>
         </body>
     </html>
     <?php

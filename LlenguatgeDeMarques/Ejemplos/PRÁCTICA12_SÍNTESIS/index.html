@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- BOOTSTRAP with JQUERY -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="libs/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- STYLESHEETS -->
+    <link href="css/index.css" rel="stylesheet" type="text/css" />
+    <!-- JQUERY SCRIPTS (colors and images) -->
+    <script src="js/index.js" type="text/javascript"></script>
+    <!-- SLICK -->
+    <script src="libs/slick-1.6.0/slick/slick.min.js" type="text/javascript"></script>
+    <script src="js/slick.js" type="text/javascript"></script>
+    <link href="libs/slick-1.6.0/slick/slick.css" rel="stylesheet" type="text/css" />
+    <link href="libs/slick-1.6.0/slick/slick-theme.css" rel="stylesheet" type="text/css" />
+    <!-- VALIDATOR -->
+    <script src="libs/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="js/validation.js" type="text/javascript"></script>
+    <title>PRÁCTICA DE SÍNTESIS</title>
+</head>
+
+<body>
+    <!-- SLIDER -->
+    <header>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div id="slider-imgs">
+                    <div class="imgs"><img src="img/char.png"></img>
+                    </div>
+                    <div class="imgs"><img src="img/pika.png"></img>
+                    </div>
+                    <div class="imgs"><img src="img/ivy.png"></img>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </header>
+    <!-- FORMS -->
+    <article class="container-fluid">
+        <form id="formulario" action="resultado.php" method="POST">
+            <div id="forms" class="row">
+                <div id="p1" class="col-md-6">
+                    <h2 id="player1">Player 1</h2>
+                    <div class="form-group">
+                        <label for="direccion1">Dirección:</label>
+                        <input type="text" class="form-control" name="direccion1" placeholder="Dirección">
+                    </div>
+                    <div class="form-group">
+                        <label for="edad1">Edad:</label>
+                        <input type="number" class="form-control" name="edad1" placeholder="Edad">
+                    </div>
+                    <div class="form-group">
+                        <label for="personaje1">Personaje:</label>
+                        <select id="char1" class="form-control" name="personaje1">
+                            <option value="char">Charmander</option>
+                            <option value="pika">Pikachu</option>
+                            <option value="ivy">Ivysaur</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="p2" class="col-md-6">
+                    <h2 id="player2">Player 2</h2>
+                    <div class="form-group">
+                        <label for="direccion2">Dirección:</label>
+                        <input type="text" class="form-control" name="direccion2" placeholder="Dirección">
+                    </div>
+                    <div class="form-group">
+                        <label for="edad2">Edad:</label>
+                        <input type="number" class="form-control" name="edad2" placeholder="Edad">
+                    </div>
+                    <div class="form-group">
+                        <label for="personaje2">Personaje:</label>
+                        <select id="char2" class="form-control" name="personaje2">
+                            <option value="pika">Pikachu</option>
+                            <option value="char">Charmander</option>
+                            <option value="ivy">Ivysaur</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="fight-imgs" class="row">
+                <div class="col-md-1"></div>
+                <div id="selectedchar1" class="col-md-4"><img id="selectedcharimg1" class="selectedchar" src="img/char.png"></img>
+                </div>
+                <div id="vs" class="col-md-2"><img class="img-responsive" src="img/vs.png"></img>
+                </div>
+                <div id="selectedchar2" class="col-md-4"><img id="selectedcharimg2" class="selectedchar" src="img/pika.png"></img>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div id="fight" class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8"><input type="submit" class="btn btn-success btn-block" value="FIGHT!"></div>
+                <div class="col-md-2"></div>
+            </div>
+        </form>
+    </article>
+</body>
+
+</html>

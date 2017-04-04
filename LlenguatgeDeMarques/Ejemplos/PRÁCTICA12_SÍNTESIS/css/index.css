@@ -1,0 +1,53 @@
+html, body
+{
+    width: 100%;
+    height: 100%;
+    background-color: #FFEEAA;
+}
+
+h2
+{
+    display: block;
+    background-color: grey;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    text-align: center;
+}
+
+#slider-imgs { text-align: center; }
+
+#fight-imgs 
+{
+    text-align: center;
+    margin: 1%; 
+}
+
+#fight { margin: 1%; }
+
+.formalert { color: red; }
+
+.imgs img
+{
+    width: 200px;
+    height: 200px;
+    display: inline-block !important;
+}
+#vs img 
+{
+    width: 100px; 
+    height: 100px; 
+    display: inline-block !important;
+}
+
+.selectedchar
+{
+    width: 200px;
+    height: 200px;
+    display: inline-block !important;
+}
+
+#selectedchar1 { position: relative; }
+#selectedchar2 { position: relative; }
+#selectedcharimg1 { position: relative; }
+#selectedcharimg2 { position: relative; }

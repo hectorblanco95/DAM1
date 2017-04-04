@@ -16,7 +16,7 @@ if (isset($_SESSION["username"])) {
             <title>Home Page Administrator</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-            <link href="./cssRoyale.css" rel="stylesheet" type="text/css"/>
+            <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
         </head>
         <body>
             <div class="container">
@@ -30,22 +30,22 @@ if (isset($_SESSION["username"])) {
                     <strong>Level: </strong><?php echo $_SESSION["level"];?>
                 </h5>
                 <h5>
-                    <strong>Wins: </strong>$1,000,000
+                    <strong>Wins: </strong><?php echo $_SESSION["wins"];?>
                 </h5> 
                 <h5>
-                    <strong>Deck: </strong>1,234
+                    <strong>Deck: </strong><?php echo $_SESSION["deck"];?>
                 </h5>
                 <hr />
                 <h5>
                     <a href="" class="pull-left" data-toggle="modal" data-target="#changePassword">Change Password</a>
-                    <a href="./logout.php" class="pull-right">Logout</a>
+                    <a href="logout.php" class="pull-right">Logout</a>
                     <div class="clearfix"></div>
                 </h5>
             </div>
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img src="./header.png" alt="image" width="357" height="113"></img> 
+                <img href="home_admin.php" src="header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -85,148 +85,53 @@ if (isset($_SESSION["username"])) {
             </div>
         </nav>
     </div>
-    <div class="section" style="margin-left: -15px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 well">
-                        <a class="btn btn-primary" data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="section" style="margin-left: -114px;">
+    <div class="section" style="margin-left: -26px;">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 panel-primary filterable" style="width: 1283px;">
+                <div class="col-md-12 panel-primary filterable" style="width: 1189px;">
                     <table class="table table-hover table-striped">
                         <thead>
                     <tr class="filters">
-                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                        <th><a class="btn btn-primary" data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a></th>
                         <th><input type="text" class="form-control" placeholder="Username" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Wins" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Level" disabled></th>
-                    </tr>
-                    <div class="pull-right">
+                    
+                    <th><div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                </div>
+                </div></th>
+                </tr>
                 </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="-alt fa fa-2x fa-eye fa-fw"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Asistente de sistemas</b>
-                                    </h4>
-                                    <p>@ramonvillaw</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Ramón Villa Awad</b>
-                                    </h4>
-                                    <a href="mailto:ramonvillaw@gmail.com">ramonvillaw@gmail.com</a>
-                                </td>
-                                <td>2 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                                <i class="fa fa-fw s fa-remove"></i>Eliminar</button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                                <i class="fa fa-fw fa-cog"></i>Configurar</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw fa-eye-slash"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Supervisora</b>
-                                    </h4>
-                                    <p>@claudiaramos</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Claudia Ramos</b>
-                                    </h4>
-                                    <a href="mailto:claudia@mail.com">claudia@mail.com</a>
-                                </td>
-                                <td>3 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                                <i class="fa fa-fw s fa-remove"></i>Eliminar</button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                                <i class="fa fa-fw fa-cog"></i>Configurar</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw fa-eye"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Gerente de capacitación</b>
-                                    </h4>
-                                    <p>@anaojeda</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Ana Isabel Ojeda</b>
-                                    </h4>
-                                    <a href="mailto:ana@mail.com">ana@mail.com</a>
-                                </td>
-                                <td>1 mes</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                                <i class="fa fa-fw s fa-remove"></i>Eliminar</button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                                <i class="fa fa-fw fa-cog"></i>Configurar</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a href="#"><i class="fa fa-2x fa-fw -alt fa-eye-slash"></i></a>
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Director de Recursos Humanos</b>
-                                    </h4>
-                                    <p>@Carlos Enciso</p>
-                                </td>
-                                <td>
-                                    <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle" width="60">
-                                </td>
-                                <td>
-                                    <h4>
-                                        <b>Carlos Enciso</b>
-                                    </h4>
-                                    <a href="mailto: carlos@mail.com"> carlos@mail.com</a>
-                                </td>
-                                <td>5 años</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" value="left" type="button">
-                                                <i class="fa fa-fw s fa-remove"></i>Eliminar</button>
-                                        <button class="btn btn-default" value="right" type="button">
-                                                <i class="fa fa-fw fa-cog"></i>Configurar</button>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?php
+                    // Llamamos al método que devuelve todos los datos de los cocineros
+                    $usuarios = selectAllUser();
+                    // Mientras haya datos, leemos la fila y la mostramos
+                    while ($fila = mysqli_fetch_array($usuarios)) {
+                        extract($fila);
+                        // SIEMPRE después de un extract, las variables
+                        // tienen el nombre de los campos de la bbdd
+                        if ($type==1) $type="Admin";
+                        else $type="User";
+                        echo "<tr>
+                        <td><img src='http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png' class='img-circle' width='60'></td>
+                        <td><h4>
+                                <b>$username</b>
+                            </h4>
+                            <a>$type</a>
+                        </td>
+                        <td>$wins</td>
+                        <td>$level</td>
+                        <td>
+                            <div class='btn-group'>
+                                <button class='btn btn-default' value='left' type='button' data-toggle='modal' data-target='#delete'>
+                                        <i class='fa fa-fw s fa-remove'></i>Delete</button>
+                                <button class='btn btn-default' value='right' type='button' data-toggle='modal' data-target='#changeUser'>
+                                        <i class='fa fa-fw fa-cog'></i>Change</button>
+                            </div>
+                        </td>
+                      </tr>";
+                    }?>
                         </tbody>
                     </table>
                 </div>
@@ -237,11 +142,11 @@ if (isset($_SESSION["username"])) {
         <div class="modal-dialog">
             <div class="modal-content" style="top: 68px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
                     <h2 class="modal-title" id="myModalLabel">New Password</h2>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="login.php" method="POST">
                         <fieldset>
                             <!-- Form Name -->
                             <!-- Prepended text-->
@@ -263,8 +168,8 @@ if (isset($_SESSION["username"])) {
                                 <div class="col-md-5">
                                     <input id="newPassword2" name="newPassword2" type="password" placeholder="Confirm New Password" class="form-control input-md" required="">
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-fw fa-save"></i>Guardar</button>
+                                <button type="submit" class="btn btn-primary" name="modificarPass">
+                                        <i class="fa fa-fw fa-save"></i>Save</button>
                             </div>
                             <!-- File Button -->
                             <!-- Button -->
@@ -278,18 +183,18 @@ if (isset($_SESSION["username"])) {
         <div class="modal-dialog">
             <div class="modal-content" style="top: 68px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
                     <h2 class="modal-title" id="myModalLabel">New User</h2>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="login.php" method="post" role="form">
                         <fieldset>
                             <!-- Form Name -->
                             <!-- Prepended text-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="prependedtext">Username</label>
                                 <div class="col-md-5">
-                                    <input id="prependedtext" name="prependedtext" class="form-control" placeholder="Username" type="text" required="">
+                                    <input id="username" name="username" class="form-control" placeholder="Username" type="text" required="">
                                 </div>
                             </div>
                             <!-- Password input-->
@@ -302,7 +207,7 @@ if (isset($_SESSION["username"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="password">Confirm Password</label>
                                 <div class="col-md-5">
-                                    <input id="password2" name="password2" type="password" placeholder="Confirm Password" class="form-control input-md" required="">
+                                    <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Password" class="form-control input-md" required="">
                                 </div>
                             </div>
                             <!-- Select Basic -->
@@ -314,8 +219,103 @@ if (isset($_SESSION["username"])) {
                                             <option value="1">Admin</option>
                                         </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-fw fa-save"></i>Guardar</button>
+                                <button type="submit" class="btn btn-primary" name="guardarUser">
+                                        <i class="fa fa-fw fa-save"></i>Save</button>
+                            </div>
+                            <!-- File Button -->
+                            <!-- Button -->
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fade modal" id="delete">
+        <div class="modal-dialog">
+            <div class="modal-content" style="top: 68px;">
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                        <fieldset>
+                            <!-- Form Delete -->
+                                <h4 style="text-align: center;color: red;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to delete this user? 
+                                <button type="submit" class="btn btn-primary" name="delete" id="delete" value="left" type="button" style="margin-left: 12px;">
+                                        <i class="fa fa-fw s fa-remove"></i>Delete</button>
+                                        </h4>
+                        </fieldset>
+                    </form>
+                    <?php// Si ha pulsado borrar
+                                        if (isset($_POST['delete'])) {
+                                            // Recogemos la variable del post
+                                            
+                                            borrarUser($username);
+                                        }?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fade modal" id="changeUser">
+        <div class="modal-dialog">
+            <div class="modal-content" style="top: 40px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                    <h2 class="modal-title" id="myModalLabel">Change User</h2>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <!-- Form Name -->
+                            <!-- Prepended text-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="prependedtext">Username</label>
+                                <div class="col-md-5">
+                                    <input id="username" name="username" class="form-control" placeholder="Username" type="text" required="">
+                                </div>
+                            </div>
+                            <!-- Password input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="password">Password</label>
+                                <div class="col-md-5">
+                                    <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="password">New Password</label>
+                                <div class="col-md-5">
+                                    <input id="newPassword" name="newPassword" type="password" placeholder="New Password" class="form-control input-md" required="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="password">Confirm New Password</label>
+                                <div class="col-md-5">
+                                    <input id="newPassword2" name="newPassword2" type="password" placeholder="Confirm New Password" class="form-control input-md" required="">
+                                </div>
+                            </div>
+                            <!-- Wins input -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="wins">Wins</label>
+                                <div class="col-md-5">
+                                    <input id="wins" name="wins" class="form-control" placeholder="Wins" type="number" required="">
+                                </div>
+                            </div>
+                            <!-- Level input -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="level">Level</label>
+                                <div class="col-md-5">
+                                    <input id="level" name="level" class="form-control" placeholder="Level" type="number" required="">
+                                </div>
+                            </div>
+                            <!-- Select Basic -->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="departamento">Type</label>
+                                <div class="col-md-5">
+                                    <select id="tipo" name="tipo" class="form-control">
+                                            <option value="0">Usuario</option>
+                                            <option value="1">Admin</option>
+                                        </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" name="guardar" id="guardar">
+                                        <i class="fa fa-fw fa-save"></i>Save</button>
                             </div>
                             <!-- File Button -->
                             <!-- Button -->
@@ -327,9 +327,9 @@ if (isset($_SESSION["username"])) {
     </div>
 </div>
 <footer></footer>
-<script type="text/javascript " src="./jquery.min.js"></script>
+<script type="text/javascript " src="jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-	<script type="text/javascript " src="./jsRoyale.js"></script>
+	<script type="text/javascript " src="jsRoyale.js"></script>
         </body>
     </html>
         <?php
