@@ -45,7 +45,7 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img href="home_admin.php" src="header.png" alt="image" width="357" height="113"></img> 
+                <img href="home_admin.php" src="img/header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -77,10 +77,9 @@ if (isset($_SESSION["username"])) {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="home_admin.php">Usuarios</a></li>
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
+                    <li><a href="altaDeCartas.php">Alta de Cartas</a></li>
                     <li><a href="ranking_admin.php">Ranking</a></li>
-                    <li><a href="#">Page 5</a></li>
+                    <li><a href="#">Page 2</a></li>
                 </ul>
             </div>
         </nav>
@@ -118,10 +117,10 @@ if (isset($_SESSION["username"])) {
                         <td><h4>
                                 <b>$username</b>
                             </h4>
-                            <a>$type</a>
+                            <p style='margin: 0;'>$type</p>
                         </td>
-                        <td>$wins</td>
-                        <td>$level</td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$wins</p></td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$level</p></td>
                         <td>
                             <div class='btn-group'>
                                 <button class='btn btn-default' value='left' type='button' data-toggle='modal' data-target='#delete'>

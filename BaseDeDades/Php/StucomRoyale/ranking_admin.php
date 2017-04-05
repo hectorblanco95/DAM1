@@ -44,7 +44,7 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img src="header.png" alt="image" width="357" height="113"></img> 
+                <img src="img/header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -76,10 +76,9 @@ if (isset($_SESSION["username"])) {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="home_admin.php">Usuarios</a></li>
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
+                    <li><a href="altaDeCartas.php">Alta de Cartas</a></li>
                     <li class="active"><a href="ranking_admin.php">Ranking</a></li>
-                    <li><a href="#">Page 5</a></li>
+                    <li><a href="#">Page 2</a></li>
                 </ul>
             </div>
         </nav>

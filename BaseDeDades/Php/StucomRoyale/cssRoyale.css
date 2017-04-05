@@ -5,7 +5,7 @@ body {
 footer {
 	height: 414px;
 	width: 100%;
-	background: url(emotes.jpeg);
+	background: url(img/emotes.jpeg);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
 	margin-top: -100px;
@@ -131,6 +131,10 @@ footer {
 
 .game-name small {
 	display: block;
+}
+
+p {
+	color: #428BCA;
 }
 
 .user-stats hr {

@@ -24,6 +24,17 @@ function selectUser() {
     return $resultado;
 }
 
+// Función que devuelve todos los datos de todos las cartas
+function selectAllCards() {
+    $con = conectar("royal");
+    $select = "select * from card order by name asc;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
 // Función que devuelve todos los datos de todos los usuarios
 function selectAllUser() {
     $con = conectar("royal");
@@ -52,6 +63,23 @@ function setPass($username, $pass) {
 function existPass($username, $pass) {
     $con = conectar("royal");
     $query = "select password from user where username='$username' and password='$pass';";
+    $resultado = mysqli_query($con, $query);
+    desconectar($con);
+    // Comprobamos si la consulta ha devuelto algún resultado
+    $num_rows = mysqli_num_rows($resultado);
+    // Si el nº de filas es 0, no existe el usuario
+    if ($num_rows == 0) {
+        return false;
+    } else { // este else no hace falta
+        return true;
+    }
+}
+
+// Función que comprueba si un name ya existe en la bbdd
+// Devuelve true si existe, false si no existe
+function existName($name) {
+    $con = conectar("royal");
+    $query = "select name from card where name='$name';";
     $resultado = mysqli_query($con, $query);
     desconectar($con);
     // Comprobamos si la consulta ha devuelto algún resultado
@@ -94,11 +122,25 @@ function borrarUser($username) {
     desconectar($con);
 }
 
-// Función que inserta un usuario en la bbdd
+// Función que el admin inserta una carta en la bbdd
+function insertCard($name, $type, $rarity, $hitpoints, $damage, $cost) {
+    $con = conectar("royal");
+    $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost);";
+    if (mysqli_query($con, $insert)) {
+        echo "<p>Carta registrada </p>";
+        header('Location: altaDeCartas.php');
+    } else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+} 
+
+// Función que el admin inserta un usuario en la bbdd
 function insertUser2($username, $pass, $type) {
     $con = conectar("royal");
     $insert = "insert into user values ('$username', '$pass', '$type', 0, 1);";
     if (mysqli_query($con, $insert)) {
+        echo "<p>Usuario registrado </p>";
         header('Location: home_admin.php');
     } else {
         echo mysqli_error($con);
