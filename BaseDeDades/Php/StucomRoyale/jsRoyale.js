@@ -14,13 +14,13 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
-
 });
 
 /*
 Please consider that the JS part isn't production ready at all, I just code it to show the concept of merging filters and titles together !
 */
 $(document).ready(function() {
+
 	$('.filterable .btn-filter').click(function() {
 		var $panel = $(this).parents('.filterable'),
 			$filters = $panel.find('.filters input'),

@@ -2,6 +2,17 @@
 
 require_once 'bbdd.php';
 
+// Función que devuelve todos los datos del user i deck
+function userData($username) {
+    $con = conectar("royal");
+    $select = "select username, wins, level from user where username=$username;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
 // Función que devuelve username, wins, level de todos los usuarios menos el admin
 function selectUser2() {
     $con = conectar("royal");
@@ -51,7 +62,15 @@ function setPass($username, $pass) {
     $con = conectar("royal");
     $query = "UPDATE user SET password = '$pass' WHERE username = '$username';;";
     if (mysqli_query($con, $query)) {
-        echo "Contraseña cambiada.";
+        // Comprobamos el tipo para dirigir al user
+        if ($_SESSION["tipo"] == 0) {
+            // Dirigimos al usuario a su página
+            echo "<p>Contraseña modificada.</p>";
+            header("refresh:3;url=home_user.php");
+        } else if ($_SESSION["tipo"] == 1) {
+            echo "<p>Contraseña modificada.</p>";
+            header("refresh:3;url=home_admin.php");
+        }
     } else {
         echo mysqli_error($con);
     }
@@ -123,12 +142,12 @@ function borrarUser($username) {
 }
 
 // Función que el admin inserta una carta en la bbdd
-function insertCard($name, $type, $rarity, $hitpoints, $damage, $cost) {
+function insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta) {
     $con = conectar("royal");
-    $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost);";
+    $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost, $ruta);";
     if (mysqli_query($con, $insert)) {
-        echo "<p>Carta registrada </p>";
-        header('Location: altaDeCartas.php');
+        echo "<p>Carta registrada.</p>";
+        header("refresh:3;url=altaDeCartas.php");
     } else {
         echo mysqli_error($con);
     }
@@ -140,8 +159,8 @@ function insertUser2($username, $pass, $type) {
     $con = conectar("royal");
     $insert = "insert into user values ('$username', '$pass', '$type', 0, 1);";
     if (mysqli_query($con, $insert)) {
-        echo "<p>Usuario registrado </p>";
-        header('Location: home_admin.php');
+        echo "<p>Usuario registrado.</p>";
+        header("refresh:3;url=home_admin.php");
     } else {
         echo mysqli_error($con);
     }
@@ -153,7 +172,7 @@ function insertUser($username, $pass) {
     $con = conectar("royal");
     $insert = "insert into user values ('$username', '$pass', 0, 0, 1);";
     if (mysqli_query($con, $insert)) {
-        echo "<p>Usuario registrado </p>";
+        echo "<p style='color: #333;'>Usuario registrado.</p>";
     } else {
         echo mysqli_error($con);
     }

@@ -114,7 +114,7 @@ if (isset($_SESSION["username"])) {
                         // SIEMPRE después de un extract, las variables
                         // tienen el nombre de los campos de la bbdd
                         echo "<tr>
-                        <td><img src='http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png' class='img-circle' width='60'></td>
+                        <td><img src='$Image' style='width: 36%; margin-left: 11%;'></td>
                         <td><h4>
                                 <b>$name</b>
                             </h4>
@@ -184,6 +184,13 @@ if (isset($_SESSION["username"])) {
                     <form class="form-horizontal" action="login.php" method="post" role="form">
                         <fieldset>
                             <!-- Form Name -->
+                            <!-- File input-->
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="image">Image</label>
+                                <div class="col-md-5">
+                                    <input id="image" name="image" class="btn btn-default btn-file" placeholder="Image" type="file" required>
+                                </div>
+                            </div>
                             <!-- Prepended text-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="prependedtext">Name</label>
