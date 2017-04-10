@@ -133,6 +133,11 @@ footer {
 	display: block;
 }
 
+.error-text {
+	color: #333;
+	display: inline-block;
+}
+
 p {
 	color: #428BCA;
 }

@@ -46,6 +46,26 @@ if (isset($_POST["register-submit"])) {
                 // Guardamos el tipo de usuario en la variable de sesión
                 $_SESSION["tipo"] = $tipo;
                 
+                // Llamamos al método que devuelve los nombres de las cartas
+                $cards = selectNameCards();
+                $nameCards=array();
+                $imageCards=array();
+                // Mientras haya datos, leemos la fila y la mostramos
+                while ($fila = mysqli_fetch_array($cards)) {
+                    extract($fila);
+                    // SIEMPRE después de un extract, las variables
+                    // tienen el nombre de los campos de la bbdd
+                    array_push($nameCards,$name);
+                }
+                $rand = array_rand($nameCards, 3);
+                for($i=0;$i<3;$i++){
+                    $image=$nameCards[$rand[$i]];
+                    $image2=selectImageCards($image);
+                    $fila = mysqli_fetch_array($image2);
+                    extract($fila);
+                    array_push($imageCards,$Image);
+                }
+                echo $imageCards[0];  
                 ?>    
                 <!DOCTYPE html>
     <!-- HomePage del user -->
@@ -76,10 +96,12 @@ if (isset($_POST["register-submit"])) {
         <script type="text/javascript " src="jquery.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script>
+        var imageCard = '<?php echo $imageCards[0];?>';
+        
         function addImg(){
             $("#imgmid > img").remove();
     var image = $("<img src=img/CoffreGoldenChest.png style=width:250%;margin-left:-48%;margin-top:76%;></img>").hide();
-    var image2 = $("<img src=img/Coffre-en-or-ferme.png></img>").hide();
+    var image2 = $("<img src=imageCard></img>").hide();
     $("#imgmid").append(image);
     $("#imgmid2").append(image2);
     image.show();
@@ -132,38 +154,35 @@ if (isset($_POST["guardarUser"])) {
     }
 }
 if (isset($_POST["altaCard"])) {
-    $name = $_POST["name"];
+    $name = ucfirst(strtolower($_POST["name"]));
     // Comprobamos si existe una carta con el mismo nombre
     if (existName($name))  // es lo mismo que existName($name)==true
         echo "<p>Ya existe una carta con ese nombre.</p>";
      else {
         $type = strtolower($_POST["type"]);
-        if($type!="tropa" && $type!="hechizo" && $type!="estructura")
-            echo "<p>Tipo erroneo.</p>";
-         else {
-           $rarity = strtolower($_POST["rarity"]);
-           if($rarity!="común" && $rarity!="comun" && $rarity!="especial" && $rarity!="épica" && $rarity!="epica" && $rarity!="legendaria")
-            echo "<p>Calidad erroneo.</p>";
-            else {
-              $hitpoints = $_POST["hitpoints"];
-              $damage = $_POST["damage"];
-              $cost = $_POST["cost"];
-              $target_dir = "https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/";
-              $fotoperfil = $_FILES['image']['name']; 
-              $ruta = $target_dir.$fotoperfil;
+        $rarity = strtolower($_POST["rarity"]);
+        $hitpoints = $_POST["hitpoints"];
+        $damage = $_POST["damage"];
+        $cost = $_POST["cost"];
+        $target_dir = "https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/";
+        $fotoperfil = $_FILES['image']['name']; 
+        $ruta = $target_dir.$fotoperfil;
 
-              $resultado = move_uploaded_file($_FILES["image"]["tmp_name"], $ruta);
+        $resultado = move_uploaded_file($_FILES["image"]["tmp_name"], $ruta);
               
               echo "Target_DIR: ".$target_dir."<br>";
             echo "Nom adjunt: ".$fotoperfil."<br>";
             echo "Ruta: ".$ruta."<br>";
             echo "Resultado: ".$resultado."<br>";
         
-              // Ya está todo ok!!!! Podemos dar de alta la carta :)
-              insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta);
-            }
-        }
+        // Ya está todo ok!!!! Podemos dar de alta la carta :)
+        insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta);
     }
+}
+if (isset($_POST["delete"])) {
+    // Recogemos la variable del post
+    $usuario = $_POST["usuario"];
+    borrarUser($usuario);
 }
 ?>
 

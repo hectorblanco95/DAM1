@@ -83,9 +83,9 @@ if (isset($_SESSION["username"])) {
         </nav>
     </div>
     <div class="row">
-        <div class="panel panel-primary filterable">
+        <div class="panel panel-primary filterable" style="border-color: transparent;">
             <div class="panel-heading">
-                <h3 class="panel-title">RANKING</h3>
+                <h3 class="panel-title">RANKING DE LOS 10 MEJORES</h3>
                 <div class="pull-right">
                     <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                 </div>
@@ -111,10 +111,10 @@ if (isset($_SESSION["username"])) {
                         // tienen el nombre de los campos de la bbdd
                         $i++;
                         echo "<tr>
-                        <td>$i</td>
-                        <td>$username</td>
-                        <td>$wins</td>
-                        <td>$level</td>
+                        <td style='border-top: 0;'>$i</td>
+                        <td style='border-top: 0;'>$username</td>
+                        <td style='border-top: 0;'>$wins</td>
+                        <td style='border-top: 0;'>$level</td>
                       </tr>";
                     }?>
                 </tbody>

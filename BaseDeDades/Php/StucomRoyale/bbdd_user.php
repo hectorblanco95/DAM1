@@ -16,7 +16,7 @@ function userData($username) {
 // Función que devuelve username, wins, level de todos los usuarios menos el admin
 function selectUser2() {
     $con = conectar("royal");
-    $select = "select username, wins, level from user where type=0 order by level desc, wins desc;";
+    $select = "select username, wins, level from user where type=0 order by level desc, wins desc limit 0 , 10;";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -24,10 +24,43 @@ function selectUser2() {
     return $resultado;
 }
 
-// Función que devuelve username, wins, level de todos los usuarios
+// Función que devuelve username, wins, level de 10 usuarios
 function selectUser() {
     $con = conectar("royal");
-    $select = "select username, wins, level from user order by level desc, wins desc;";
+    $select = "select username, wins, level from user order by level desc, wins desc limit 0 , 10;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve las imagenes de las cartas de la bbdd
+function selectImageCards2() {
+    $con = conectar("royal");
+    $select = "select name, Image from card order by name asc";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve las imagenes del nombre seleccionado de las cartas de la bbdd
+function selectImageCards($image) {
+    $con = conectar("royal");
+    $select = "select Image from card where name=$image;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve los nombres de las cartas de la bbdd
+function selectNameCards() {
+    $con = conectar("royal");
+    $select = "select name from card order by name asc;";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -65,10 +98,10 @@ function setPass($username, $pass) {
         // Comprobamos el tipo para dirigir al user
         if ($_SESSION["tipo"] == 0) {
             // Dirigimos al usuario a su página
-            echo "<p>Contraseña modificada.</p>";
+            echo "Contraseña modificada.";
             header("refresh:3;url=home_user.php");
         } else if ($_SESSION["tipo"] == 1) {
-            echo "<p>Contraseña modificada.</p>";
+            echo "Contraseña modificada.";
             header("refresh:3;url=home_admin.php");
         }
     } else {
@@ -130,11 +163,12 @@ function existUser($username) {
 
 // Función que recibe un username y 
 // borra el usuario de la bbdd
-function borrarUser($username) {
+function borrarUser($usuario) {
     $con = conectar("royal");
-    $delete = "delete from user where username='$username';";
+    $delete = "delete from user where username='$usuario';";
     if (mysqli_query($con, $delete)) {
-        echo "Usuario borrada.";
+        echo "Usuario borradof.";
+        header("refresh:3;url=home_admin.php");
     } else {
         echo mysqli_error($con);
     }
@@ -146,7 +180,7 @@ function insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta) {
     $con = conectar("royal");
     $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost, $ruta);";
     if (mysqli_query($con, $insert)) {
-        echo "<p>Carta registrada.</p>";
+        echo "Carta registrada.";
         header("refresh:3;url=altaDeCartas.php");
     } else {
         echo mysqli_error($con);
@@ -159,7 +193,7 @@ function insertUser2($username, $pass, $type) {
     $con = conectar("royal");
     $insert = "insert into user values ('$username', '$pass', '$type', 0, 1);";
     if (mysqli_query($con, $insert)) {
-        echo "<p>Usuario registrado.</p>";
+        echo "Usuario registrado.";
         header("refresh:3;url=home_admin.php");
     } else {
         echo mysqli_error($con);
@@ -172,7 +206,7 @@ function insertUser($username, $pass) {
     $con = conectar("royal");
     $insert = "insert into user values ('$username', '$pass', 0, 0, 1);";
     if (mysqli_query($con, $insert)) {
-        echo "<p style='color: #333;'>Usuario registrado.</p>";
+        echo "Usuario registrado.";
     } else {
         echo mysqli_error($con);
     }

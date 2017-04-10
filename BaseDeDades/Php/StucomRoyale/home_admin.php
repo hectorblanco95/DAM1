@@ -84,6 +84,13 @@ if (isset($_SESSION["username"])) {
             </div>
         </nav>
     </div>
+    <div class="row">
+        <div class="col-md-12 well">
+            <a class="btn btn-primary" data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#delete"><i class="fa fa-fw s fa-remove"></i> Delete User</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#newDeck"><i class="fa fa-fw -square -circle fa-plus-square"></i> New Deck</a>
+        </div>
+    </div>
     <div class="section" style="margin-left: -26px;">
         <div class="container">
             <div class="row">
@@ -91,45 +98,38 @@ if (isset($_SESSION["username"])) {
                     <table class="table table-hover table-striped">
                         <thead>
                     <tr class="filters">
-                        <th><a class="btn btn-primary" data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a></th>
+                        <th><p style="margin: 0;margin-left: 30%;color: #333;">#</p></th>
                         <th><input type="text" class="form-control" placeholder="Username" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Wins" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Level" disabled></th>
                     
-                    <th><div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                </div></th>
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
                 </tr>
                 </thead>
                         <tbody>
                             <?php
-                    // Llamamos al método que devuelve todos los datos de los cocineros
+                    // Llamamos al método que devuelve todos los datos de los usuarios
                     $usuarios = selectAllUser();
                     // Mientras haya datos, leemos la fila y la mostramos
                     while ($fila = mysqli_fetch_array($usuarios)) {
                         extract($fila);
                         // SIEMPRE después de un extract, las variables
                         // tienen el nombre de los campos de la bbdd
+                        
                         if ($type==1) $type="Admin";
                         else $type="User";
                         echo "<tr>
-                        <td><img src='http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png' class='img-circle' width='60'></td>
+                        <td><img src='http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png' class='img-circle' width='60' style='margin-left: 11%;'></td>
                         <td><h4>
-                                <b>$username</b>
-                            </h4>
-                            <p style='margin: 0;'>$type</p>
+                          <b>$username</b>
+                         </h4>
+                         <p style='margin: 0;'>$type</p>
                         </td>
                         <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$wins</p></td>
                         <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$level</p></td>
-                        <td>
-                            <div class='btn-group'>
-                                <button class='btn btn-default' value='left' type='button' data-toggle='modal' data-target='#delete'>
-                                        <i class='fa fa-fw s fa-remove'></i>Delete</button>
-                                <button class='btn btn-default' value='right' type='button' data-toggle='modal' data-target='#changeUser'>
-                                        <i class='fa fa-fw fa-cog'></i>Change</button>
-                            </div>
-                        </td>
-                      </tr>";
+                       </tr>";
                     }?>
                         </tbody>
                     </table>
@@ -231,77 +231,76 @@ if (isset($_SESSION["username"])) {
     </div>
     <div class="fade modal" id="delete">
         <div class="modal-dialog">
+            <?php
+            // Formulario que permite escoger usuario al admin
+            echo "<form action='login.php' method='POST'>";
+            ?>
             <div class="modal-content" style="top: 68px;">
-                <div class="modal-body">
-                    <form class="form-horizontal">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
-                        <fieldset>
-                            <!-- Form Delete -->
-                                <h4 style="text-align: center;color: red;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to delete this user? 
-                                <button type="submit" class="btn btn-primary" name="delete" id="delete" value="left" type="button" style="margin-left: 12px;">
-                                        <i class="fa fa-fw s fa-remove"></i>Delete</button>
-                                        </h4>
-                        </fieldset>
-                    </form>
-                    <?php// Si ha pulsado borrar
-                                        if (isset($_POST['delete'])) {
-                                            // Recogemos la variable del post
-                                            
-                                            borrarUser($username);
-                                        }?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="fade modal" id="changeUser">
-        <div class="modal-dialog">
-            <div class="modal-content" style="top: 40px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
-                    <h2 class="modal-title" id="myModalLabel">Change User</h2>
+                    <h2 class="modal-title" id="myModalLabel">Delete Confirmation</h2>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal">
+                    <p class="error-text"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to delete the user?</p>
+                    <?php
+                    echo "<select name='usuario'>";
+                    // Llamamos al método que devuelve todos los datos de los usuarios
+                    $usuarios = selectAllUser();
+                    // Mientras haya datos, leemos la fila y la mostramos
+                    while ($fila = mysqli_fetch_array($usuarios)) {
+                        extract($fila);
+                        // SIEMPRE después de un extract, las variables
+                        // tienen el nombre de los campos de la bbdd
+                        if($username!="admin"){
+                            if ($type==1) $type="Admin";
+                            else $type="User";
+                            echo "<option value='$username'>$type: $username";
+                            echo "</option>";
+                        }
+                    }
+                    echo "</select>";
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <?php echo "<button type='submit' class='btn btn-danger' name='delete'>Delete</button>";?>
+                </div>
+            </div>
+            <?php echo "</form>";?>
+        </div>
+    </div>
+    <div class="fade modal" id="newDeck">
+        <div class="modal-dialog">
+            <div class="modal-content" style="top: 68px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                    <h2 class="modal-title" id="myModalLabel">New Deck</h2>
+                </div>
+                <div class="modal-body">
+                    <?php
+                    // Formulario que permite escoger usuario al admin
+                    echo "<form action='login.php' method='POST'>";
+                    ?>
                         <fieldset>
                             <!-- Form Name -->
-                            <!-- Prepended text-->
+                            <!-- Images cards-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="prependedtext">Username</label>
                                 <div class="col-md-5">
-                                    <input id="username" name="username" class="form-control" placeholder="Username" type="text" required="">
-                                </div>
-                            </div>
-                            <!-- Password input-->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="password">Password</label>
-                                <div class="col-md-5">
-                                    <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" required="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="password">New Password</label>
-                                <div class="col-md-5">
-                                    <input id="newPassword" name="newPassword" type="password" placeholder="New Password" class="form-control input-md" required="">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="password">Confirm New Password</label>
-                                <div class="col-md-5">
-                                    <input id="newPassword2" name="newPassword2" type="password" placeholder="Confirm New Password" class="form-control input-md" required="">
-                                </div>
-                            </div>
-                            <!-- Wins input -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="wins">Wins</label>
-                                <div class="col-md-5">
-                                    <input id="wins" name="wins" class="form-control" placeholder="Wins" type="number" required="">
-                                </div>
-                            </div>
-                            <!-- Level input -->
-                            <div class="form-group">
-                                <label class="col-md-4 control-label" for="level">Level</label>
-                                <div class="col-md-5">
-                                    <input id="level" name="level" class="form-control" placeholder="Level" type="number" required="">
+                                    <?php
+                                    echo "<select name='card'>";
+                                    // Llamamos al método que devuelve todos los datos de los usuarios
+                                    $images = selectImageCards2();
+                                    // Mientras haya datos, leemos la fila y la mostramos
+                                    while ($fila = mysqli_fetch_array($images)) {
+                                        extract($fila);
+                                        // SIEMPRE después de un extract, las variables
+                                        // tienen el nombre de los campos de la bbdd
+                                        echo "<option value='$name'>";
+                                        echo "</option>";
+                                    }
+                                    echo "</select>";
+                                    ?>
                                 </div>
                             </div>
                             <!-- Select Basic -->
@@ -313,7 +312,7 @@ if (isset($_SESSION["username"])) {
                                             <option value="1">Admin</option>
                                         </select>
                                 </div>
-                                <button type="submit" class="btn btn-primary" name="guardar" id="guardar">
+                                <button type="submit" class="btn btn-primary" name="guardarUser">
                                         <i class="fa fa-fw fa-save"></i>Save</button>
                             </div>
                             <!-- File Button -->

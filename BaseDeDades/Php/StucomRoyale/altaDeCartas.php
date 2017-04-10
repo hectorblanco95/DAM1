@@ -100,8 +100,8 @@ if (isset($_SESSION["username"])) {
                         <th><input type="text" class="form-control" placeholder="Cost" disabled></th>
                     
                     <div class="pull-right">
-                    <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                </div>
+                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
                 </tr>
                 </thead>
                         <tbody>
@@ -188,7 +188,7 @@ if (isset($_SESSION["username"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="image">Image</label>
                                 <div class="col-md-5">
-                                    <input id="image" name="image" class="btn btn-default btn-file" placeholder="Image" type="file" required>
+                                    <input id="image" name="image" class="btn btn-default btn-file" placeholder="Image" type="file" required style="width: 100%;">
                                 </div>
                             </div>
                             <!-- Prepended text-->
@@ -202,21 +202,30 @@ if (isset($_SESSION["username"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="type">Type</label>
                                 <div class="col-md-5">
-                                    <input id="type" name="type" type="text" placeholder="Type" class="form-control input-md" maxlength="20" required>
+                                    <select id="tipo" name="type" class="form-control">
+                                        <option value="tropa">Tropa</option>
+                                        <option value="hechizo">Hechizo</option>
+                                        <option value="estructura">Estructura</option>
+                                    </select>
                                 </div>
                             </div>
                             <!-- Rarity input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="rarity">Rarity</label>
                                 <div class="col-md-5">
-                                    <input id="rarity" name="rarity" type="text" placeholder="Rarity" class="form-control input-md" maxlength="20" required>
+                                    <select id="calidad" name="rarity" class="form-control">
+                                        <option value="comun">Comun</option>
+                                        <option value="especial">Especial</option>
+                                        <option value="epica">Epica</option>
+                                        <option value="legendaria">Legendaria</option>
+                                    </select>
                                 </div>
                             </div>
                             <!-- Hitpoints Basic -->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="hitpoints">Hitpoints</label>
                                 <div class="col-md-5">
-                                    <input id="hitpoints" name="hitpoints" type="number" placeholder="Hitpoints" class="form-control input-md" max="99999999999" required>
+                                    <input id="hitpoints" name="hitpoints" type="number" placeholder="Hitpoints" class="form-control input-md" min="1" max="20" required>
                                 </div>
                             </div>
                             <!-- Damage Basic -->
@@ -230,7 +239,7 @@ if (isset($_SESSION["username"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="cost">Cost</label>
                                 <div class="col-md-5">
-                                    <input id="cost" name="cost" type="number" placeholder="Cost" class="form-control input-md" max="99999999999" required>
+                                    <input id="cost" name="cost" type="number" placeholder="Cost" class="form-control input-md" min="1" max="10" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary" name="altaCard">
                                         <i class="fa fa-fw fa-save"></i>Save</button>
