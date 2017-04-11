@@ -1,17 +1,20 @@
 <?php
-// Antes de mostrar la página nos aseguramos que hay un usuario autentificado
 session_start();
 // incluimos el fichero de la bbdd
 require_once 'bbdd_user.php';
+// Si hay variable user en session es que un usuario se ha validado
 if (isset($_SESSION["username"])) {
-    // Si hay variable user en session es que un usuario se ha validado
-    ?>
-    <!DOCTYPE html>
-    <!-- HomePage del user -->
-    <html>
+    // Nos aseguramos que el usuario sea user
+    // Cogemos el tipo de la variable de sesión
+    $tipo = $_SESSION["tipo"];
+    if ($tipo == 0) {
+        ?>
+        <!DOCTYPE html>
+        <!-- Página principal del usuario admin -->
+        <html>
         <head>
             <meta charset="UTF-8">
-            <title>Home Page User</title>
+            <title>Home Page Administrator</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
             <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
@@ -28,10 +31,10 @@ if (isset($_SESSION["username"])) {
                     <strong>Level: </strong><?php echo $_SESSION["level"];?>
                 </h5>
                 <h5>
-                    <strong>Wins: </strong>$1,000,000
+                    <strong>Wins: </strong><?php echo $_SESSION["wins"];?>
                 </h5> 
                 <h5>
-                    <strong>Deck: </strong>1,234
+                    <strong>Deck: </strong><?php echo $_SESSION["deck"];?>
                 </h5>
                 <hr />
                 <h5>
@@ -43,7 +46,7 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img src="img/header.png" alt="image" width="357" height="113"></img> 
+                <img href="home_admin.php" src="img/header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
@@ -74,20 +77,58 @@ if (isset($_SESSION["username"])) {
         <nav class="navbar navbar-inverse">
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="home_user.php">Home</a></li>
-                    <li><a href="#">Page 1</a></li>
-                    <li><a href="#">Page 2</a></li>
+                    <li class="active"><a href="home_user.php">Cartas Conseguidas</a></li>
+                    <li><a href="#">Batalla</a></li>
                     <li><a href="ranking_user.php">Ranking</a></li>
-                    <li><a href="#">Page 5</a></li>
                 </ul>
             </div>
         </nav>
+    </div>
+    <div class="section" style="margin-left: -26px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 panel-primary filterable" style="width: 1189px;">
+                    <table class="table table-hover table-striped">
+                        <thead>
+                    <tr class="filters">
+                        <th><p style="margin: 0;margin-left: 18%;color: #333;">#</p></th>
+                        <th><input type="text" class="form-control" placeholder="Card" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Level" disabled></th>
+                    
+                    <div class="pull-right">
+                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                    </div>
+                </tr>
+                </thead>
+                        <tbody>
+                            <?php
+                    // Llamamos al método que devuelve todos los datos de las tabla deck
+                    $deck = deckUser($_SESSION["username"]);
+                    // Mientras haya datos, leemos la fila y la mostramos
+                    while ($fila = mysqli_fetch_array($deck)) {
+                        extract($fila);
+                        // SIEMPRE después de un extract, las variables
+                        // tienen el nombre de los campos de la bbdd
+                        echo "<tr>
+                        <td><img src='$Image' style='width: 18%; margin-left: 11%;'></td>
+                        <td><h4>
+                                <b>$card</b>
+                            </h4>
+                        </td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$level</p></td>
+                      </tr>";
+                    }?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="fade modal" id="changePassword">
         <div class="modal-dialog">
             <div class="modal-content" style="top: 68px;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
                     <h2 class="modal-title" id="myModalLabel">New Password</h2>
                 </div>
                 <div class="modal-body">
@@ -131,8 +172,11 @@ if (isset($_SESSION["username"])) {
 	<script type="text/javascript " src="jsRoyale.js"></script>
         </body>
     </html>
-    <?php
+        <?php
+    } else {
+        echo "<p>No tienes permisos para ver esta página.</p>";
+    }
 } else {
-    echo "<p>Debes hacer login para poder ver esta pagina</p>";
+    echo "<p>No hay usuario validado</p>";
 }
 ?>

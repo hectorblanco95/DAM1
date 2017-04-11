@@ -59,13 +59,25 @@ if (isset($_POST["register-submit"])) {
                 }
                 $rand = array_rand($nameCards, 3);
                 for($i=0;$i<3;$i++){
-                    $image=$nameCards[$rand[$i]];
-                    $image2=selectImageCards($image);
-                    $fila = mysqli_fetch_array($image2);
+                    $nameCards[$rand[$i]];
+                    $image=$nameCards[$i];
+                    echo $image;
+                    /*$images=selectImageCards($image);
+                    array_push($imageCards,$images);
+                    echo $imageCards[$i];*/
+           
+                    
+                }
+                /*$image0=$nameCards[0]; $image1=$nameCards[1]; $image2=$nameCards[2];
+                
+                while ($fila = mysqli_fetch_array($images)) {
                     extract($fila);
                     array_push($imageCards,$Image);
                 }
-                echo $imageCards[0];  
+                
+                for($i=0;$i<3;$i++){
+                    echo $imageCards[$i];
+                }*/
                 ?>    
                 <!DOCTYPE html>
     <!-- HomePage del user -->

@@ -3,7 +3,7 @@ session_start();
 // incluimos el fichero de la bbdd
 require_once 'bbdd_user.php';
 if (isset($_SESSION["username"])) {
-    // Nos aseguramos que el usuario sea administrador
+    // Nos aseguramos que el usuario sea admin
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
     if ($tipo == 1) {
@@ -77,9 +77,9 @@ if (isset($_SESSION["username"])) {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="home_admin.php">Usuarios</a></li>
+                    <li><a href="cartasConseguidas_admin.php">Cartas Conseguidas</a></li>
                     <li class="active"><a href="altaDeCartas.php">Alta de Cartas</a></li>
                     <li><a href="ranking_admin.php">Ranking</a></li>
-                    <li><a href="#">Page 2</a></li>
                 </ul>
             </div>
         </nav>
@@ -106,7 +106,7 @@ if (isset($_SESSION["username"])) {
                 </thead>
                         <tbody>
                             <?php
-                    // Llamamos al método que devuelve todos los datos de los cocineros
+                    // Llamamos al método que devuelve todos los datos de las cartas
                     $cards = selectAllCards();
                     // Mientras haya datos, leemos la fila y la mostramos
                     while ($fila = mysqli_fetch_array($cards)) {

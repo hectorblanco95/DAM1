@@ -77,9 +77,9 @@ if (isset($_SESSION["username"])) {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="home_admin.php">Usuarios</a></li>
+                    <li><a href="cartasConseguidas_admin.php">Cartas Conseguidas</a></li>
                     <li><a href="altaDeCartas.php">Alta de Cartas</a></li>
                     <li><a href="ranking_admin.php">Ranking</a></li>
-                    <li><a href="#">Page 2</a></li>
                 </ul>
             </div>
         </nav>

@@ -2,10 +2,21 @@
 
 require_once 'bbdd.php';
 
-// Función que devuelve todos los datos del user i deck
+// Función que devuelve todos las cartas conseguidas por el user
+function deckUser($username) {
+    $con = conectar("royal");
+    $select = "select card, level, Image from deck where user='$username';";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve todos los datos del user
 function userData($username) {
     $con = conectar("royal");
-    $select = "select username, wins, level from user where username=$username;";
+    $select = "select wins, level from user where username='$username';";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -49,7 +60,7 @@ function selectImageCards2() {
 // Función que devuelve las imagenes del nombre seleccionado de las cartas de la bbdd
 function selectImageCards($image) {
     $con = conectar("royal");
-    $select = "select Image from card where name=$image;";
+    $select = "select Image from card where name='$image';";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -178,7 +189,7 @@ function borrarUser($usuario) {
 // Función que el admin inserta una carta en la bbdd
 function insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta) {
     $con = conectar("royal");
-    $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost, $ruta);";
+    $insert = "insert into card values ('$name', '$type', '$rarity', $hitpoints, $damage, $cost, '$ruta');";
     if (mysqli_query($con, $insert)) {
         echo "Carta registrada.";
         header("refresh:3;url=altaDeCartas.php");
