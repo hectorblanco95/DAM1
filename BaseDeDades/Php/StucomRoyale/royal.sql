@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2017 a las 18:01:26
+-- Tiempo de generación: 13-04-2017 a las 03:28:47
 -- Versión del servidor: 5.5.54-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.21
 
@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS `card` (
   `damage` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
   `Image` varchar(200) DEFAULT NULL,
-  PRIMARY KEY (`name`)
+  PRIMARY KEY (`name`),
+  UNIQUE KEY `Image` (`Image`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -64,9 +65,50 @@ CREATE TABLE IF NOT EXISTS `deck` (
   `user` varchar(20) NOT NULL,
   `card` varchar(30) NOT NULL,
   `level` int(11) NOT NULL,
+  `Image` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`user`,`card`),
-  KEY `fk_deck_2_idx` (`card`)
+  KEY `fk_deck_2_idx` (`card`),
+  KEY `fk_deck_3` (`Image`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `deck`
+--
+
+INSERT INTO `deck` (`user`, `card`, `level`, `Image`) VALUES
+('admin', 'Golem-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Golem-Epic.png'),
+('admin', 'Pekka', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/pekka.png'),
+('admin', 'X-bow-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/X-Bow-Epic.png'),
+('alo', 'Dark-prince', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/goblins.png'),
+('alo', 'Goblin-hut-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Hog-Rider-Rare.png'),
+('alo', 'Goblins', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Prince-Epic.png'),
+('andres.perez', 'Musketeer-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Musketeer-Rare.png'),
+('andres.perez', 'Pekka', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/pekka.png'),
+('andres.perez', 'Prince-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Prince-Epic.png'),
+('conrado', 'Dark-prince', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/dark-prince.png'),
+('conrado', 'Princess', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/princess.png'),
+('conrado', 'X-bow-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/X-Bow-Epic.png'),
+('fe', 'Goblin-hut-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Goblin-Hut-Rare.png'),
+('fe', 'Goblins', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/goblins.png'),
+('fe', 'Golem-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Golem-Epic.png'),
+('hh', 'Hog-rider-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Hog-Rider-Rare.png'),
+('hh', 'Mini-pekka-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Mini-Pekka-Rare.png'),
+('hh', 'Musketeer-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Musketeer-Rare.png'),
+('hola', 'Pekka', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/pekka.png'),
+('hola', 'Prince-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Prince-Epic.png'),
+('hola', 'Princess', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/princess.png'),
+('kk', 'Dark-prince', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/dark-prince.png'),
+('kk', 'Goblin-hut-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Goblin-Hut-Rare.png'),
+('kk', 'X-bow-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/X-Bow-Epic.png'),
+('salo', 'Goblins', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/goblins.png'),
+('salo', 'Golem-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Golem-Epic.png'),
+('salo', 'Hog-rider-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Hog-Rider-Rare.png'),
+('ww', 'Mini-pekka-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Mini-Pekka-Rare.png'),
+('ww', 'Musketeer-rare', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Musketeer-Rare.png'),
+('ww', 'Pekka', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/pekka.png'),
+('xx', 'Prince-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/Prince-Epic.png'),
+('xx', 'Princess', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/princess.png'),
+('xx', 'X-bow-epic', 1, 'https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/X-Bow-Epic.png');
 
 -- --------------------------------------------------------
 
@@ -88,24 +130,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`username`, `password`, `type`, `wins`, `level`) VALUES
-('1', '1', 0, 0, 1),
-('12', '1', 0, 0, 1),
-('13', '13', 0, 0, 1),
-('14', '14', 0, 0, 1),
-('15', '15', 0, 0, 1),
-('16', '1', 0, 0, 1),
-('17', '1', 0, 0, 1),
-('18', '18', 0, 0, 1),
-('2', '2', 0, 0, 1),
-('3', '3', 0, 0, 1),
-('4', '4', 0, 0, 1),
-('5', '5', 0, 0, 1),
-('6', '6', 0, 0, 1),
-('7', '7', 0, 0, 1),
-('8', '8', 0, 0, 1),
-('9', '9', 0, 0, 1),
-('aa', 'aa', 0, 0, 1),
 ('admin', 'admin', 1, 0, 1),
+('alo', 'alo', 0, 0, 1),
 ('andres.perez', '123456', 0, 0, 1),
 ('conrado', '1234', 0, 0, 1),
 ('fe', 'fe', 0, 0, 1),
@@ -125,7 +151,8 @@ INSERT INTO `user` (`username`, `password`, `type`, `wins`, `level`) VALUES
 --
 ALTER TABLE `deck`
   ADD CONSTRAINT `fk_deck_1` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_deck_2` FOREIGN KEY (`card`) REFERENCES `card` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_deck_2` FOREIGN KEY (`card`) REFERENCES `card` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_deck_3` FOREIGN KEY (`Image`) REFERENCES `card` (`Image`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

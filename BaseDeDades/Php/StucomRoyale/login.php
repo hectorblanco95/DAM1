@@ -7,8 +7,19 @@ if (isset($_POST["login-submit"])) {
     $pass = $_POST["password"];
     if (validateUser($username, $pass)) {
         // Ole ole! el usuario ha hecho login
-        // Guardamos el username en una variable de session
+        // Guardamos el username en variables de session
         $_SESSION["username"] = $username;
+        // Llamamos al método que devuelve todos los datos de los usuarios
+        $userData = userData($_SESSION["username"]);
+        // Mientras haya datos, leemos la fila y la mostramos
+        while ($fila = mysqli_fetch_array($userData)) {
+            extract($fila);
+            // SIEMPRE después de un extract, las variables
+            // tienen el nombre de los campos de la bbdd
+            $_SESSION["wins"] = $wins;
+            $_SESSION["level"] = $level;
+            // Guardamos los datos del username en variables de session
+        }
         // Comprobamos el tipo para dirigir al user
         $tipo = getTypeByUsername($username);
         // Guardamos el tipo de usuario en la variable de sesión
@@ -38,9 +49,19 @@ if (isset($_POST["register-submit"])) {
             
             if (validateUser($username, $pass)) {
                 // Ole ole! el usuario ha hecho login
-                // Guardamos el username en una variable de session
+                // Guardamos el username en variables de session
                 $_SESSION["username"] = $username;
-                $_SESSION["level"] = $level;
+                // Llamamos al método que devuelve todos los datos de los usuarios
+                $userData = userData($_SESSION["username"]);
+                // Mientras haya datos, leemos la fila y la mostramos
+                while ($fila = mysqli_fetch_array($userData)) {
+                    extract($fila);
+                    // SIEMPRE después de un extract, las variables
+                    // tienen el nombre de los campos de la bbdd
+                    $_SESSION["wins"] = $wins;
+                    $_SESSION["level"] = $level;
+                    // Guardamos los datos del username en variables de session
+                }
                 // Comprobamos el tipo para dirigir al user
                 $tipo = getTypeByUsername($username);
                 // Guardamos el tipo de usuario en la variable de sesión
@@ -71,7 +92,7 @@ if (isset($_POST["register-submit"])) {
             <title>Home Page User</title>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-            <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
+            
         </head>
         <body style="padding-top: 0;">
             <div class="container">
@@ -87,7 +108,8 @@ if (isset($_POST["register-submit"])) {
                         </div>    
                     </div> 
                 </div>  
-            </div>  
+            </div>
+            <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
         <script type="text/javascript " src="jquery.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script>
@@ -107,7 +129,7 @@ if (isset($_POST["register-submit"])) {
     </html>
         <?php
             // Dirigimos al usuario a su página
-            header("refresh:50;url=home_user.php");
+            header("refresh:14;url=home_user.php");
             }
     }
 }
@@ -158,7 +180,7 @@ if (isset($_POST["altaCard"])) {
         $hitpoints = $_POST["hitpoints"];
         $damage = $_POST["damage"];
         $cost = $_POST["cost"];
-        $target_dir = "https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/";
+        /*$target_dir = "https://workspace-hectorblanco95.c9users.io/BaseDeDades/Php/StucomRoyale/img/";
         $fotoperfil = $_FILES['image']['name']; 
         $ruta = $target_dir.$fotoperfil;
 
@@ -167,7 +189,7 @@ if (isset($_POST["altaCard"])) {
               echo "Target_DIR: ".$target_dir."<br>";
             echo "Nom adjunt: ".$fotoperfil."<br>";
             echo "Ruta: ".$ruta."<br>";
-            echo "Resultado: ".$resultado."<br>";
+            echo "Resultado: ".$resultado."<br>";*/
         
         // Ya está todo ok!!!! Podemos dar de alta la carta :)
         insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta);

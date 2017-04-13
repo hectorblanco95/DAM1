@@ -35,7 +35,18 @@ function insertDeckUser($username, $nameCard, $image) {
         echo mysqli_error($con);
     }
     desconectar($con);
-} 
+}
+
+// Función que devuelve todos los datos de las cartas con ese nombre
+function cardData($card) {
+    $con = conectar("royal");
+    $select = "select type, rarity, hitpoints, damage, cost from card where name='$card';";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
 
 // Función que devuelve todos las cartas conseguidas por el user
 function deckUser($username) {
@@ -48,7 +59,7 @@ function deckUser($username) {
     return $resultado;
 }
 
-// Función que devuelve todos los datos del user
+// Función que devuelve los datos wins, level del user
 function userData($username) {
     $con = conectar("royal");
     $select = "select wins, level from user where username='$username';";

@@ -33,9 +33,6 @@ if (isset($_SESSION["username"])) {
                 <h5>
                     <strong>Wins: </strong><?php echo $_SESSION["wins"];?>
                 </h5> 
-                <h5>
-                    <strong>Deck: </strong><?php echo $_SESSION["deck"];?>
-                </h5>
                 <hr />
                 <h5>
                     <a href="" class="pull-left" data-toggle="modal" data-target="#changePassword">Change Password</a>
@@ -46,26 +43,20 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img href="home_admin.php" src="img/header.png" alt="image" width="357" height="113"></img> 
+                <img src="img/header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
-            <h5>Health</h5>
+            <h5>Level</h5>
             <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: 60%;">
-                    60/100
+                <div class="progress-bar progress-bar-success" style="width: <?php echo $_SESSION['level']%100?>%;">
+                    <?php echo $_SESSION['level']%100?>%
                 </div>
             </div>
-            <h5>Energy</h5>
+            <h5>Wins</h5>
             <div class="progress">
-                <div class="progress-bar" style="width: 95%;">
-                    95/100
-                </div>
-            </div>
-            <h5>Mana</h5>
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" style="width: 33%;">
-                    10/30
+                <div class="progress-bar" style="width: <?php echo $_SESSION['wins']%100?>%;">
+                    <?php echo $_SESSION['wins']%100?>%
                 </div>
             </div>
         </div>
@@ -78,7 +69,6 @@ if (isset($_SESSION["username"])) {
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="home_user.php">Cartas Conseguidas</a></li>
-                    <li><a href="#">Batalla</a></li>
                     <li><a href="ranking_user.php">Ranking</a></li>
                 </ul>
             </div>
@@ -91,10 +81,15 @@ if (isset($_SESSION["username"])) {
                     <table class="table table-hover table-striped">
                         <thead>
                     <tr class="filters">
-                        <th><p style="margin: 0;margin-left: 18%;color: #333;">#</p></th>
+                        <th><p style="margin: 0;margin-left: 29%;color: #333;">#</p></th>
                         <th><input type="text" class="form-control" placeholder="Card" disabled></th>
                         <th><input type="text" class="form-control" placeholder="Level" disabled></th>
-                    
+                        <th><input type="text" class="form-control" placeholder="Type" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Rarity" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Hitpoints" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Damage" disabled></th>
+                        <th><input type="text" class="form-control" placeholder="Cost" disabled></th>
+
                     <div class="pull-right">
                         <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
                     </div>
@@ -110,13 +105,28 @@ if (isset($_SESSION["username"])) {
                         // SIEMPRE después de un extract, las variables
                         // tienen el nombre de los campos de la bbdd
                         echo "<tr>
-                        <td><img src='$Image' style='width: 18%; margin-left: 11%;'></td>
+                        <td><img src='$Image' style='width: 47%; margin-left: 11%;'></td>
                         <td><h4>
                                 <b>$card</b>
                             </h4>
                         </td>
-                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$level</p></td>
-                      </tr>";
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$level</p></td>";
+                        // Llamamos al método que devuelve todos los datos de las tabla deck
+                        $deck2 = cardData($card);
+                        // Mientras haya datos, leemos la fila y la mostramos
+                        while ($fila = mysqli_fetch_array($deck2)) {
+                            extract($fila);
+                            // SIEMPRE después de un extract, las variables
+                            // tienen el nombre de los campos de la bbdd
+                            $hitpoints=($hitpoints+$level)*2;
+                            $damage=($damage+$level)*2;
+                  echo "<td><p style='margin-top: 10px;margin-bottom: 10px;'>$type</p></td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$rarity</p></td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$hitpoints</p></td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$damage</p></td>
+                        <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$cost</p></td>";
+                        }
+                 echo "</tr>";
                     }?>
                         </tbody>
                     </table>

@@ -32,9 +32,6 @@ if (isset($_SESSION["username"])) {
                 <h5>
                     <strong>Wins: </strong><?php echo $_SESSION["wins"];?>
                 </h5> 
-                <h5>
-                    <strong>Deck: </strong><?php echo $_SESSION["deck"];?>
-                </h5>
                 <hr />
                 <h5>
                     <a href="" class="pull-left" data-toggle="modal" data-target="#changePassword">Change Password</a>
@@ -45,26 +42,20 @@ if (isset($_SESSION["username"])) {
         </div>
         <div class="col-md-6 col-xs-12 text-center page-header">
             <h1 class="game-name">
-                <img href="home_admin.php" src="img/header.png" alt="image" width="357" height="113"></img> 
+                <img src="img/header.png" alt="image" width="357" height="113"></img> 
             </h1>   
         </div>
         <div class="col-md-3 col-xs-12 user-stats">
-            <h5>Health</h5>
+            <h5>Level</h5>
             <div class="progress">
-                <div class="progress-bar progress-bar-success" style="width: 60%;">
-                    60/100
+                <div class="progress-bar progress-bar-success" style="width: <?php echo $_SESSION['level']%100?>%;">
+                    <?php echo $_SESSION['level']%100?>%
                 </div>
             </div>
-            <h5>Energy</h5>
+            <h5>Wins</h5>
             <div class="progress">
-                <div class="progress-bar" style="width: 95%;">
-                    95/100
-                </div>
-            </div>
-            <h5>Mana</h5>
-            <div class="progress">
-                <div class="progress-bar progress-bar-info" style="width: 33%;">
-                    10/30
+                <div class="progress-bar" style="width: <?php echo $_SESSION['wins']%100?>%;">
+                    <?php echo $_SESSION['wins']%100?>%
                 </div>
             </div>
         </div>
@@ -188,7 +179,7 @@ if (isset($_SESSION["username"])) {
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="image">Image</label>
                                 <div class="col-md-5">
-                                    <input id="image" name="image" class="btn btn-default btn-file" placeholder="Image" type="file" required style="width: 100%;">
+                                    <input id="image" name="image" class="btn btn-default btn-file" placeholder="Image" type="file" style="width: 100%;">
                                 </div>
                             </div>
                             <!-- Prepended text-->
