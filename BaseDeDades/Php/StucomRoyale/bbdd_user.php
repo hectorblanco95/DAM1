@@ -2,6 +2,41 @@
 
 require_once 'bbdd.php';
 
+// Función que comprueba si la card ya existe en la tabla deck
+// Devuelve true si existe, false si no existe
+function existCard($user, $card) {
+    $con = conectar("royal");
+    $query = "select card from deck where user='$user' and card='$card';";
+    $resultado = mysqli_query($con, $query);
+    desconectar($con);
+    // Comprobamos si la consulta ha devuelto algún resultado
+    $num_rows = mysqli_num_rows($resultado);
+    // Si el nº de filas es 0, no existe el usuario
+    if ($num_rows == 0) {
+        return false;
+    } else { // Funcion que sube el nivel de la carta
+        $con = conectar("royal");
+        $update = "UPDATE deck SET `level`=level+1 WHERE user='$user' and card='$card';";
+        if (mysqli_query($con, $update));
+        else {
+        echo mysqli_error($con);
+        }
+        desconectar($con);
+        return true;
+    }
+}
+
+// Función que inserta un usuario en la bbdd (type: user)
+function insertDeckUser($username, $nameCard, $image) {
+    $con = conectar("royal");
+    $insert = "insert into deck values ('$username', '$nameCard', 1, '$image');";
+    if (mysqli_query($con, $insert));
+    else {
+        echo mysqli_error($con);
+    }
+    desconectar($con);
+} 
+
 // Función que devuelve todos las cartas conseguidas por el user
 function deckUser($username) {
     $con = conectar("royal");
@@ -49,7 +84,7 @@ function selectUser() {
 // Función que devuelve las imagenes de las cartas de la bbdd
 function selectImageCards2() {
     $con = conectar("royal");
-    $select = "select name, Image from card order by name asc";
+    $select = "select name from card order by name asc";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -58,14 +93,17 @@ function selectImageCards2() {
 }
 
 // Función que devuelve las imagenes del nombre seleccionado de las cartas de la bbdd
-function selectImageCards($image) {
+function selectImageCards($nameCard) {
     $con = conectar("royal");
-    $select = "select Image from card where name='$image';";
-    // Ejecutamos la consulta y recogemos el resultado
+    $select = "select Image from card where name='$nameCard';";
+    // Ejecutamos la consulta
     $resultado = mysqli_query($con, $select);
+    // Extraemos el resultado
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
     desconectar($con);
-    // devolvemos el resultado
-    return $resultado;
+    // Devolvemos la image
+    return $Image;
 }
 
 // Función que devuelve los nombres de las cartas de la bbdd
@@ -138,7 +176,7 @@ function existPass($username, $pass) {
     }
 }
 
-// Función que comprueba si un name ya existe en la bbdd
+// Función que comprueba si la card ya existe en la bbdd
 // Devuelve true si existe, false si no existe
 function existName($name) {
     $con = conectar("royal");
@@ -178,7 +216,7 @@ function borrarUser($usuario) {
     $con = conectar("royal");
     $delete = "delete from user where username='$usuario';";
     if (mysqli_query($con, $delete)) {
-        echo "Usuario borradof.";
+        echo "Usuario borrado.";
         header("refresh:3;url=home_admin.php");
     } else {
         echo mysqli_error($con);

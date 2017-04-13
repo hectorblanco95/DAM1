@@ -59,25 +59,9 @@ if (isset($_POST["register-submit"])) {
                 }
                 $rand = array_rand($nameCards, 3);
                 for($i=0;$i<3;$i++){
-                    $nameCards[$rand[$i]];
-                    $image=$nameCards[$i];
-                    echo $image;
-                    /*$images=selectImageCards($image);
-                    array_push($imageCards,$images);
-                    echo $imageCards[$i];*/
-           
-                    
+                    array_push($imageCards,selectImageCards($nameCards[$rand[$i]]));
+                    insertDeckUser($_SESSION["username"], $nameCards[$i], $imageCards[$i]);
                 }
-                /*$image0=$nameCards[0]; $image1=$nameCards[1]; $image2=$nameCards[2];
-                
-                while ($fila = mysqli_fetch_array($images)) {
-                    extract($fila);
-                    array_push($imageCards,$Image);
-                }
-                
-                for($i=0;$i<3;$i++){
-                    echo $imageCards[$i];
-                }*/
                 ?>    
                 <!DOCTYPE html>
     <!-- HomePage del user -->
@@ -92,41 +76,39 @@ if (isset($_POST["register-submit"])) {
         <body style="padding-top: 0;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-3 col-xs-12 user-stats" style="width: 99%;">
-                        <div class="well" style="background-color: #FEDA90;padding: 8% 44%;">
-                            <h1 style="margin-top: -55%;margin-left: 20%;">REGALO</h1>
-                            <div id="imgmid2"></div>
+                    <div class="col-md-3 col-xs-12 user-stats" style="width: 100%;">
+                        <div class="well" style="background-image: url('img/StarburstEffectBackground.jpeg');padding: 8% 44%;background-size: 103%;background-position-x: 51%">
+                            <h1 style="margin-top: -68%;text-align: center;width: 846%;color: white;background-color: red;margin-left: -373%;font-size: 39px;font-family: bungee,sans-serif;font-style: normal;font-weight: 400;text-shadow: -1px 0 1px black, 1px 0 1px black, 0 -1px 1px black, 0 4px 1px black, -2px 4px 1px black, 2px 3px 2px black;">GIFT CARDS</h1>
+                            <div id="imgmid2" style="width: 365%;text-align: center;margin-left: -124%;margin-top: 41%;"></div>
                             <div id="imgmid">
-                            <img onclick="addImg()" src="img/Coffre-en-or-ferme.png" style="margin-top: 76%;">
+                                <img onclick="addImg()" src="img/Coffre-en-or-ferme.png" style="margin-top: 76%;margin-left: -24%;">
+                                <h1 style="text-align: center;color: white;font-size: 39px;font-family: bungee,sans-serif;font-style: normal;font-weight: 400;text-shadow: -1px 0 1px black, 1px 0 1px black, 0 -1px 1px black, 0 4px 1px black, -2px 4px 1px black, 2px 3px 2px black;">OPEN</h1>
                             </div>
                         </div>    
                     </div> 
                 </div>  
             </div>  
-        </body>
-        <footer></footer>
         <script type="text/javascript " src="jquery.min.js"></script>
 	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script>
-        var imageCard = '<?php echo $imageCards[0];?>';
-        
         function addImg(){
             $("#imgmid > img").remove();
-    var image = $("<img src=img/CoffreGoldenChest.png style=width:250%;margin-left:-48%;margin-top:76%;></img>").hide();
-    var image2 = $("<img src=imageCard></img>").hide();
-    $("#imgmid").append(image);
-    $("#imgmid2").append(image2);
-    image.show();
-    image2.show();
-}   
+            $("#imgmid > h1").remove();
+            var image = $("<img src=img/CoffreGoldenChest.png style=width:250%;margin-left:-72%;margin-top:-59%;></img>").hide();
+            var image2 = $("<img src=<?php echo $imageCards[0];?> style=width:30%;><img src=<?php echo $imageCards[1];?> style=width:30%;><img src=<?php echo $imageCards[2];?> style=width:30%;>").hide();
+            $("#imgmid").append(image);
+            $("#imgmid2").append(image2);
+            image.show();
+            image2.show();
+        }   
         </script>
         </body>
+        <footer></footer>
     </html>
         <?php
             // Dirigimos al usuario a su página
-            header("refresh:300;url=home_user.php");
-            } else 
-                echo "<p>Usuario o contraseña incorrectos.</p>";
+            header("refresh:50;url=home_user.php");
+            }
     }
 }
 if (isset($_POST["modificarPass"])) {
@@ -189,6 +171,20 @@ if (isset($_POST["altaCard"])) {
         
         // Ya está todo ok!!!! Podemos dar de alta la carta :)
         insertCard($name, $type, $rarity, $hitpoints, $damage, $cost, $ruta);
+    }
+}
+if (isset($_POST["giveAwayCard"])) {
+    $card = $_POST["card"];
+    $user = $_POST["userName"];
+    // Comprobamos si existe una carta con el mismo nombre
+    if (existCard($user, $card)){  // es lo mismo que existName($name)==true
+        echo "<p>El usuario ya tiene la carta en la baraja. La carta ha subido de nivel!</p>";
+        header("refresh:4;url=home_admin.php");
+    }else {
+        // Ya está todo ok!!!! Podemos regalar la carta :)
+        insertDeckUser($user, $card, selectImageCards($card));
+        echo "Carta regalada :)";
+        header("refresh:3;url=home_admin.php");
     }
 }
 if (isset($_POST["delete"])) {

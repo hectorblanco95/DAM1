@@ -87,8 +87,8 @@ if (isset($_SESSION["username"])) {
     <div class="row">
         <div class="col-md-12 well">
             <a class="btn btn-primary" data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
-            <a class="btn btn-default" data-toggle="modal" data-target="#delete"><i class="fa fa-fw s fa-remove"></i> Delete User</a>
-            <a class="btn btn-default" data-toggle="modal" data-target="#newDeck"><i class="fa fa-fw -square -circle fa-plus-square"></i> New Deck</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-remove"></i> Delete User</a>
+            <a class="btn btn-default" data-toggle="modal" data-target="#giveAwayCard"><i class="fa fa-fw fa-gift"></i> Give Away Card</a>
         </div>
     </div>
     <div class="section" style="margin-left: -26px;">
@@ -269,12 +269,12 @@ if (isset($_SESSION["username"])) {
             <?php echo "</form>";?>
         </div>
     </div>
-    <div class="fade modal" id="newDeck">
+    <div class="fade modal" id="giveAwayCard">
         <div class="modal-dialog">
             <div class="modal-content" style="top: 68px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
-                    <h2 class="modal-title" id="myModalLabel">New Deck</h2>
+                    <h2 class="modal-title" id="myModalLabel">Give Away Card</h2>
                 </div>
                 <div class="modal-body">
                     <?php
@@ -283,37 +283,49 @@ if (isset($_SESSION["username"])) {
                     ?>
                         <fieldset>
                             <!-- Form Name -->
-                            <!-- Images cards-->
+                            <!-- Cards name-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="prependedtext">Username</label>
+                                <label class="col-md-4 control-label" for="prependedtext" style="text-align:center;">Cards Name</label>
                                 <div class="col-md-5">
                                     <?php
-                                    echo "<select name='card'>";
+                                    echo "<select name='card' class='form-control'>";
                                     // Llamamos al método que devuelve todos los datos de los usuarios
-                                    $images = selectImageCards2();
+                                    $cards = selectImageCards2();
                                     // Mientras haya datos, leemos la fila y la mostramos
-                                    while ($fila = mysqli_fetch_array($images)) {
+                                    while ($fila = mysqli_fetch_array($cards)) {
                                         extract($fila);
                                         // SIEMPRE después de un extract, las variables
                                         // tienen el nombre de los campos de la bbdd
-                                        echo "<option value='$name'>";
+                                        echo "<option value='$name'>$name";
                                         echo "</option>";
                                     }
                                     echo "</select>";
                                     ?>
                                 </div>
                             </div>
-                            <!-- Select Basic -->
+                            <!-- User name -->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="departamento">Type</label>
+                                <label class="col-md-4 control-label" for="userName" style="text-align:center;">User Name</label>
                                 <div class="col-md-5">
-                                    <select id="tipo" name="tipo" class="form-control">
-                                            <option value="0">Usuario</option>
-                                            <option value="1">Admin</option>
-                                        </select>
+                                    <?php
+                                    echo "<select name='userName' class='form-control'>";
+                                    // Llamamos al método que devuelve todos los datos de los usuarios
+                                    $userNames = selectAllUser();
+                                    // Mientras haya datos, leemos la fila y la mostramos
+                                    while ($fila = mysqli_fetch_array($userNames)) {
+                                        extract($fila);
+                                        // SIEMPRE después de un extract, las variables
+                                        // tienen el nombre de los campos de la bbdd
+                                        if ($type==1) $type="Admin";
+                                        else $type="User";
+                                        echo "<option value='$username'>$type: $username";
+                                        echo "</option>";
+                                    }
+                                    echo "</select>";
+                                    ?>
                                 </div>
-                                <button type="submit" class="btn btn-primary" name="guardarUser">
-                                        <i class="fa fa-fw fa-save"></i>Save</button>
+                                <button type="submit" class="btn btn-primary" name="giveAwayCard">
+                                        <i class="fa fa-fw fa-gift"></i>Give Away</button>
                             </div>
                             <!-- File Button -->
                             <!-- Button -->
