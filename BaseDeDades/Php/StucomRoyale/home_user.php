@@ -118,8 +118,8 @@ if (isset($_SESSION["username"])) {
                             extract($fila);
                             // SIEMPRE después de un extract, las variables
                             // tienen el nombre de los campos de la bbdd
-                            $hitpoints=($hitpoints+$level)*2;
-                            $damage=($damage+$level)*2;
+                            $hitpoints=$hitpoints+($level*2);
+                            $damage=$damage+($level*2);
                   echo "<td><p style='margin-top: 10px;margin-bottom: 10px;'>$type</p></td>
                         <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$rarity</p></td>
                         <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$hitpoints</p></td>

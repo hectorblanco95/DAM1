@@ -16,9 +16,10 @@ public class Serie {
 	}
 	public Serie(String titulo, int temporadas, String genero, String creador){
 		this.titulo=titulo;
-		comprobarColor(color);
-		comprobarConsumoEnergetico(consumoEnergetico);
+		temporadas = new ArrayList<Integer>(temporadas);
+		this.genero=genero;
 		this.creador=creador;
+		
 	}
 
 	// Getters
@@ -51,7 +52,4 @@ public class Serie {
 	public void setCreador(String creador){
 		this.creador=creador;
 	}
-
-	// Otros metodos de la clase
-
 }
