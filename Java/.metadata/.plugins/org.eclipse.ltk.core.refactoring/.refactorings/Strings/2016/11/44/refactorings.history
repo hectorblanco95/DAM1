@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Redenominar tipo &apos;ex01&apos; como &apos;ex001&apos;&#x0A;- Proyecto original: &quot;Strings&quot;&#x0A;- Elemento original: &apos;ex01&apos;&#x0A;- Elemento redenominado: &apos;ex001&apos;&#x0A;- Actualizar referencias a elemento refactorizado&#x0A;- Actualizar apariciones textuales en comentarios y series" description="Redenominar tipo &apos;ex01&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{ex01.java[ex01" matchStrategy="1" name="ex001" qualified="false" references="true" similarDeclarations="false" stamp="1478020133045" textual="false" version="1.0"/>
-</session>

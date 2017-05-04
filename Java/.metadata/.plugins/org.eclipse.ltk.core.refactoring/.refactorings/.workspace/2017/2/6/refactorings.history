@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Borre 6 recursos" deleteContents="false" description="Borre 6 recursos" element1="/aaa" element2="/condicionals" element3="/entrada-sortida" element4="/operadores" element5="/sentènciesRepetitives" element6="/Strings" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="6" stamp="1486509674748"/>&#x0A;<refactoring comment="Borrar el recurso &apos;Java&apos;." deleteContents="false" description="Borrar el recurso &apos;Java&apos;." element1="/Java" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1486510205202"/>
-</session>
