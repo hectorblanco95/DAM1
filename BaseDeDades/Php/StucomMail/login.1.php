@@ -66,70 +66,13 @@ if (isset($_POST["register-submit"])) {
                 $tipo = getTypeByUsername($username);
                 // Guardamos el tipo de usuario en la variable de sesión
                 $_SESSION["tipo"] = $tipo;
-                
-                // Llamamos al método que devuelve los nombres de las cartas
-                $cards = selectNameCards();
-                $nameCards=array();
-                $imageCards=array();
-                // Mientras haya datos, leemos la fila y la mostramos
-                while ($fila = mysqli_fetch_array($cards)) {
-                    extract($fila);
-                    // SIEMPRE después de un extract, las variables
-                    // tienen el nombre de los campos de la bbdd
-                    array_push($nameCards,$name);
-                }
-                $rand = array_rand($nameCards, 3);
-                for($i=0;$i<3;$i++){
-                    array_push($imageCards,selectImageCards($nameCards[$rand[$i]]));
-                    insertDeckUser($_SESSION["username"], $nameCards[$i], $imageCards[$i]);
-                }
-                ?>    
-                <!DOCTYPE html>
-    <!-- HomePage del user -->
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Home Page User</title>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-            <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
-        </head>
-        <body style="padding-top: 0;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-xs-12 user-stats" style="width: 100%;">
-                        <div class="well" style="background-image: url('img/StarburstEffectBackground.jpeg');padding: 8% 44%;background-size: 103%;background-position-x: 51%">
-                            <h1 style="margin-top: -68%;text-align: center;width: 846%;color: white;background-color: red;margin-left: -373%;font-size: 39px;font-family: bungee,sans-serif;font-style: normal;font-weight: 400;text-shadow: -1px 0 1px black, 1px 0 1px black, 0 -1px 1px black, 0 4px 1px black, -2px 4px 1px black, 2px 3px 2px black;">GIFT CARDS</h1>
-                            <div id="imgmid2" style="width: 365%;text-align: center;margin-left: -124%;margin-top: 41%;"></div>
-                            <div id="imgmid">
-                                <img onclick="addImg()" src="img/Coffre-en-or-ferme.png" style="margin-top: 76%;margin-left: -24%;">
-                                <h1 style="text-align: center;color: white;font-size: 39px;font-family: bungee,sans-serif;font-style: normal;font-weight: 400;text-shadow: -1px 0 1px black, 1px 0 1px black, 0 -1px 1px black, 0 4px 1px black, -2px 4px 1px black, 2px 3px 2px black;">OPEN</h1>
-                            </div>
-                        </div>    
-                    </div> 
-                </div>  
-            </div>
-        <script type="text/javascript " src="jquery.min.js"></script>
-	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-        <script>
-        function addImg(){
-            $("#imgmid > img").remove();
-            $("#imgmid > h1").remove();
-            var image = $("<img src=img/CoffreGoldenChest.png style=width:250%;margin-left:-72%;margin-top:-59%;></img>").hide();
-            var image2 = $("<img src=<?php echo $imageCards[0];?> style=width:30%;><img src=<?php echo $imageCards[1];?> style=width:30%;><img src=<?php echo $imageCards[2];?> style=width:30%;>").hide();
-            $("#imgmid").append(image);
-            $("#imgmid2").append(image2);
-            image.show();
-            image2.show();
-        }   
-        </script>
-        </body>
-        <footer></footer>
-    </html>
-        <?php
-            // Dirigimos al usuario a su página
-            header("refresh:14;url=home_user.php");
-            }
+                if ($tipo == 0) 
+                    // Dirigimos al usuario a su página
+                    header("Location: home_user.php");
+                 else if ($tipo == 1) 
+                    header("Location: home_admin.php");
+            }  else 
+                echo "<p>Usuario o contraseña incorrectos.</p>";
     }
 }
 if (isset($_POST["modificarPass"])) {

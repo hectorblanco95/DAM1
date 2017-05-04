@@ -2,13 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>StucomRoyale</title>
+        <title>Stucom Mail</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
         <link href="cssRoyale.css" rel="stylesheet" type="text/css"/>
         <link href="cssLogin.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container">
+    	<header><img src="img/StucomMail.png"/ style="margin-top: -53px;width: 459px;"></header>
+        <div class="container" style="margin-top: -23px;">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
