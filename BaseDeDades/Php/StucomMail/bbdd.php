@@ -10,6 +10,4 @@ function conectar($database) {
 function desconectar($conexion) {
     mysqli_close($conexion);
 }
-
 ?>
-
