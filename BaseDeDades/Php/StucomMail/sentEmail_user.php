@@ -101,11 +101,11 @@ if (isset($_SESSION["username"])) {
                                       </div><!-- /.modal -->
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
-                                      <li class="active">
+                                      <li>
                                           <a href="home_user.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
             
                                       </li>
-                                      <li>
+                                      <li class="active">
                                           <a href="sentEmail_user.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
                                       <li>
@@ -158,7 +158,7 @@ if (isset($_SESSION["username"])) {
                               </aside>
                               <aside class="lg-side">
                                   <div class="inbox-head">
-                                      <h3>Inbox</h3>
+                                      <h3>Sent Mail</h3>
                                       <form action="#" class="pull-right position">
                                           <div class="input-append">
                                               <input type="text" class="sr-input" placeholder="Search Mail">
@@ -277,7 +277,7 @@ if (isset($_SESSION["username"])) {
                                       <?php
         // Mostrando el anterior (en caso de que lo haya)
         if ($contador > 0) {
-            echo "<a href='home_user.php?contador=".($contador-10)."'>Anterior </a>";
+            echo "<a href='sentEmail_user.php?contador=".($contador-10)."'>Anterior </a>";
         }
         // Mostrando mensaje de los resultados actuales
         if (($contador + 10) <= $total) {
@@ -287,7 +287,7 @@ if (isset($_SESSION["username"])) {
         }
         // Mostrar el siguiente (en cado de que lo haya)
         if (($contador + 10) < $total) {
-            echo "<a href='home_user.php?contador=".($contador+10)."'> Siguiente</a>";
+            echo "<a href='sentEmail_user.php?contador=".($contador+10)."'> Siguiente</a>";
         }
         ?>
                                   </div>

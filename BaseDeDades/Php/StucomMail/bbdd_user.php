@@ -2,11 +2,54 @@
 
 require_once 'bbdd.php';
 
+// Función que devuelve cuántos emails hay en la bbdd
+function totalEmails() {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from message;";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
+// Función que nos devuelve los emails enviados
+// desde una posición y una cantidad determinada
+function selectEmailsSent($username, $posicion, $cantidad) {
+    $con = conectar("msg");
+    $select = "select receiver, date, read, subject, body from message where sender='$username' order by date asc limit $posicion, $cantidad";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
+
+// Función que nos devuelve los emails
+// desde una posición y una cantidad determinada
+function selectEmails($username, $posicion, $cantidad) {
+    $con = conectar("msg");
+    $select = "select sender, date, read, subject, body from message where receiver='$username' order by date asc limit $posicion, $cantidad";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
+
+// Función que inserta el email en la bbdd
+function insertEmail($sender, $receiver, $fecha, $asunto, $mensaje) {
+    $con = conectar("msg");
+    $insert = "insert into message (`sender`, `receiver`, `date`, `read`, `subject`, `body`) values ('$sender', '$receiver', '$fecha', 0, '$asunto', '$mensaje');";
+    if (mysqli_query($con, $insert));
+     else 
+        echo mysqli_error($con);
+    desconectar($con);
+}
+
 // Función que inserta la date del servidor en la tabla event de la bbdd
 function insertDate($username, $fecha) {
     $con = conectar("msg");
     if (isset($_POST["login-submit"]))
         $insert = "insert into event (`user`, `date`, `type`) values ('$username', '$fecha', 'I');";
+    if (isset($_POST["sendEmail"]))
+        $insert = "insert into event (`user`, `date`, `type`) values ('$username', '$fecha', 'R');";
     if (mysqli_query($con, $insert));
      else 
         echo mysqli_error($con);
@@ -24,10 +67,10 @@ function userData($username) {
     return $resultado;
 }
 
-// Función que devuelve todos los datos de todos los usuarios
-function selectAllUser() {
+// Función que devuelve el username y el type de todos los usuarios
+function selectUsernameUsers() {
     $con = conectar("msg");
-    $select = "select * from user order by username asc;";
+    $select = "select username, type from user order by username asc;";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);
@@ -41,15 +84,12 @@ function setPass($username, $pass) {
     $passCif = password_hash($pass, PASSWORD_DEFAULT);
     $query = "UPDATE user SET password = '$passCif' WHERE username = '$username';;";
     if (mysqli_query($con, $query)) {
+        echo "Contraseña modificada.";
         // Comprobamos el tipo para dirigir al user
-        if ($_SESSION["tipo"] == 0) {
-            // Dirigimos al usuario a su página
-            echo "Contraseña modificada.";
+        if ($_SESSION["tipo"] == 0) 
             header("refresh:3;url=home_user.php");
-        } else if ($_SESSION["tipo"] == 1) {
-            echo "Contraseña modificada.";
+         else if ($_SESSION["tipo"] == 1) 
             header("refresh:3;url=home_admin.php");
-        }
     } else {
         echo mysqli_error($con);
     }

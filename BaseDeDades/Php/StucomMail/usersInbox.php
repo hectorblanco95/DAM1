@@ -3,17 +3,17 @@ session_start();
 if (isset($_SESSION["username"])) {
     // incluimos el fichero de la bbdd
     require_once 'bbdd_user.php';
-    // Nos aseguramos que el usuario sea usuario
+    // Nos aseguramos que el usuario sea administrador
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
-    if ($tipo == 0) {
+    if ($tipo == 1) {
         ?>
         <!DOCTYPE html>
-        <!-- Página principal del usuario -->
+        <!-- Página principal del usuario admin -->
         <html>
             <head>
                 <meta charset="UTF-8">
-                <title>Home Page Usuario</title>
+                <title>Home Page Administrator</title>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
@@ -23,17 +23,23 @@ if (isset($_SESSION["username"])) {
             <div class="container" style="width: 100%; padding-left: 0; padding-right: 0;">
                 <div class="mail-box">
                     <aside class="sm-side">
-                                  <div class="user-head" style="height: 16%;">
+                                  <div class="user-head" style="height: 22%;">
                                       <a class="inbox-avatar" href="javascript:;">
                                           <img  width="64" hieght="60" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg">
                                       </a>
                                       <div class="user-name">
-                                          <h5><a href="#"><?php echo $_SESSION["name"];?></a></h5>
+                                          <h5><a href="#"><?php echo $_SESSION["name"];?> </a><span class="label label-info"> Admin</span></h5>
                                           <span><a href="#"><?php echo $_SESSION["username"];?>@stucom.com</a></span>
                                       </div><br><br>
                                       <ul class="inbox-nav">
                                           <li>
                                               <a href data-toggle="modal" data-target="#changePassword"><i class="fa fa-fw fa-key"></i> Change Password</a>
+                                          </li>
+                                          <li>
+                                              <a href data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
+                                          </li>
+                                          <li>
+                                              <a href data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i> Delete User</a>
                                           </li>
                                           <li>
                                               <a href="logout.php"><i class=" fa fa-fw fa-sign-out"></i> Logout</a>
@@ -49,7 +55,7 @@ if (isset($_SESSION["username"])) {
                                           <div class="modal-dialog" style="width: 50%;">
                                               <div class="modal-content">
                                                   <div class="modal-header">
-                                                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button"><i class="fa fa-fw s fa-remove"></i></button>
+                                                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button" tabindex="-1"><i class="fa fa-fw s fa-remove"></i></button>
                                                       <h4 class="modal-title">New Email</h4>
                                                   </div>
                                                   <div class="modal-body">
@@ -58,7 +64,7 @@ if (isset($_SESSION["username"])) {
                                                               <label class="col-lg-2 control-label">To</label>
                                                               <div class="col-lg-10">
                                                                   <?php
-                                                                  echo "<select name='usuario[]' class='js-example-placeholder-multiple form-control' multiple='multiple' tabindex='0' required>";
+                                                                  echo "<select name='usuario[]s' class='js-example-placeholder-multiple form-control' multiple='multiple' tabindex='0' required>";
                                                                   // Llamamos al método que devuelve todos los datos de los usuarios
                                                                   $usuarios = selectUsernameUsers();
                                                                   // Mientras haya datos, leemos la fila y la mostramos
@@ -101,18 +107,18 @@ if (isset($_SESSION["username"])) {
                                       </div><!-- /.modal -->
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
-                                      <li class="active">
-                                          <a href="home_user.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                      <li>
+                                          <a href="home_admin.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
             
                                       </li>
                                       <li>
-                                          <a href="sentEmail_user.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
+                                          <a href="sentEmail_admin.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
                                       <li>
                                           <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
                                       </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
+                                      <li class="active">
+                                          <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right">30</span></a>
                                       </li>
                                       <li>
                                           <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
@@ -158,7 +164,7 @@ if (isset($_SESSION["username"])) {
                               </aside>
                               <aside class="lg-side">
                                   <div class="inbox-head">
-                                      <h3>Inbox</h3>
+                                      <h3>Users Inbox</h3>
                                       <form action="#" class="pull-right position">
                                           <div class="input-append">
                                               <input type="text" class="sr-input" placeholder="Search Mail">
@@ -223,7 +229,7 @@ if (isset($_SESSION["username"])) {
                                              </li>
                                          </ul>
                                      </div>
-                                      <?php
+                                     <?php
         if (isset($_GET["contador"])) {
             $contador = $_GET["contador"];
         } else {
@@ -277,7 +283,7 @@ if (isset($_SESSION["username"])) {
                                       <?php
         // Mostrando el anterior (en caso de que lo haya)
         if ($contador > 0) {
-            echo "<a href='home_user.php?contador=".($contador-10)."'>Anterior </a>";
+            echo "<a href='home_admin.php?contador=".($contador-10)."'>Anterior </a>";
         }
         // Mostrando mensaje de los resultados actuales
         if (($contador + 10) <= $total) {
@@ -287,7 +293,7 @@ if (isset($_SESSION["username"])) {
         }
         // Mostrar el siguiente (en cado de que lo haya)
         if (($contador + 10) < $total) {
-            echo "<a href='home_user.php?contador=".($contador+10)."'> Siguiente</a>";
+            echo "<a href='home_admin.php?contador=".($contador+10)."'> Siguiente</a>";
         }
         ?>
                                   </div>
@@ -333,6 +339,111 @@ if (isset($_SESSION["username"])) {
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="fade modal" id="usuario">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="top: 68px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                            <h2 class="modal-title" id="myModalLabel">New User</h2>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" action="login.php" method="post" role="form">
+                                <fieldset>
+                                    <!-- Form Name -->
+                                    <!-- Prepended text-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="prependedtext">Username</label>
+                                        <div class="col-md-5">
+                                            <input id="username" name="username" class="form-control" placeholder="Username" type="text" maxlenght="10" required="">
+                                        </div>
+                                    </div>
+                                    <!-- Password input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="password">Password</label>
+                                        <div class="col-md-5">
+                                            <input id="password" name="password" type="password" placeholder="Password" class="form-control input-md" maxlenght="200" required="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="password">Confirm Password</label>
+                                        <div class="col-md-5">
+                                            <input id="confirm-password" name="confirm-password" type="password" placeholder="Confirm Password" class="form-control input-md" maxlenght="200" required="">
+                                        </div>
+                                    </div>
+                                    <!-- Name input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="name">Name</label>
+                                        <div class="col-md-5">
+                                            <input id="name" name="name" type="text" placeholder="Name" class="form-control input-md" maxlenght="20" required="">
+                                        </div>
+                                    </div>
+                                    <!-- Surname input-->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="surname">Surname</label>
+                                        <div class="col-md-5">
+                                            <input id="surname" name="surname" type="text" placeholder="Surname" class="form-control input-md" maxlenght="50" required="">
+                                        </div>
+                                    </div>
+                                    <!-- Select Basic -->
+                                    <div class="form-group">
+                                        <label class="col-md-4 control-label" for="departamento">Type</label>
+                                        <div class="col-md-5">
+                                            <select id="tipo" name="tipo" class="form-control">
+                                                    <option value="0">Usuario</option>
+                                                    <option value="1">Admin</option>
+                                                </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary" name="saveUser">
+                                                <i class="fa fa-fw fa-save"></i>Save</button>
+                                    </div>
+                                    <!-- File Button -->
+                                    <!-- Button -->
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fade modal" id="delete">
+                <div class="modal-dialog">
+                    <?php
+                    // Formulario que permite escoger usuario al admin
+                    echo "<form action='login.php' method='POST'>";
+                    ?>
+                    <div class="modal-content" style="top: 68px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                            <h2 class="modal-title" id="myModalLabel">Delete Confirmation</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p class="error-text" style="display: inline-block;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to delete the user?</p>
+                            <?php
+                            echo "<select name='usuario' style='margin: 7px;'>";
+                            // Llamamos al método que devuelve todos los datos de los usuarios
+                            $usuarios = selectUsernameUsers();
+                            // Mientras haya datos, leemos la fila y la mostramos
+                            while ($fila = mysqli_fetch_array($usuarios)) {
+                                extract($fila);
+                                // SIEMPRE después de un extract, las variables
+                                // tienen el nombre de los campos de la bbdd
+                                if($username!="admin"){
+                                    if ($type==1) $type="Admin";
+                                    else $type="User";
+                                    echo "<option value='$username'>$type: $username";
+                                    echo "</option>";
+                                }
+                            }
+                            echo "</select>";
+                            ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <?php echo "<button type='submit' class='btn btn-danger' name='delete'>Delete</button>";?>
+                        </div>
+                    </div>
+                    <?php echo "</form>";?>
                 </div>
             </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
