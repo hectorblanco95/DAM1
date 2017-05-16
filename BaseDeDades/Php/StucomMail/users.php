@@ -101,14 +101,14 @@ if (isset($_SESSION["username"])) {
                                       </div><!-- /.modal -->
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
-                                      <li class="active">
+                                      <li>
                                           <a href="home_admin.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
             
                                       </li>
                                       <li>
                                           <a href="sentEmail_admin.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
-                                      <li>
+                                      <li class="active">
                                           <a href="users.php"><i class="fa fa-users"></i> Users</a>
                                       </li>
                                       <li>
@@ -164,7 +164,7 @@ if (isset($_SESSION["username"])) {
                               </aside>
                               <aside class="lg-side">
                                   <div class="inbox-head">
-                                      <h3>Inbox</h3>
+                                      <h3>Users</h3>
                                       <form action="#" class="pull-right position">
                                           <div class="input-append">
                                               <input type="text" class="sr-input" placeholder="Search Mail">
@@ -254,29 +254,53 @@ if (isset($_SESSION["username"])) {
                                          </ul>
                                      </div>
                                      
-                                      <table class="table table-inbox table-hover">
-                                        <tbody>
-                                          <?php
-                                            $emails = selectEmails($_SESSION["username"], $contador, 10);
-                                            while ($fila = mysqli_fetch_array($emails)) {
-                                                extract($fila);
-                                                if ($read==0)
-                                                    echo "<tr class='unread'>";
-                                                 else
-                                                    echo "<tr>";
-                                                    echo "<td class='inbox-small-cells' style='width: 4%;'>
-                                                            <input type='checkbox' class='mail-checkbox'>
-                                                          </td>
-                                                          <td class='inbox-small-cells' style='width: 8%;'><i class='fa fa-star'></i></td>
-                                                          <td class='view-message  dont-show'>$sender</td>
-                                                          <td class='view-message '>$subject</td>
-                                                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
-                                                          <td class='view-message  text-right' style='width: 13%;'>$date</td>
-                                                          </tr>";    
-                                            }
-                                          ?>
-                                      </tbody>
-                                      </table>
+                                      <div class="section" style="margin-left: -26px;">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-12 panel-primary filterable" style="width: 83%;">
+                                                    <table class="table table-hover table-striped">
+                                                        <thead>
+                                                    <tr class="filters">
+                                                        <th><p style="margin: 0;margin-left: 30%;color: #333;">#</p></th>
+                                                        <th><input type="text" class="form-control" placeholder="Username" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Surname" disabled></th>
+                                                    
+                                                    <div class="pull-right">
+                                                        <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                                                    </div>
+                                                </tr>
+                                                </thead>
+                                                        <tbody>
+                                                            <?php
+                                                            // Llamamos al método que devuelve todos los datos de los usuarios
+                                                            $usuarios = selectUsernameUsers();
+                                                            // Mientras haya datos, leemos la fila y la mostramos
+                                                            while ($fila = mysqli_fetch_array($usuarios)) {
+                                                                extract($fila);
+                                                                // SIEMPRE después de un extract, las variables
+                                                                // tienen el nombre de los campos de la bbdd
+                                                                
+                                                                if ($type==1) $type="Admin";
+                                                                else $type="User";
+                                                                echo "<tr>
+                                                                <td><img src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg' class='img-circle' width='60' style='margin-left: 11%;'></td>
+                                                                <td><h4>
+                                                                  <b>$username</b>
+                                                                 </h4>
+                                                                 <p style='margin: 0;'>$type</p>
+                                                                </td>
+                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$name</p></td>
+                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$surname</p></td>
+                                                               </tr>";
+                                                            }
+                                                            ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                   </div>
                               </aside>
                           </div>
@@ -431,6 +455,7 @@ if (isset($_SESSION["username"])) {
 	        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 	        <script type="text/javascript">$(".js-example-placeholder-multiple").select2({placeholder: "Select Users"});</script>
+	        <script type="text/javascript " src="filterable.js"></script>
             </body>
         </html>
         <?php

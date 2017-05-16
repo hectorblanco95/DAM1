@@ -20,11 +20,11 @@
         <table>
             <tr><th>Nombre</th><th>Nivel</th></tr>
             <?php
-            $games = selectEmails($contador, 10);
+            $games = selectEmails($_SESSION["username"], $contador, 10);
             while ($fila = mysqli_fetch_array($games)) {
                 extract($fila);
                 echo "<tr>";
-                echo "<td>$card</td><td>$level</td>";
+                echo "<td>$sender</td><td>$subject</td>";
                 echo "</tr>";
             }
             ?>

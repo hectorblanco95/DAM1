@@ -23,7 +23,7 @@ if (isset($_SESSION["username"])) {
             <div class="container" style="width: 100%; padding-left: 0; padding-right: 0;">
                 <div class="mail-box">
                     <aside class="sm-side">
-                                  <div class="user-head" style="height: 22%;">
+                                  <div class="user-head" style="height: 15%;">
                                       <a class="inbox-avatar" href="javascript:;">
                                           <img  width="64" hieght="60" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg">
                                       </a>
@@ -34,12 +34,6 @@ if (isset($_SESSION["username"])) {
                                       <ul class="inbox-nav">
                                           <li>
                                               <a href data-toggle="modal" data-target="#changePassword"><i class="fa fa-fw fa-key"></i> Change Password</a>
-                                          </li>
-                                          <li>
-                                              <a href data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
-                                          </li>
-                                          <li>
-                                              <a href data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i> Delete User</a>
                                           </li>
                                           <li>
                                               <a href="logout.php"><i class=" fa fa-fw fa-sign-out"></i> Logout</a>
@@ -64,7 +58,7 @@ if (isset($_SESSION["username"])) {
                                                               <label class="col-lg-2 control-label">To</label>
                                                               <div class="col-lg-10">
                                                                   <?php
-                                                                  echo "<select name='usuario[]s' class='js-example-placeholder-multiple form-control' multiple='multiple' tabindex='0' required>";
+                                                                  echo "<select name='usuario[]' class='js-example-placeholder-multiple form-control' multiple='multiple' tabindex='0' required>";
                                                                   // Llamamos al método que devuelve todos los datos de los usuarios
                                                                   $usuarios = selectUsernameUsers();
                                                                   // Mientras haya datos, leemos la fila y la mostramos
@@ -115,7 +109,13 @@ if (isset($_SESSION["username"])) {
                                           <a href="sentEmail_admin.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
                                       <li>
-                                          <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
+                                          <a href="users.php"><i class="fa fa-users"></i> Users</a>
+                                      </li>
+                                      <li>
+                                          <a href data-toggle="modal" data-target="#usuario"><i class="fa fa-fw -square -circle fa-plus-square"></i> New User</a>
+                                      </li>
+                                      <li>
+                                          <a href data-toggle="modal" data-target="#delete"><i class="fa fa-fw fa-trash-o"></i> Delete User</a>
                                       </li>
                                       <li class="active">
                                           <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right">30</span></a>
@@ -218,84 +218,65 @@ if (isset($_SESSION["username"])) {
                                                  <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
                                              </ul>
                                          </div>
-            
+                                         <?php
+                                         if (isset($_GET["contador"])) {
+                                             $contador = $_GET["contador"];
+                                         } else {
+                                             $contador = 0;
+                                         }
+                                         $total = totalEmails();
+                                         ?>
                                          <ul class="unstyled inbox-pagination">
-                                             <li><span>1-50 of 234</span></li>
-                                             <li>
-                                                 <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
-                                             </li>
-                                             <li>
-                                                 <a class="np-btn" href="#"><i class="fa fa-angle-right pagination-right"></i></a>
-                                             </li>
+                                             <li><span>
+                                             <?php
+                                             // Mostrando mensaje de los resultados actuales
+                                             if (($contador + 10) <= $total) {
+                                                 echo ($contador + 1) . "-" . ($contador + 10) . " of $total";
+                                             } else {
+                                                 echo ($contador + 1) . "-$total of $total";
+                                             }
+                                             ?>
+                                             </span></li>
+                                             <?php
+                                             // Mostrando el anterior (en caso de que lo haya)
+                                             if ($contador > 0) {
+                                                 echo "<li>
+                                                         <a class='np-btn' href='home_admin.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
+                                                       </li>";
+                                             }
+                                             // Mostrar el siguiente (en cado de que lo haya)
+                                             if (($contador + 10) < $total) {
+                                                 echo "<li>
+                                                         <a class='np-btn' href='home_admin.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
+                                                       </li>";
+                                             }
+                                             ?>
                                          </ul>
                                      </div>
-                                     <?php
-        if (isset($_GET["contador"])) {
-            $contador = $_GET["contador"];
-        } else {
-            $contador = 0;
-        }
-        $total = totalEmails();
-        ?>
+                                     
                                       <table class="table table-inbox table-hover">
                                         <tbody>
-                                          <tr class="unread">
-                                              <td class="inbox-small-cells">
-                                                  <input type="checkbox" class="mail-checkbox">
-                                              </td>
-                                              <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                              <td class="view-message  dont-show">$sender</td>
-                                              <td class="view-message ">$subject</td>
-                                              <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
-                                              <td class="view-message  text-right">$date</td>
-                                          </tr>
                                           <?php
-            $emails = selectEmails($_SESSION["username"], $contador, 10);
-            while ($fila = mysqli_fetch_array($emails)) {
-                extract($fila);
-                if ($read==1)
-                    echo "<tr class='unread'>";
-                 else
-                    echo "<tr>";
-                    echo "<td class='inbox-small-cells'>
-                            <input type='checkbox' class='mail-checkbox'>
-                          </td>
-                          <td class='inbox-small-cells'><i class='fa fa-star'></i></td>
-                          <td class='view-message  dont-show'>$sender</td>
-                          <td class='view-message '>$subject</td>
-                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
-                          <td class='view-message  text-right'>$date</td>
-                          </tr>";    
-            }
-            ?>
-                                          <tr class="">
-                                              <td class="inbox-small-cells">
-                                                  <input type="checkbox" class="mail-checkbox">
-                                              </td>
-                                              <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                                              <td class="view-message dont-show">Freelancer.com <span class="label label-danger pull-right">urgent</span></td>
-                                              <td class="view-message">Stop wasting your visitors </td>
-                                              <td class="view-message inbox-small-cells"></td>
-                                              <td class="view-message text-right">May 23</td>
-                                          </tr>
+                                            $emails = selectEmails($_SESSION["username"], $contador, 10);
+                                            while ($fila = mysqli_fetch_array($emails)) {
+                                                extract($fila);
+                                                if ($read==0)
+                                                    echo "<tr class='unread'>";
+                                                 else
+                                                    echo "<tr>";
+                                                    echo "<td class='inbox-small-cells' style='width: 4%;'>
+                                                            <input type='checkbox' class='mail-checkbox'>
+                                                          </td>
+                                                          <td class='inbox-small-cells' style='width: 8%;'><i class='fa fa-star'></i></td>
+                                                          <td class='view-message  dont-show'>$sender</td>
+                                                          <td class='view-message '>$subject</td>
+                                                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
+                                                          <td class='view-message  text-right' style='width: 13%;'>$date</td>
+                                                          </tr>";    
+                                            }
+                                          ?>
                                       </tbody>
                                       </table>
-                                      <?php
-        // Mostrando el anterior (en caso de que lo haya)
-        if ($contador > 0) {
-            echo "<a href='home_admin.php?contador=".($contador-10)."'>Anterior </a>";
-        }
-        // Mostrando mensaje de los resultados actuales
-        if (($contador + 10) <= $total) {
-            echo "Mostrando de " . ($contador + 1) . " a " . ($contador + 10) . " de $total";
-        } else {
-            echo "Mostrando de " . ($contador + 1) . " a $total de $total";
-        }
-        // Mostrar el siguiente (en cado de que lo haya)
-        if (($contador + 10) < $total) {
-            echo "<a href='home_admin.php?contador=".($contador+10)."'> Siguiente</a>";
-        }
-        ?>
                                   </div>
                               </aside>
                           </div>

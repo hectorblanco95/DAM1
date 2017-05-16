@@ -5,7 +5,7 @@ require_once 'bbdd.php';
 // Función que devuelve cuántos emails hay en la bbdd
 function totalEmails() {
     $con = conectar("msg");
-    $select = "select count(*) as cont from message;";
+    $select = "select count(*) as cont from message where receiver='$username';";
     $resultado = mysqli_query($con, $select);
     $fila = mysqli_fetch_array($resultado);
     extract($fila);
@@ -17,7 +17,7 @@ function totalEmails() {
 // desde una posición y una cantidad determinada
 function selectEmailsSent($username, $posicion, $cantidad) {
     $con = conectar("msg");
-    $select = "select receiver, date, read, subject, body from message where sender='$username' order by date asc limit $posicion, $cantidad";
+    $select = "select receiver, date, `read`, subject, body from message where sender='$username' order by date desc limit $posicion, $cantidad";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
@@ -27,7 +27,7 @@ function selectEmailsSent($username, $posicion, $cantidad) {
 // desde una posición y una cantidad determinada
 function selectEmails($username, $posicion, $cantidad) {
     $con = conectar("msg");
-    $select = "select sender, date, read, subject, body from message where receiver='$username' order by date asc limit $posicion, $cantidad";
+    $select = "select sender, date, `read`, subject, body from message where receiver='$username' order by date desc limit $posicion, $cantidad";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
@@ -67,10 +67,10 @@ function userData($username) {
     return $resultado;
 }
 
-// Función que devuelve el username y el type de todos los usuarios
+// Función que devuelve el username, el name, el surname y el type de todos los usuarios
 function selectUsernameUsers() {
     $con = conectar("msg");
-    $select = "select username, type from user order by username asc;";
+    $select = "select username, name, surname, type from user order by username asc;";
     // Ejecutamos la consulta y recogemos el resultado
     $resultado = mysqli_query($con, $select);
     desconectar($con);

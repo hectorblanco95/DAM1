@@ -212,84 +212,65 @@ if (isset($_SESSION["username"])) {
                                                  <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
                                              </ul>
                                          </div>
-            
+                                         <?php
+                                         if (isset($_GET["contador"])) {
+                                             $contador = $_GET["contador"];
+                                         } else {
+                                             $contador = 0;
+                                         }
+                                         $total = totalEmails();
+                                         ?>
                                          <ul class="unstyled inbox-pagination">
-                                             <li><span>1-50 of 234</span></li>
-                                             <li>
-                                                 <a class="np-btn" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
-                                             </li>
-                                             <li>
-                                                 <a class="np-btn" href="#"><i class="fa fa-angle-right pagination-right"></i></a>
-                                             </li>
+                                             <li><span>
+                                             <?php
+                                             // Mostrando mensaje de los resultados actuales
+                                             if (($contador + 10) <= $total) {
+                                                 echo ($contador + 1) . "-" . ($contador + 10) . " of $total";
+                                             } else {
+                                                 echo ($contador + 1) . "-$total of $total";
+                                             }
+                                             ?>
+                                             </span></li>
+                                             <?php
+                                             // Mostrando el anterior (en caso de que lo haya)
+                                             if ($contador > 0) {
+                                                 echo "<li>
+                                                         <a class='np-btn' href='home_admin.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
+                                                       </li>";
+                                             }
+                                             // Mostrar el siguiente (en cado de que lo haya)
+                                             if (($contador + 10) < $total) {
+                                                 echo "<li>
+                                                         <a class='np-btn' href='home_admin.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
+                                                       </li>";
+                                             }
+                                             ?>
                                          </ul>
                                      </div>
-                                      <?php
-        if (isset($_GET["contador"])) {
-            $contador = $_GET["contador"];
-        } else {
-            $contador = 0;
-        }
-        $total = totalEmails();
-        ?>
+                                     
                                       <table class="table table-inbox table-hover">
                                         <tbody>
-                                          <tr class="unread">
-                                              <td class="inbox-small-cells">
-                                                  <input type="checkbox" class="mail-checkbox">
-                                              </td>
-                                              <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
-                                              <td class="view-message  dont-show">$sender</td>
-                                              <td class="view-message ">$subject</td>
-                                              <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
-                                              <td class="view-message  text-right">$date</td>
-                                          </tr>
                                           <?php
-            $emails = selectEmails($_SESSION["username"], $contador, 10);
-            while ($fila = mysqli_fetch_array($emails)) {
-                extract($fila);
-                if ($read==1)
-                    echo "<tr class='unread'>";
-                 else
-                    echo "<tr>";
-                    echo "<td class='inbox-small-cells'>
-                            <input type='checkbox' class='mail-checkbox'>
-                          </td>
-                          <td class='inbox-small-cells'><i class='fa fa-star'></i></td>
-                          <td class='view-message  dont-show'>$sender</td>
-                          <td class='view-message '>$subject</td>
-                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
-                          <td class='view-message  text-right'>$date</td>
-                          </tr>";    
-            }
-            ?>
-                                          <tr class="">
-                                              <td class="inbox-small-cells">
-                                                  <input type="checkbox" class="mail-checkbox">
-                                              </td>
-                                              <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
-                                              <td class="view-message dont-show">Freelancer.com <span class="label label-danger pull-right">urgent</span></td>
-                                              <td class="view-message">Stop wasting your visitors </td>
-                                              <td class="view-message inbox-small-cells"></td>
-                                              <td class="view-message text-right">May 23</td>
-                                          </tr>
+                                            $emails = selectEmailsSent($_SESSION["username"], $contador, 10);
+                                            while ($fila = mysqli_fetch_array($emails)) {
+                                                extract($fila);
+                                                if ($read==0)
+                                                    echo "<tr class='unread'>";
+                                                 else
+                                                    echo "<tr>";
+                                                    echo "<td class='inbox-small-cells' style='width: 4%;'>
+                                                            <input type='checkbox' class='mail-checkbox'>
+                                                          </td>
+                                                          <td class='inbox-small-cells' style='width: 8%;'><i class='fa fa-star'></i></td>
+                                                          <td class='view-message  dont-show'>$receiver</td>
+                                                          <td class='view-message '>$subject</td>
+                                                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
+                                                          <td class='view-message  text-right' style='width: 13%;'>$date</td>
+                                                          </tr>";    
+                                            }
+                                          ?>
                                       </tbody>
                                       </table>
-                                      <?php
-        // Mostrando el anterior (en caso de que lo haya)
-        if ($contador > 0) {
-            echo "<a href='sentEmail_user.php?contador=".($contador-10)."'>Anterior </a>";
-        }
-        // Mostrando mensaje de los resultados actuales
-        if (($contador + 10) <= $total) {
-            echo "Mostrando de " . ($contador + 1) . " a " . ($contador + 10) . " de $total";
-        } else {
-            echo "Mostrando de " . ($contador + 1) . " a $total de $total";
-        }
-        // Mostrar el siguiente (en cado de que lo haya)
-        if (($contador + 10) < $total) {
-            echo "<a href='sentEmail_user.php?contador=".($contador+10)."'> Siguiente</a>";
-        }
-        ?>
                                   </div>
                               </aside>
                           </div>
