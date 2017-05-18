@@ -224,7 +224,7 @@ if (isset($_SESSION["username"])) {
                                          } else {
                                              $contador = 0;
                                          }
-                                         $total = totalEmails();
+                                         $total = totalEmails($_SESSION["username"]);
                                          ?>
                                          <ul class="unstyled inbox-pagination">
                                              <li><span>

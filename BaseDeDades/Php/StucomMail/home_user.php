@@ -255,9 +255,9 @@ if (isset($_SESSION["username"])) {
                                             while ($fila = mysqli_fetch_array($emails)) {
                                                 extract($fila);
                                                 if ($read==0) { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject; ?>'">
+                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>'">
                                             <?php } else { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject; ?>'">
+                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>'">
                                             <?php }
                                                     echo "<td class='inbox-small-cells' style='width: 4%;'>
                                                             <input type='checkbox' class='mail-checkbox'>

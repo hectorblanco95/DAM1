@@ -3,9 +3,9 @@
 require_once 'bbdd.php';
 
 // Función que devuelve los mensajes que hay en el correo seleccionado
-function chat($sender, $receiver, $subject) {
+function chat($sender, $receiver, $subject, $date) {
     $con = conectar("msg");
-    $select = "select body from message where idmessage=$id;";
+    $select = "select sender, date, body from message where sender='$sender' and receiver='$receiver' and subject='$subject' and date='$date' order by date asc;";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
@@ -16,8 +16,9 @@ function selectBodyMessage($id) {
     $con = conectar("msg");
     $select = "select body from message where idmessage=$id;";
     $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_assoc($resultado);
     desconectar($con);
-    return $resultado;
+    return $fila["body"];
 }
 
 // Función que devuelve cuántos emails hay en la bbdd

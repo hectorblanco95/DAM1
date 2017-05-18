@@ -19,5 +19,22 @@ if (isset($_POST["sendEmail"])) {
         header("refresh:3;url=home_user.php");
      else if ($_SESSION["tipo"] == 1) 
         header("refresh:3;url=home_admin.php");
+}
+if (isset($_POST["submitTextarea"])) {
+    $date = getdate();
+    $fecha = $date['year']."-".$date['mon']."-".$date['mday']." ".$date['hours'].":".$date['minutes'].":".$date['seconds'];
+
+    insertEmail($_POST["sender"], $_POST["receiver"], $fecha, $_POST["subject"], $_POST["textarea"]);
+    echo "Sent email.";
+    $id=$_POST["id"];
+    $sender=$_POST['sender'];
+    $receiver=$_POST['receiver'];
+    $subject=$_POST['subject'];
+    $date=$_POST['date'];
+    // Comprobamos el tipo para dirigir al user
+    if ($_SESSION["tipo"] == 0) 
+        header("refresh:3;url=conversation_user.php?id=<?php echo $id.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>");
+     else if ($_SESSION["tipo"] == 1) 
+        header("refresh:3;url=conversation_admin.php?id=<?php echo $id.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>");
 } 
 ?>
