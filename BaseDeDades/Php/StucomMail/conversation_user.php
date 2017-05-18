@@ -1,12 +1,15 @@
 <?php
 session_start();
+
 if (isset($_SESSION["username"])) {
-    // incluimos el fichero de la bbdd
-    require_once 'bbdd_user.php';
     // Nos aseguramos que el usuario sea usuario
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
-    if ($tipo == 0) {
+    $sessionUsername=$_SESSION["username"];
+    $getReceiver=$_GET["receiver"];
+    if ($tipo == 0 && $sessionUsername==$getReceiver) {
+        // incluimos el fichero de la bbdd
+        require_once 'bbdd_user.php';
         ?>
         <!DOCTYPE html>
         <!-- Página principal del usuario -->
@@ -29,7 +32,7 @@ if (isset($_SESSION["username"])) {
                                       </a>
                                       <div class="user-name">
                                           <h5><a href="#"><?php echo $_SESSION["name"];?></a></h5>
-                                          <span><a href="#"><?php echo $_SESSION["username"];?>@stucom.com</a></span>
+                                          <span><a href="#"><?php echo $sessionUsername;?>@stucom.com</a></span>
                                       </div><br><br>
                                       <ul class="inbox-nav">
                                           <li>
@@ -167,113 +170,46 @@ if (isset($_SESSION["username"])) {
                                       </form>
                                   </div>
                                   <div class="inbox-body">
-                                     <div class="mail-option">
-                                         <div class="chk-all">
-                                             <input type="checkbox" class="mail-checkbox mail-group-checkbox">
-                                             <div class="btn-group">
-                                                 <a data-toggle="dropdown" href="#" class="btn mini all" aria-expanded="false">
-                                                     All
-                                                     <i class="fa fa-angle-down "></i>
-                                                 </a>
-                                                 <ul class="dropdown-menu">
-                                                     <li><a href="#"> None</a></li>
-                                                     <li><a href="#"> Read</a></li>
-                                                     <li><a href="#"> Unread</a></li>
-                                                 </ul>
-                                             </div>
-                                         </div>
-            
-                                         <div class="btn-group">
-                                             <a data-original-title="Refresh" data-placement="top" data-toggle="dropdown" href="#" class="btn mini tooltips">
-                                                 <i class=" fa fa-refresh"></i>
-                                             </a>
-                                         </div>
-                                         <div class="btn-group hidden-phone">
-                                             <a data-toggle="dropdown" href="#" class="btn mini blue" aria-expanded="false">
-                                                 More
-                                                 <i class="fa fa-angle-down "></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                 <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                                                 <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                                                 <li class="divider"></li>
-                                                 <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                                             </ul>
-                                         </div>
-                                         <div class="btn-group">
-                                             <a data-toggle="dropdown" href="#" class="btn mini blue">
-                                                 Move to
-                                                 <i class="fa fa-angle-down "></i>
-                                             </a>
-                                             <ul class="dropdown-menu">
-                                                 <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
-                                                 <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
-                                                 <li class="divider"></li>
-                                                 <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
-                                             </ul>
-                                         </div>
-                                         <?php
-                                         if (isset($_GET["contador"])) {
-                                             $contador = $_GET["contador"];
-                                         } else {
-                                             $contador = 0;
-                                         }
-                                         $total = totalEmails($_SESSION["username"]);
-                                         ?>
-                                         <ul class="unstyled inbox-pagination">
-                                             <li><span>
-                                             <?php
-                                             // Mostrando mensaje de los resultados actuales
-                                             if (($contador + 10) <= $total) {
-                                                 echo ($contador + 1) . "-" . ($contador + 10) . " of $total";
-                                             } else {
-                                                 echo ($contador + 1) . "-$total of $total";
-                                             }
-                                             ?>
-                                             </span></li>
-                                             <?php
-                                             // Mostrando el anterior (en caso de que lo haya)
-                                             if ($contador > 0) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='home_user.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
-                                                       </li>";
-                                             }
-                                             // Mostrar el siguiente (en cado de que lo haya)
-                                             if (($contador + 10) < $total) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='home_user.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
-                                                       </li>";
-                                             }
-                                             ?>
-                                         </ul>
-                                     </div>
-                                     
-                                      <table class="table table-inbox table-hover">
-                                        <tbody>
-                                          <?php
-                                            $emails = selectEmails($_SESSION["username"], $contador, 10);
-                                            while ($fila = mysqli_fetch_array($emails)) {
-                                                extract($fila);
-                                                if ($read==0) { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject; ?>'">
-                                            <?php } else { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject; ?>'">
-                                            <?php }
-                                                    echo "<td class='inbox-small-cells' style='width: 4%;'>
-                                                            <input type='checkbox' class='mail-checkbox'>
-                                                          </td>
-                                                          <td class='inbox-small-cells' style='width: 8%;'><i class='fa fa-star'></i></td>
-                                                          <td class='view-message  dont-show'>$sender</td>
-                                                          <td class='view-message '>$subject</td>
-                                                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
-                                                          <td class='view-message  text-right' style='width: 13%;'>$date</td>
-                                                          </tr>";    
-                                            }
-                                          ?>
-                                      </tbody>
-                                      </table>
-                                  </div>
-                              </aside>
+                                      <?php
+                                        $message = selectBodyMessage($_GET["id"]);
+                                       ?>         
+                                    <div class='message-wrap col-lg-8'>
+                                        <div class='msg-wrap'>
+                                            <div class='media msg '>
+                                                <a class='pull-left' href='>''
+                                                    <img class='media-object' data-src='holder.js/64x64' alt='64x64' style='width: 32px; height: 32px;'' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC'>
+                                                </a>
+                                                <div class='media-body'>
+                                                    <small class='pull-right time'><i class='fa fa-clock-o'></i> 12:10am</small>
+                                                    <h5 class='media-heading'><?php echo $_GET['sender'];?></h5>
+                                    <?php echo "<small class='col-lg-10'>$message</small>
+                                                </div>
+                                            </div>
+                                            <div class='alert alert-info msg-date'>
+                                                <strong>Today</strong>
+                                            </div>
+                                            <div class='media msg'>
+                                                <a class='pull-left' href='#'>
+                                                    <img class='media-object' data-src='holder.js/64x64' alt='64x64' style='width: 32px; height: 32px;' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC'>
+                                                </a>
+                                                <div class='media-body'>
+                                                    <small class='pull-right time'><i class='fa fa-clock-o'></i> 12:10am</small>
+                                
+                                                    <h5 class='media-heading'>Naimish Sakhpara</h5>
+                                                    <small class='col-lg-10'>Arnab Goswami: 'Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end.'</small>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                        ?>
+                                        <div class="send-wrap ">
+                                            <textarea class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+                                        </div>
+                                        <div class="btn-panel">
+                                            <a href="" class=" col-lg-3 btn   send-message-btn " role="button"><i class="fa fa-cloud-upload"></i> Add Files</a>
+                                            <a href="" class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> Send Message</a>
+                                        </div>
+                                    </div>
+                                    </aside>
                           </div>
             </div>
             <div class="fade modal" id="changePassword">

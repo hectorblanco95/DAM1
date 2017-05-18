@@ -2,8 +2,58 @@
 
 require_once 'bbdd.php';
 
+// Función que devuelve los mensajes que hay en el correo seleccionado
+function chat($sender, $receiver, $subject) {
+    $con = conectar("msg");
+    $select = "select body from message where idmessage=$id;";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
+
+// Función que devuelve el mensajes del correo seleccionado
+function selectBodyMessage($id) {
+    $con = conectar("msg");
+    $select = "select body from message where idmessage=$id;";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
+
 // Función que devuelve cuántos emails hay en la bbdd
-function totalEmails() {
+function totalEmailsBd() {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from message;";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
+// Función que nos devuelve los emails
+// desde una posición y una cantidad determinada
+function selectEmailsBd($posicion, $cantidad) {
+    $con = conectar("msg");
+    $select = "select * from message order by date desc limit $posicion, $cantidad";
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    return $resultado;
+}
+
+// Función que devuelve cuántos emails hay en la bbdd
+function totalEmailsSent($username) {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from message where sender='$username';";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
+// Función que devuelve cuántos emails hay en la bbdd
+function totalEmails($username) {
     $con = conectar("msg");
     $select = "select count(*) as cont from message where receiver='$username';";
     $resultado = mysqli_query($con, $select);
@@ -17,7 +67,7 @@ function totalEmails() {
 // desde una posición y una cantidad determinada
 function selectEmailsSent($username, $posicion, $cantidad) {
     $con = conectar("msg");
-    $select = "select receiver, date, `read`, subject, body from message where sender='$username' order by date desc limit $posicion, $cantidad";
+    $select = "select idmessage, receiver, date, `read`, subject from message where sender='$username' order by date desc limit $posicion, $cantidad";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
@@ -27,7 +77,7 @@ function selectEmailsSent($username, $posicion, $cantidad) {
 // desde una posición y una cantidad determinada
 function selectEmails($username, $posicion, $cantidad) {
     $con = conectar("msg");
-    $select = "select sender, date, `read`, subject, body from message where receiver='$username' order by date desc limit $posicion, $cantidad";
+    $select = "select idmessage, sender, receiver, date, `read`, subject from message where receiver='$username' order by date desc limit $posicion, $cantidad";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;

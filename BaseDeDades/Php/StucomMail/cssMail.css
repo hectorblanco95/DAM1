@@ -483,11 +483,3 @@ ul {
 .filterable .filters input[disabled]:-ms-input-placeholder {
     color: #333;
 }
-
-FORM.tr {
-    display: table-row;
-}
-
-SPAN.td {
-    display: table-cell;
-}

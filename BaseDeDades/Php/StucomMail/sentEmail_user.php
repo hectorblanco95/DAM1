@@ -218,7 +218,7 @@ if (isset($_SESSION["username"])) {
                                          } else {
                                              $contador = 0;
                                          }
-                                         $total = totalEmails();
+                                         $total = totalEmailsSent($_SESSION["username"]);
                                          ?>
                                          <ul class="unstyled inbox-pagination">
                                              <li><span>
@@ -235,13 +235,13 @@ if (isset($_SESSION["username"])) {
                                              // Mostrando el anterior (en caso de que lo haya)
                                              if ($contador > 0) {
                                                  echo "<li>
-                                                         <a class='np-btn' href='home_admin.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
+                                                         <a class='np-btn' href='home_user.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
                                                        </li>";
                                              }
                                              // Mostrar el siguiente (en cado de que lo haya)
                                              if (($contador + 10) < $total) {
                                                  echo "<li>
-                                                         <a class='np-btn' href='home_admin.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
+                                                         <a class='np-btn' href='home_user.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
                                                        </li>";
                                              }
                                              ?>
