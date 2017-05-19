@@ -7,6 +7,11 @@ if (isset($_SESSION["username"])) {
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
     if ($tipo == 0) {
+        if (isset($_GET["read"])) {
+            $date = getdate();
+            $fecha = $date['year']."-".$date['mon']."-".$date['mday']." ".$date['hours'].":".$date['minutes'].":".$date['seconds'];    
+            insertDate($_SESSION["username"], $fecha);
+        }
         ?>
         <!DOCTYPE html>
         <!-- Página principal del usuario -->
@@ -23,7 +28,7 @@ if (isset($_SESSION["username"])) {
             <div class="container" style="width: 100%; padding-left: 0; padding-right: 0;">
                 <div class="mail-box">
                     <aside class="sm-side">
-                                  <div class="user-head" style="height: 16%;">
+                                  <div class="user-head" style="height: 18%;">
                                       <a class="inbox-avatar" href="javascript:;">
                                           <img  width="64" hieght="60" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg">
                                       </a>
@@ -102,20 +107,11 @@ if (isset($_SESSION["username"])) {
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
                                       <li class="active">
-                                          <a href="home_user.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                          <a href="home_user.php?read=true"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"><?php echo contUnread($_SESSION["username"]);?></span></a>
             
                                       </li>
                                       <li>
                                           <a href="sentEmail_user.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
                                       </li>
                                   </ul>
                                   <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
@@ -255,9 +251,9 @@ if (isset($_SESSION["username"])) {
                                             while ($fila = mysqli_fetch_array($emails)) {
                                                 extract($fila);
                                                 if ($read==0) { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>'">
+                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&read=1&subject='.$subject.'&date='.$date; ?>'">
                                             <?php } else { ?>
-                                                    <tr class="unread" onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>'">
+                                                    <tr onclick="location.href='conversation_user.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&read=1&subject='.$subject.'&date='.$date; ?>'">
                                             <?php }
                                                     echo "<td class='inbox-small-cells' style='width: 4%;'>
                                                             <input type='checkbox' class='mail-checkbox'>

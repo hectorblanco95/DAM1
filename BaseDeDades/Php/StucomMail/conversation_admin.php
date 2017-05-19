@@ -1,12 +1,18 @@
 <?php
 session_start();
+
 if (isset($_SESSION["username"])) {
-    // Nos aseguramos que el usuario sea administrador
+    // Nos aseguramos que el usuario sea administrator
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
-    if ($tipo == 1) {
+    $sessionUsername=$_SESSION["username"];
+    $getSender=$_GET["sender"];
+    $getReceiver=$_GET["receiver"];
+    if ($tipo == 1 && $sessionUsername==$getSender || $sessionUsername==$getReceiver) {
         // incluimos el fichero de la bbdd
         require_once 'bbdd_user.php';
+        if (isset($_GET["read"])) 
+            setRead($_GET["id"]);
         ?>
         <!DOCTYPE html>
         <!-- Página principal del usuario admin -->
@@ -102,7 +108,7 @@ if (isset($_SESSION["username"])) {
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
                                       <li class="active">
-                                          <a href="home_admin.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                          <a href="home_admin.php?read=true"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"><?php echo contUnread($_SESSION["username"]);?></span></a>
             
                                       </li>
                                       <li>
@@ -118,10 +124,13 @@ if (isset($_SESSION["username"])) {
                                           <a href data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete User</a>
                                       </li>
                                       <li>
-                                          <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right">30</span></a>
+                                          <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right"><?php echo contUnread2();?></span></a>
                                       </li>
                                       <li>
-                                          <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
+                                          <a href data-toggle="modal" data-target="#lastLogin"><i class=" fa fa-history"></i> Last Login</a>
+                                      </li>
+                                      <li>
+                                          <a href="ranking.php"><i class=" fa fa-star-o"></i> Ranking</a>
                                       </li>
                                   </ul>
                                   <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
@@ -173,21 +182,22 @@ if (isset($_SESSION["username"])) {
                                       </form>
                                   </div>
                                   <div class="inbox-body">
-                                    <div class="message-wrap col-lg-8">
+                                      <div class="alert alert-info msg-date">
+                                        <strong><?php echo $_GET['subject'];?></strong>
+                                      </div>
+                                      <?php
+                                        $message = selectBodyMessage($_GET["id"]);
+                                       ?>         
+                                    <div class="message-wrap col-lg-8"  style="width: 100%;">
                                         <div class="msg-wrap">
                                             <div class="media msg ">
                                                 <a class="pull-left" href="#">
                                                     <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
                                                 </a>
                                                 <div class="media-body">
-                                                    <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
-                                                    <h5 class="media-heading">Naimish Sakhpara</h5>
-                                                    <small class="col-lg-10">Location H-2, Ayojan Nagar, Near Gate-3, Near
-                                                            Shreyas Crossing Dharnidhar Derasar,
-                                                            Paldi, Ahmedabad 380007, Ahmedabad,
-                                                            India
-                                                            Phone 091 37 669307
-                                                            Email aapamdavad.district@gmail.com</small>
+                                                    <small class="pull-right time"><i class="fa fa-clock-o"></i> <?php echo $_GET['date'];?></small>
+                                                    <h5 class='media-heading'><?php echo $_GET['sender'];?></h5>
+                                        <?php echo "<small class='col-lg-10'>$message</small>";?>
                                                 </div>
                                             </div>
                                             <hr>
@@ -201,39 +211,29 @@ if (isset($_SESSION["username"])) {
                                                     <h5 class="media-heading">Naimish Sakhpara</h5>
                                                     <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
                                                 </div>
-                                            </div>
-                                            <div class="media msg">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
-                                                </a>
-                                                <div class="media-body">
-                                                    <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
-                                
-                                                    <h5 class="media-heading">Naimish Sakhpara</h5>
-                                                    <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
-                                                </div>
-                                            </div>
-                                
-                                            <div class="media msg">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" data-src="holder.js/64x64" alt="64x64" style="width: 32px; height: 32px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACqUlEQVR4Xu2Y60tiURTFl48STFJMwkQjUTDtixq+Av93P6iBJFTgg1JL8QWBGT4QfDX7gDIyNE3nEBO6D0Rh9+5z9rprr19dTa/XW2KHl4YFYAfwCHAG7HAGgkOQKcAUYAowBZgCO6wAY5AxyBhkDDIGdxgC/M8QY5AxyBhkDDIGGYM7rIAyBgeDAYrFIkajEYxGIwKBAA4PDzckpd+322243W54PJ5P5f6Omh9tqiTAfD5HNpuFVqvFyckJms0m9vf3EY/H1/u9vb0hn89jsVj8kwDfUfNviisJ8PLygru7O4TDYVgsFtDh9Xo9NBrNes9cLgeTybThgKenJ1SrVXGf1WoVDup2u4jFYhiPx1I1P7XVBxcoCVCr1UBfTqcTrVYLe3t7OD8/x/HxsdiOPqNGo9Eo0un02gHkBhJmuVzC7/fj5uYGXq8XZ2dnop5Mzf8iwMPDAxqNBmw2GxwOBx4fHzGdTpFMJkVzNB7UGAmSSqU2RoDmnETQ6XQiOyKRiHCOSk0ZEZQcUKlU8Pz8LA5vNptRr9eFCJQBFHq//szG5eWlGA1ywOnpqQhBapoWPfl+vw+fzweXyyU+U635VRGUBOh0OigUCggGg8IFK/teXV3h/v4ew+Hwj/OQU4gUq/w4ODgQrkkkEmKEVGp+tXm6XkkAOngmk4HBYBAjQA6gEKRmyOL05GnR99vbW9jtdjEGdP319bUIR8oA+pnG5OLiQoghU5OElFlKAtCGr6+vKJfLmEwm64aosd/XbDbbyIBSqSSeNKU+HXzlnFAohKOjI6maMs0rO0B20590n7IDflIzMmdhAfiNEL8R4jdC/EZIJj235R6mAFOAKcAUYApsS6LL9MEUYAowBZgCTAGZ9NyWe5gCTAGmAFOAKbAtiS7TB1Ng1ynwDkxRe58vH3FfAAAAAElFTkSuQmCC">
-                                                </a>
-                                                <div class="media-body">
-                                                    <small class="pull-right time"><i class="fa fa-clock-o"></i> 12:10am</small>
-                                                    <h5 class="media-heading">Naimish Sakhpara</h5>
-                                
-                                                    <small class="col-lg-10">Arnab Goswami: "Some people close to Congress Party and close to the government had a #secret #meeting in a farmhouse in Maharashtra in which Anna Hazare send some representatives and they had a meeting in the discussed how to go about this all fast and how eventually this will end."</small>
-                                                </div>
-                                            </div>
+                                            </div>   
                                         </div>
-                                
+                                        <br><br>
+                                        <?php $id=$_GET['id'];
+                                              $sender=$_GET['sender'];
+                                              $receiver=$_GET['receiver'];
+                                              $subject=$_GET['subject'];
+                                              $date=$_GET['date'];
+                                        ?>
+                                        <form action="sendEmail.php" method="POST">
+                                            <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                                            <input type="hidden" name="sender" value="<?php echo $sender;?>"/>
+                                            <input type="hidden" name="receiver" value="<?php echo $receiver;?>"/>
+                                            <input type="hidden" name="subject" value="<?php echo $subject;?>"/>
+                                            <input type="hidden" name="date" value="<?php echo $date;?>"/>
                                         <div class="send-wrap ">
-                                            <textarea class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
+                                            <textarea type="text" name="textarea" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
                                         </div>
                                         <div class="btn-panel">
                                             <a href="" class=" col-lg-3 btn   send-message-btn " role="button"><i class="fa fa-cloud-upload"></i> Add Files</a>
-                                            <a href="" class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> Send Message</a>
+                                            <button type="submit" name="submitTextarea" class=" col-lg-4 text-right btn   send-message-btn pull-right" role="button"><i class="fa fa-plus"></i> Send Message</button>
                                         </div>
+                                        </form>
                                     </div>
                                     </aside>
                           </div>
@@ -381,6 +381,44 @@ if (isset($_SESSION["username"])) {
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                             <?php echo "<button type='submit' class='btn btn-danger' name='delete'>Delete</button>";?>
+                        </div>
+                    </div>
+                    <?php echo "</form>";?>
+                </div>
+            </div>
+            <div class="fade modal" id="lastLogin">
+                <div class="modal-dialog">
+                    <?php
+                    // Formulario que permite escoger usuario al admin
+                    echo "<form action='login.php' method='POST'>";
+                    ?>
+                    <div class="modal-content" style="top: 68px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                            <h2 class="modal-title" id="myModalLabel">Last Login</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p class="error-text" style="display: inline-block;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to look last login the user?</p>
+                            <?php
+                            echo "<select name='usuario' style='margin: 7px;'>";
+                            // Llamamos al método que devuelve todos los datos de los usuarios
+                            $usuarios = selectUsernameUsers();
+                            // Mientras haya datos, leemos la fila y la mostramos
+                            while ($fila = mysqli_fetch_array($usuarios)) {
+                                extract($fila);
+                                // SIEMPRE después de un extract, las variables
+                                // tienen el nombre de los campos de la bbdd
+                                    if ($type==1) $type="Admin";
+                                    else $type="User";
+                                    echo "<option value='$username'>$type: $username";
+                                    echo "</option>";
+                            }
+                            echo "</select>";
+                            ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <?php echo "<button type='submit' class='btn btn-success' name='lastLogin'>Last Login</button>";?>
                         </div>
                     </div>
                     <?php echo "</form>";?>

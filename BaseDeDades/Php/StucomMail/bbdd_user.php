@@ -2,6 +2,61 @@
 
 require_once 'bbdd.php';
 
+// Función que devuelve cuántos users hay en la bbdd
+function totalUsers() {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from user;";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
+// Función que devuelve el ranking de los mensajes de todos los usuarios
+function ranking() {
+    $con = conectar("msg");
+    $select = "SELECT username, name, type, COUNT(*) AS cont FROM user INNER JOIN message ON user.username = message.sender GROUP BY sender ORDER BY cont DESC;";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve el username, lastLogin, y el type de todos los usuarios
+function selectLastLogin($username) {
+    $con = conectar("msg");
+    $select = "select user, MAX(date) as date, type from event where user='$username' and type='I';";
+    // Ejecutamos la consulta y recogemos el resultado
+    $resultado = mysqli_query($con, $select);
+    desconectar($con);
+    // devolvemos el resultado
+    return $resultado;
+}
+
+// Función que devuelve cuántos emails hay sin leer en la bbdd
+function contUnread2() {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from message where `read` = 0;";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
+// Función que devuelve cuántos emails hay sin leer del user en la bbdd
+function contUnread($username) {
+    $con = conectar("msg");
+    $select = "select count(*) as cont from message where `read` = 0 and receiver= '$username';";
+    $resultado = mysqli_query($con, $select);
+    $fila = mysqli_fetch_array($resultado);
+    extract($fila);
+    desconectar($con);
+    return $cont;
+}
+
 // Función que devuelve los mensajes que hay en el correo seleccionado
 function chat($sender, $receiver, $subject, $date) {
     $con = conectar("msg");
@@ -19,6 +74,16 @@ function selectBodyMessage($id) {
     $fila = mysqli_fetch_assoc($resultado);
     desconectar($con);
     return $fila["body"];
+}
+
+// Función que cambia la password del usuario en la bbdd
+function setRead($id) {
+    $con = conectar("msg");
+    $query = "UPDATE message SET `read` = 1 WHERE idmessage = $id;";
+    if (mysqli_query($con, $query)) ;
+     else 
+        echo mysqli_error($con);
+    desconectar($con);
 }
 
 // Función que devuelve cuántos emails hay en la bbdd
@@ -101,6 +166,8 @@ function insertDate($username, $fecha) {
         $insert = "insert into event (`user`, `date`, `type`) values ('$username', '$fecha', 'I');";
     if (isset($_POST["sendEmail"]))
         $insert = "insert into event (`user`, `date`, `type`) values ('$username', '$fecha', 'R');";
+    if (isset($_GET["read"]))
+        $insert = "insert into event (`user`, `date`, `type`) values ('$username', '$fecha', 'C');";
     if (mysqli_query($con, $insert));
      else 
         echo mysqli_error($con);

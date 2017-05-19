@@ -108,7 +108,7 @@ if (isset($_SESSION["username"])) {
                                       <li>
                                           <a href="sentEmail_admin.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
-                                      <li class="active">
+                                      <li>
                                           <a href="users.php"><i class="fa fa-users"></i> Users</a>
                                       </li>
                                       <li>
@@ -120,7 +120,7 @@ if (isset($_SESSION["username"])) {
                                       <li>
                                           <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right"><?php echo contUnread2();?></span></a>
                                       </li>
-                                      <li>
+                                      <li class="active">
                                           <a href data-toggle="modal" data-target="#lastLogin"><i class=" fa fa-history"></i> Last Login</a>
                                       </li>
                                       <li>
@@ -221,40 +221,6 @@ if (isset($_SESSION["username"])) {
                                                  <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
                                              </ul>
                                          </div>
-                                         <?php
-                                         if (isset($_GET["contador"])) {
-                                             $contador = $_GET["contador"];
-                                         } else {
-                                             $contador = 0;
-                                         }
-                                         $total = totalUsers();
-                                         ?>
-                                         <ul class="unstyled inbox-pagination">
-                                             <li><span>
-                                             <?php
-                                             // Mostrando mensaje de los resultados actuales
-                                             if (($contador + 10) <= $total) {
-                                                 echo ($contador + 1) . "-" . ($contador + 10) . " of $total";
-                                             } else {
-                                                 echo ($contador + 1) . "-$total of $total";
-                                             }
-                                             ?>
-                                             </span></li>
-                                             <?php
-                                             // Mostrando el anterior (en caso de que lo haya)
-                                             if ($contador > 0) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='users.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
-                                                       </li>";
-                                             }
-                                             // Mostrar el siguiente (en cado de que lo haya)
-                                             if (($contador + 10) < $total) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='users.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
-                                                       </li>";
-                                             }
-                                             ?>
-                                         </ul>
                                      </div>
                                      
                                       <div class="section" style="margin-left: -26px;">
@@ -266,8 +232,8 @@ if (isset($_SESSION["username"])) {
                                                     <tr class="filters">
                                                         <th><p style="margin: 0;margin-left: 30%;color: #333;">#</p></th>
                                                         <th><input type="text" class="form-control" placeholder="Username" disabled></th>
-                                                        <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                                                        <th><input type="text" class="form-control" placeholder="Surname" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Date" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Type" disabled></th>
                                                     
                                                     <div class="pull-right">
                                                         <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
@@ -277,24 +243,18 @@ if (isset($_SESSION["username"])) {
                                                         <tbody>
                                                             <?php
                                                             // Llamamos al método que devuelve todos los datos de los usuarios
-                                                            $usuarios = selectUsernameUsers();
+                                                            $usuarios = selectLastLogin($_GET["lastLogin"]);
                                                             // Mientras haya datos, leemos la fila y la mostramos
                                                             while ($fila = mysqli_fetch_array($usuarios)) {
                                                                 extract($fila);
                                                                 // SIEMPRE después de un extract, las variables
                                                                 // tienen el nombre de los campos de la bbdd
                                                                 
-                                                                if ($type==1) $type="Admin";
-                                                                else $type="User";
                                                                 echo "<tr>
                                                                 <td><img src='https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg' class='img-circle' width='60' style='margin-left: 11%;'></td>
-                                                                <td><h4>
-                                                                  <b>$username</b>
-                                                                 </h4>
-                                                                 <p style='margin: 0;color: #428BCA;'>$type</p>
-                                                                </td>
-                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$name</p></td>
-                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$surname</p></td>
+                                                                <td><h4><b>$user</b></h4></td>
+                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$date</p></td>
+                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$type</p></td>
                                                                </tr>";
                                                             }
                                                             ?>
@@ -436,12 +396,10 @@ if (isset($_SESSION["username"])) {
                                 extract($fila);
                                 // SIEMPRE después de un extract, las variables
                                 // tienen el nombre de los campos de la bbdd
-                                if($username!="admin"){
                                     if ($type==1) $type="Admin";
                                     else $type="User";
                                     echo "<option value='$username'>$type: $username";
                                     echo "</option>";
-                                }
                             }
                             echo "</select>";
                             ?>
@@ -449,44 +407,6 @@ if (isset($_SESSION["username"])) {
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                             <?php echo "<button type='submit' class='btn btn-danger' name='delete'>Delete</button>";?>
-                        </div>
-                    </div>
-                    <?php echo "</form>";?>
-                </div>
-            </div>
-            <div class="fade modal" id="lastLogin">
-                <div class="modal-dialog">
-                    <?php
-                    // Formulario que permite escoger usuario al admin
-                    echo "<form action='login.php' method='POST'>";
-                    ?>
-                    <div class="modal-content" style="top: 68px;">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
-                            <h2 class="modal-title" id="myModalLabel">Last Login</h2>
-                        </div>
-                        <div class="modal-body">
-                            <p class="error-text" style="display: inline-block;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to look last login the user?</p>
-                            <?php
-                            echo "<select name='usuario' style='margin: 7px;'>";
-                            // Llamamos al método que devuelve todos los datos de los usuarios
-                            $usuarios = selectUsernameUsers();
-                            // Mientras haya datos, leemos la fila y la mostramos
-                            while ($fila = mysqli_fetch_array($usuarios)) {
-                                extract($fila);
-                                // SIEMPRE después de un extract, las variables
-                                // tienen el nombre de los campos de la bbdd
-                                    if ($type==1) $type="Admin";
-                                    else $type="User";
-                                    echo "<option value='$username'>$type: $username";
-                                    echo "</option>";
-                            }
-                            echo "</select>";
-                            ?>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                            <?php echo "<button type='submit' class='btn btn-success' name='lastLogin'>Last Login</button>";?>
                         </div>
                     </div>
                     <?php echo "</form>";?>

@@ -129,4 +129,8 @@ if (isset($_POST["delete"])) {
     $usuario = $_POST["usuario"];
     borrarUser($usuario);
 }
+if (isset($_POST["lastLogin"])) {
+    $lastLogin=$_POST["usuario"];
+    header("Location: lastLogin.php?lastLogin=$lastLogin");
+}
 ?>

@@ -6,10 +6,13 @@ if (isset($_SESSION["username"])) {
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
     $sessionUsername=$_SESSION["username"];
+    $getSender=$_GET["sender"];
     $getReceiver=$_GET["receiver"];
-    if ($tipo == 0 && $sessionUsername==$getReceiver) {
+    if ($tipo == 0 && $sessionUsername==$getSender || $sessionUsername==$getReceiver) {
         // incluimos el fichero de la bbdd
         require_once 'bbdd_user.php';
+        if (isset($_GET["read"])) 
+            setRead($_GET["id"]);
         ?>
         <!DOCTYPE html>
         <!-- Página principal del usuario -->
@@ -26,7 +29,7 @@ if (isset($_SESSION["username"])) {
             <div class="container" style="width: 100%; padding-left: 0; padding-right: 0;">
                 <div class="mail-box">
                     <aside class="sm-side">
-                                  <div class="user-head" style="height: 16%;">
+                                  <div class="user-head" style="height: 18%;">
                                       <a class="inbox-avatar" href="javascript:;">
                                           <img  width="64" hieght="60" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg">
                                       </a>
@@ -105,20 +108,11 @@ if (isset($_SESSION["username"])) {
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
                                       <li class="active">
-                                          <a href="home_user.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                          <a href="home_user.php?read=true"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"><?php echo contUnread($_SESSION["username"]);?></span></a>
             
                                       </li>
                                       <li>
-                                          <a href="sentEmail_user.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
+                                          <a href="sentEmail_user.php?"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
                                   </ul>
                                   <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
@@ -209,11 +203,11 @@ if (isset($_SESSION["username"])) {
                                               $date=$_GET['date'];
                                         ?>
                                         <form action="sendEmail.php" method="POST">
-                                            <input type="hidden" name="<?php echo $id;?>" value="<?php echo $id;?>"/>
-                                            <input type="hidden" name="<?php echo $sender;?>" value="<?php echo $sender;?>"/>
-                                            <input type="hidden" name="<?php echo $receiver;?>" value="<?php echo $receiver;?>"/>
-                                            <input type="hidden" name="<?php echo $subject;?>" value="<?php echo $subject;?>"/>
-                                            <input type="hidden" name="<?php echo $date;?>" value="<?php echo $date;?>"/>
+                                            <input type="hidden" name="id" value="<?php echo $id;?>"/>
+                                            <input type="hidden" name="sender" value="<?php echo $sender;?>"/>
+                                            <input type="hidden" name="receiver" value="<?php echo $receiver;?>"/>
+                                            <input type="hidden" name="subject" value="<?php echo $subject;?>"/>
+                                            <input type="hidden" name="date" value="<?php echo $date;?>"/>
                                         <div class="send-wrap ">
                                             <textarea type="text" name="textarea" class="form-control send-message" rows="3" placeholder="Write a reply..."></textarea>
                                         </div>

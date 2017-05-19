@@ -108,7 +108,7 @@ if (isset($_SESSION["username"])) {
                                       <li>
                                           <a href="sentEmail_admin.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
                                       </li>
-                                      <li class="active">
+                                      <li>
                                           <a href="users.php"><i class="fa fa-users"></i> Users</a>
                                       </li>
                                       <li>
@@ -123,7 +123,7 @@ if (isset($_SESSION["username"])) {
                                       <li>
                                           <a href data-toggle="modal" data-target="#lastLogin"><i class=" fa fa-history"></i> Last Login</a>
                                       </li>
-                                      <li>
+                                      <li class="active">
                                           <a href="ranking.php"><i class=" fa fa-star-o"></i> Ranking</a>
                                       </li>
                                   </ul>
@@ -221,40 +221,6 @@ if (isset($_SESSION["username"])) {
                                                  <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
                                              </ul>
                                          </div>
-                                         <?php
-                                         if (isset($_GET["contador"])) {
-                                             $contador = $_GET["contador"];
-                                         } else {
-                                             $contador = 0;
-                                         }
-                                         $total = totalUsers();
-                                         ?>
-                                         <ul class="unstyled inbox-pagination">
-                                             <li><span>
-                                             <?php
-                                             // Mostrando mensaje de los resultados actuales
-                                             if (($contador + 10) <= $total) {
-                                                 echo ($contador + 1) . "-" . ($contador + 10) . " of $total";
-                                             } else {
-                                                 echo ($contador + 1) . "-$total of $total";
-                                             }
-                                             ?>
-                                             </span></li>
-                                             <?php
-                                             // Mostrando el anterior (en caso de que lo haya)
-                                             if ($contador > 0) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='users.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
-                                                       </li>";
-                                             }
-                                             // Mostrar el siguiente (en cado de que lo haya)
-                                             if (($contador + 10) < $total) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='users.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
-                                                       </li>";
-                                             }
-                                             ?>
-                                         </ul>
                                      </div>
                                      
                                       <div class="section" style="margin-left: -26px;">
@@ -267,7 +233,7 @@ if (isset($_SESSION["username"])) {
                                                         <th><p style="margin: 0;margin-left: 30%;color: #333;">#</p></th>
                                                         <th><input type="text" class="form-control" placeholder="Username" disabled></th>
                                                         <th><input type="text" class="form-control" placeholder="Name" disabled></th>
-                                                        <th><input type="text" class="form-control" placeholder="Surname" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Messages" disabled></th>
                                                     
                                                     <div class="pull-right">
                                                         <button class="btn btn-default btn-xs btn-filter"><span class="glyphicon glyphicon-filter"></span> Filter</button>
@@ -277,7 +243,8 @@ if (isset($_SESSION["username"])) {
                                                         <tbody>
                                                             <?php
                                                             // Llamamos al método que devuelve todos los datos de los usuarios
-                                                            $usuarios = selectUsernameUsers();
+                                                            $usuarios = ranking();
+                                                            
                                                             // Mientras haya datos, leemos la fila y la mostramos
                                                             while ($fila = mysqli_fetch_array($usuarios)) {
                                                                 extract($fila);
@@ -294,7 +261,7 @@ if (isset($_SESSION["username"])) {
                                                                  <p style='margin: 0;color: #428BCA;'>$type</p>
                                                                 </td>
                                                                 <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$name</p></td>
-                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$surname</p></td>
+                                                                <td><p style='margin-top: 10px;margin-bottom: 10px;color: #333;'>$cont</p></td>
                                                                </tr>";
                                                             }
                                                             ?>

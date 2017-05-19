@@ -7,6 +7,11 @@ if (isset($_SESSION["username"])) {
     // Cogemos el tipo de la variable de sesión
     $tipo = $_SESSION["tipo"];
     if ($tipo == 1) {
+        if (isset($_GET["read"])) {
+            $date = getdate();
+            $fecha = $date['year']."-".$date['mon']."-".$date['mday']." ".$date['hours'].":".$date['minutes'].":".$date['seconds'];    
+            insertDate($_SESSION["username"], $fecha);
+        }    
         ?>
         <!DOCTYPE html>
         <!-- Página principal del usuario admin -->
@@ -102,7 +107,7 @@ if (isset($_SESSION["username"])) {
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
                                       <li class="active">
-                                          <a href="home_admin.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                          <a href="home_admin.php?read=true"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"><?php echo contUnread($_SESSION["username"]);?></span></a>
             
                                       </li>
                                       <li>
@@ -118,10 +123,13 @@ if (isset($_SESSION["username"])) {
                                           <a href data-toggle="modal" data-target="#delete"><i class="fa fa-trash-o"></i> Delete User</a>
                                       </li>
                                       <li>
-                                          <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right">30</span></a>
+                                          <a href="usersInbox.php"><i class=" fa fa-external-link"></i> Users Inbox <span class="label label-info pull-right"><?php echo contUnread2();?></span></a>
                                       </li>
                                       <li>
-                                          <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
+                                          <a href data-toggle="modal" data-target="#lastLogin"><i class=" fa fa-history"></i> Last Login</a>
+                                      </li>
+                                      <li>
+                                          <a href="ranking.php"><i class=" fa fa-star-o"></i> Ranking</a>
                                       </li>
                                   </ul>
                                   <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
@@ -260,10 +268,11 @@ if (isset($_SESSION["username"])) {
                                             $emails = selectEmails($_SESSION["username"], $contador, 10);
                                             while ($fila = mysqli_fetch_array($emails)) {
                                                 extract($fila);
-                                                if ($read==0)
-                                                    echo "<tr class='unread'>";
-                                                 else
-                                                    echo "<tr>";
+                                                if ($read==0) { ?>
+                                                    <tr class="unread" onclick="location.href='conversation_admin.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&read=1&subject='.$subject.'&date='.$date; ?>'">
+                                            <?php } else { ?>
+                                                    <tr onclick="location.href='conversation_admin.php?id=<?php echo $idmessage.'&sender='.$sender.'&receiver='.$receiver.'&read=1&subject='.$subject.'&date='.$date; ?>'">
+                                            <?php }
                                                     echo "<td class='inbox-small-cells' style='width: 4%;'>
                                                             <input type='checkbox' class='mail-checkbox'>
                                                           </td>
@@ -422,6 +431,44 @@ if (isset($_SESSION["username"])) {
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
                             <?php echo "<button type='submit' class='btn btn-danger' name='delete'>Delete</button>";?>
+                        </div>
+                    </div>
+                    <?php echo "</form>";?>
+                </div>
+            </div>
+            <div class="fade modal" id="lastLogin">
+                <div class="modal-dialog">
+                    <?php
+                    // Formulario que permite escoger usuario al admin
+                    echo "<form action='login.php' method='POST'>";
+                    ?>
+                    <div class="modal-content" style="top: 68px;">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-fw s fa-remove"></i></button>
+                            <h2 class="modal-title" id="myModalLabel">Last Login</h2>
+                        </div>
+                        <div class="modal-body">
+                            <p class="error-text" style="display: inline-block;"><i class="fa fa-fw s fa-remove"></i>Are you sure you want to look last login the user?</p>
+                            <?php
+                            echo "<select name='usuario' style='margin: 7px;'>";
+                            // Llamamos al método que devuelve todos los datos de los usuarios
+                            $usuarios = selectUsernameUsers();
+                            // Mientras haya datos, leemos la fila y la mostramos
+                            while ($fila = mysqli_fetch_array($usuarios)) {
+                                extract($fila);
+                                // SIEMPRE después de un extract, las variables
+                                // tienen el nombre de los campos de la bbdd
+                                    if ($type==1) $type="Admin";
+                                    else $type="User";
+                                    echo "<option value='$username'>$type: $username";
+                                    echo "</option>";
+                            }
+                            echo "</select>";
+                            ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                            <?php echo "<button type='submit' class='btn btn-success' name='lastLogin'>Last Login</button>";?>
                         </div>
                     </div>
                     <?php echo "</form>";?>

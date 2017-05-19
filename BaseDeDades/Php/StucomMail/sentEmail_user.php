@@ -23,7 +23,7 @@ if (isset($_SESSION["username"])) {
             <div class="container" style="width: 100%; padding-left: 0; padding-right: 0;">
                 <div class="mail-box">
                     <aside class="sm-side">
-                                  <div class="user-head" style="height: 16%;">
+                                  <div class="user-head" style="height: 18%;">
                                       <a class="inbox-avatar" href="javascript:;">
                                           <img  width="64" hieght="60" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg">
                                       </a>
@@ -102,20 +102,11 @@ if (isset($_SESSION["username"])) {
                                   </div>
                                   <ul class="inbox-nav inbox-divider">
                                       <li>
-                                          <a href="home_user.php"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a>
+                                          <a href="home_user.php?read=true"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right"><?php echo contUnread($_SESSION["username"]);?></span></a>
             
                                       </li>
                                       <li class="active">
                                           <a href="sentEmail_user.php"><i class="fa fa-envelope-o"></i> Sent Mail</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class="fa fa-bookmark-o"></i> Important</a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-external-link"></i> Drafts <span class="label label-info pull-right">30</span></a>
-                                      </li>
-                                      <li>
-                                          <a href="#"><i class=" fa fa-trash-o"></i> Trash</a>
                                       </li>
                                   </ul>
                                   <ul class="nav nav-pills nav-stacked labels-info inbox-divider">
@@ -235,13 +226,13 @@ if (isset($_SESSION["username"])) {
                                              // Mostrando el anterior (en caso de que lo haya)
                                              if ($contador > 0) {
                                                  echo "<li>
-                                                         <a class='np-btn' href='home_user.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
+                                                         <a class='np-btn' href='sentEmail_user.php?contador=".($contador-10)."'><i class='fa fa-angle-left  pagination-left'></i></a>
                                                        </li>";
                                              }
                                              // Mostrar el siguiente (en cado de que lo haya)
                                              if (($contador + 10) < $total) {
                                                  echo "<li>
-                                                         <a class='np-btn' href='home_user.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
+                                                         <a class='np-btn' href='sentEmail_user.php?contador=".($contador+10)."'><i class='fa fa-angle-right pagination-right'></i></a>
                                                        </li>";
                                              }
                                              ?>

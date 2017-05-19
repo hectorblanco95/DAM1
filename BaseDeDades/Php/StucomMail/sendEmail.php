@@ -33,8 +33,8 @@ if (isset($_POST["submitTextarea"])) {
     $date=$_POST['date'];
     // Comprobamos el tipo para dirigir al user
     if ($_SESSION["tipo"] == 0) 
-        header("refresh:3;url=conversation_user.php?id=<?php echo $id.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>");
+        header("refresh:3;url=conversation_user.php?id=$id&sender=$sender&receiver=$receiver&subject=$subject&date=$date");
      else if ($_SESSION["tipo"] == 1) 
-        header("refresh:3;url=conversation_admin.php?id=<?php echo $id.'&sender='.$sender.'&receiver='.$receiver.'&subject='.$subject.'&date='.$date; ?>");
+        header("refresh:3;url=conversation_admin.php?id=$id&sender=$sender&receiver=$receiver&subject=$subject&date=$date");
 } 
 ?>
