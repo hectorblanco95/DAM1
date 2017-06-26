@@ -9,73 +9,93 @@ if (isset($_SESSION["username"])) {
         <html>
             <head>
                 <meta charset="UTF-8">
-                <title>Home Page Administrator</title>
+                <title>Home Page</title>
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-                <link href="cssMail.css" rel="stylesheet" type="text/css"/>
+                <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+                <style type="text/css">
+                    #example_length{ display: none;}
+                    #example_filter{ display: none;}
+                    #example_paginate{ display: none;}
+                    #example_info{ display: none;}
+                </style>
             </head>
+            <?php
+                if (isset($_GET["contador"])) {
+                    $contador = $_GET["contador"];
+                } else {
+                    $contador = 0;
+                }
+                $total = totalGames();
+            ?>
             <body>
-                <div class="inbox-body">
-                                     <div class="mail-option">
-                                         <?php
-                                         if (isset($_GET["contador"])) {
-                                             $contador = $_GET["contador"];
-                                         } else {
-                                             $contador = 0;
-                                         }
-                                         $total = totalGames();
-                                         ?>
-                                         <ul class="unstyled inbox-pagination">
-                                             <li><span>
-                                             <?php
-                                             // Mostrando mensaje de los resultados actuales
-                                             if (($contador + 3) <= $total) {
-                                                 echo ($contador + 1) . "-" . ($contador + 3) . " of $total";
-                                             } else {
-                                                 echo ($contador + 1) . "-$total of $total";
-                                             }
-                                             ?>
-                                             </span></li>
-                                             <?php
-                                             // Mostrando el anterior (en caso de que lo haya)
-                                             if ($contador > 0) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='home_admin.php?contador=".($contador-3)."'><i class='fa fa-angle-left  pagination-left'></i></a>
-                                                       </li>";
-                                             }
-                                             // Mostrar el siguiente (en cado de que lo haya)
-                                             if (($contador + 3) < $total) {
-                                                 echo "<li>
-                                                         <a class='np-btn' href='home_admin.php?contador=".($contador+3)."'><i class='fa fa-angle-right pagination-right'></i></a>
-                                                       </li>";
-                                             }
-                                             ?>
-                                         </ul>
-                                     </div>
-                                     
-                                      <table class="table table-inbox table-hover">
-                                        <tbody>
-                                          <?php
-                                            $games = selectGames(selectIdGames(selectGamesNoVotados()), $contador, 3);
-                                            while ($fila = mysqli_fetch_array($games)) {
-                                                extract($fila);
-                                                    echo "<tr>
-                                                          <td class='inbox-small-cells' style='width: 4%;'>
-                                                            <input type='checkbox' class='mail-checkbox'>
-                                                          </td>
-                                                          <td class='inbox-small-cells' style='width: 8%;'><i class='fa fa-star'></i></td>
-                                                          <td class='view-message  dont-show'>$title</td>
-                                                          <td class='view-message '>$price</td>
-                                                          <td class='view-message  inbox-small-cells'><i class='fa fa-paperclip'></i></td>
-                                                          <td class='view-message  text-right' style='width: 13%;'>$genre</td>
-                                                          </tr>";    
-                                            }
-                                          ?>
-                                      </tbody>
-                                      </table>
-                                  </div>
+                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tittle</th>
+                <th>Price</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                // Llamamos al método que devuelve todos los datos
+                $games = selectGamesNoVotados($_SESSION["username"], $contador);
+                // Mientras haya datos, leemos la fila y la mostramos
+                while ($fila = mysqli_fetch_array($games)) {
+                    extract($fila);
+                    // SIEMPRE después de un extract, las variables
+                    // tienen el nombre de los campos de la bbdd
+                    echo "<tr>
+                        <td>$idgame</td>
+                        <td>$tittle</td>
+                        <td>$price</td>
+                        <td>$genre</td>
+                    </tr>";
+                }?>
+        </tbody>
+    </table>
+    <div class="col-sm-5">
+        <div class="dataTables_info" id="info" role="status" aria-live="polite">
+        <?php
+        // Mostrando mensaje de los resultados actuales
+            if (($contador + 3) <= $total) {
+                echo "Showing " . ($contador + 1) . " to " . ($contador + 3) . " of $total entries";
+            } else {
+                echo "Showing " . ($contador + 1) . " to $total of $total entries";
+            }
+        ?>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="dataTables_paginate paging_simple_numbers" id="paginate">
+            <ul class="pagination">
+    <?php
+                // Mostrando el anterior (en caso de que lo haya)
+                if ($contador > 0) {
+                echo "<li class='paginate_button previous' id='example_previous'>
+                        <a href='home.php?contador=".($contador-3)."' aria-controls='example' data-dt-idx='0' tabindex='0'>Previous</a>
+                    </li>";
+                }
+                // Mostrar el siguiente (en cado de que lo haya)
+                if (($contador + 3) < $total) {
+                echo "<li class='paginate_button previous' id='example_previous'>
+                        <a href='home.php?contador=".($contador+3)."' aria-controls='example' data-dt-idx='2' tabindex='0'>Next</a>
+                    </li>";
+            }
+            ?>
+            </ul>
+        </div>
+    </div>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+            <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+	        <script type="text/javascript">
+	            $(document).ready(function() {
+                    $('#example').DataTable();
+                } );
+	        </script>
 	        </body>
         </html>
         <?php

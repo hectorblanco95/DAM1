@@ -7,7 +7,7 @@
         <link href="cssLogin.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container" style="margin-top: -23px;">
+        <div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="panel panel-login">
@@ -29,10 +29,10 @@
                 		<br>
                 		<form id="login-form" action="login.php" method="post" role="form" style="display: block;">
                 			<div class="form-group">
-                				<input type="text" name="username" class="form-control" placeholder="Username" maxlength="10" required autofocus>
+                				<input type="text" name="username" class="form-control" placeholder="Username" maxlength="20" required autofocus>
                 			</div>
                 			<div class="form-group">
-                				<input type="password" name="password" class="form-control" placeholder="Password" maxlength="200" required>
+                				<input type="password" name="password" class="form-control" placeholder="Password" maxlength="250" required>
                 			</div>
                 			<div class="form-group text-center" style="margin-left: 4%;">
                 				<label class="checkbox pull-left">
@@ -49,16 +49,16 @@
                 		</form>
                 		<form id="register-form" action="login.php" method="post" role="form" style="display: none;">
 									<div class="form-group">
-										<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="10" required>
+										<input type="text" name="username" id="username" class="form-control" placeholder="Username" maxlength="20" required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="200" required>
+										<input type="password" name="password" id="password" class="form-control" placeholder="Password" maxlength="250" required>
 									</div>
 									<div class="form-group">
-										<input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Confirm Password" maxlength="200" required>
+										<input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Confirm Password" maxlength="250" required>
 									</div>
 									<div class="form-group">
-										<input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="20" required>
+										<input type="text" name="name" id="name" class="form-control" placeholder="Name" maxlength="45" required>
 									</div>
 									<div class="form-group">
 										<input type="number" name="age" id="age" class="form-control" placeholder="Age" max="99999999999" required>

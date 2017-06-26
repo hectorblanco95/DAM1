@@ -12,34 +12,14 @@ function insertPoints($username, $points, $game) {
         echo mysqli_error($con);
     }
     desconectar($con);
-} 
-
-// Función que nos devuelve el id games
-function selectIdGames($gamesNoVotados) {
-    $con = conectar();
-    $select = "select idgame from game where idgame='$gamesNoVotados';";
-    $resultado = mysqli_query($con, $select);
-    $fila = mysqli_fetch_array($resultado);
-    extract($fila);
-    desconectar($con);
-    return array($idgame);
 }
 
-// Función que nos devuelve los games
+// Función que nos devuelve los games no votados
 // desde una posición y una cantidad determinada
-function selectGamesNoVotados() {
+function selectGamesNoVotados($username, $posicion) {
     $con = conectar();
-    $select = "select game from play;";
-    $resultado = mysqli_query($con, $select);
-    desconectar($con);
-    return $resultado;
-}
-
-// Función que nos devuelve los games
-// desde una posición y una cantidad determinada
-function selectGames($idsNoVotados, $posicion, $cantidad) {
-    $con = conectar();
-    $select = "select idgame, `tittle`, price, `genre` from game where idgame <> '$idsNoVotados' desc limit $posicion, $cantidad;";
+    $select = "SELECT idgame, `tittle`, price, `genre` FROM game WHERE idgame NOT IN(SELECT game FROM play WHERE user = '$username')
+                LIMIT $posicion, 3;";
     $resultado = mysqli_query($con, $select);
     desconectar($con);
     return $resultado;
