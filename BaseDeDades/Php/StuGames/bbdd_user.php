@@ -25,10 +25,10 @@ function selectGamesNoVotados($username, $posicion) {
     return $resultado;
 }
 
-// Función que devuelve cuántos games hay en la bbdd
-function totalGames() {
+// Función que devuelve cuántos games no votados hay en la bbdd
+function totalGames($username) {
     $con = conectar();
-    $select = "select count(*) as cont from game;";
+    $select = "SELECT COUNT(*) as cont FROM game WHERE idgame NOT IN(SELECT game FROM play WHERE user = '$username');";
     $resultado = mysqli_query($con, $select);
     $fila = mysqli_fetch_array($resultado);
     extract($fila);
@@ -94,6 +94,7 @@ function insertUser($username, $pass, $name, $age) {
     $passCif = password_hash($pass, PASSWORD_DEFAULT);
     $insert = "insert into user values ('$username', '$passCif', '$name', '$age');";
     if (mysqli_query($con, $insert)) {
+        header("refresh:3;");
         echo "<p>Usuario registrado </p>";
     } else {
         echo mysqli_error($con);

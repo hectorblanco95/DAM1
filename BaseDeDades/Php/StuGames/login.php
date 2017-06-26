@@ -62,27 +62,4 @@ if (isset($_POST["register-submit"])) {
          }
     }
 }
-if (isset($_POST["change-pass"])) {
-    $username = $_SESSION["username"];
-    $pass = $_POST["password"];
-    // Comprobamos si existe una password con el mismo username
-    if (validateUser($username, $pass)) { 
-        // Verificamos que la contraseña y la verificación son iguales
-        $pass = $_POST["newPassword"];
-        $veri = $_POST["newPassword2"];
-        if ($pass != $veri) 
-            echo "<p>Las contraseñas no coinciden. </p>";
-         else {
-            // Ya está todo ok!!!! Podemos modificar la password :)
-            setPass($username, $pass);
-        }
-    } else{
-        echo "<p>Contraseña incorrecta.</p>";
-    }
-}
-if (isset($_POST["delete"])) {
-    // Recogemos la variable del post
-    $usuario = $_POST["usuario"];
-    borrarUser($usuario);
-}
 ?>

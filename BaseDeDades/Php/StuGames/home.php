@@ -1,6 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["username"])) {
+    $username=$_SESSION["username"];
     // incluimos el fichero de la bbdd
     require_once 'bbdd_user.php';
         ?>
@@ -26,7 +27,7 @@ if (isset($_SESSION["username"])) {
                 } else {
                     $contador = 0;
                 }
-                $total = totalGames();
+                $total = totalGames($username);
             ?>
             <body>
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -36,12 +37,13 @@ if (isset($_SESSION["username"])) {
                 <th>Tittle</th>
                 <th>Price</th>
                 <th>Genre</th>
+                <th>Points</th>
             </tr>
         </thead>
         <tbody>
             <?php
                 // Llamamos al método que devuelve todos los datos
-                $games = selectGamesNoVotados($_SESSION["username"], $contador);
+                $games = selectGamesNoVotados($username, $contador);
                 // Mientras haya datos, leemos la fila y la mostramos
                 while ($fila = mysqli_fetch_array($games)) {
                     extract($fila);
@@ -50,8 +52,9 @@ if (isset($_SESSION["username"])) {
                     echo "<tr>
                         <td>$idgame</td>
                         <td>$tittle</td>
-                        <td>$price</td>
+                        <td>$price €</td>
                         <td>$genre</td>
+                        <td><form action='forms.php' method='POST'><input type='hidden' name='user' value='$username'><input type='hidden' name='idgame' value='$idgame'><input type='number' name='voto' value='0' min='0' max='10'><input type='submit' name='points' value='Puntuar'></form>
                     </tr>";
                 }?>
         </tbody>
