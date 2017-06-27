@@ -30,17 +30,21 @@ if (isset($_SESSION["username"])) {
                 $total = totalGames($username);
             ?>
             <body>
-                <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Tittle</th>
-                <th>Price</th>
-                <th>Genre</th>
-                <th>Points</th>
-            </tr>
-        </thead>
-        <tbody>
+            <a href="logout.php" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-log-out"></span> Log out
+            </a>
+
+            <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tittle</th>
+                    <th>Price</th>
+                    <th>Genre</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
             <?php
                 // Llamamos al método que devuelve todos los datos
                 $games = selectGamesNoVotados($username, $contador);
@@ -54,27 +58,27 @@ if (isset($_SESSION["username"])) {
                         <td>$tittle</td>
                         <td>$price €</td>
                         <td>$genre</td>
-                        <td><form action='forms.php' method='POST'><input type='hidden' name='user' value='$username'><input type='hidden' name='idgame' value='$idgame'><input type='number' name='voto' value='0' min='0' max='10'><input type='submit' name='points' value='Puntuar'></form>
+                        <td><form action='points.php' method='POST'><input type='hidden' name='user' value='$username'><input type='hidden' name='idgame' value='$idgame'><input type='number' name='voto' value='0' min='0' max='10'><input type='submit' name='points' value='Puntuar'></form>
                     </tr>";
                 }?>
-        </tbody>
-    </table>
-    <div class="col-sm-5">
-        <div class="dataTables_info" id="info" role="status" aria-live="polite">
-        <?php
-        // Mostrando mensaje de los resultados actuales
-            if (($contador + 3) <= $total) {
-                echo "Showing " . ($contador + 1) . " to " . ($contador + 3) . " of $total entries";
-            } else {
-                echo "Showing " . ($contador + 1) . " to $total of $total entries";
-            }
-        ?>
-        </div>
-    </div>
-    <div class="col-sm-7">
-        <div class="dataTables_paginate paging_simple_numbers" id="paginate">
-            <ul class="pagination">
-    <?php
+                </tbody>
+            </table>
+            <div class="col-sm-5">
+                <div class="dataTables_info" id="info" role="status" aria-live="polite">
+                <?php
+                // Mostrando mensaje de los resultados actuales
+                    if (($contador + 3) <= $total) {
+                        echo "Showing " . ($contador + 1) . " to " . ($contador + 3) . " of $total entries";
+                    } else {
+                        echo "Showing " . ($contador + 1) . " to $total of $total entries";
+                    }
+                ?>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="dataTables_paginate paging_simple_numbers" id="paginate">
+                    <ul class="pagination">
+            <?php
                 // Mostrando el anterior (en caso de que lo haya)
                 if ($contador > 0) {
                 echo "<li class='paginate_button previous' id='example_previous'>
@@ -88,9 +92,35 @@ if (isset($_SESSION["username"])) {
                     </li>";
             }
             ?>
-            </ul>
-        </div>
-    </div>
+                    </ul>
+                </div>
+            </div>
+            
+            <?php 
+            $avg=AvgPoints($username);
+            if($avg!=""){
+                echo "<h2>Media de las puntuaciones: $avg points</h2>";
+            }
+            ?>
+            
+            <?php 
+            $games=selectGamesVoted($username);
+            if($games!=false){
+            ?>
+            <h2>Borrar puntuación</h2>
+            <form action="points.php" method="POST">
+                <select name="idplay">
+                    <?php
+                    while ($fila = mysqli_fetch_array($games)) {
+                    extract($fila);
+                    echo "<option value='$idplay'>$tittle</option>";
+                    }
+                    ?>
+                </select>
+                <input type="submit" name="delete" value="Eliminar voto">
+            </form>
+            <?php } ?>
+            
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	        <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>

@@ -11,15 +11,15 @@ if (isset($_POST["login-submit"])) {
         $_SESSION["username"] = $username;
         // Llamamos al método que devuelve todos los datos de los usuarios
         $userData = userData($_SESSION["username"]);
-        // Mientras haya datos, leemos la fila y la mostramos
-        while ($fila = mysqli_fetch_array($userData)) {
-            extract($fila);
-            // SIEMPRE después de un extract, las variables
-            // tienen el nombre de los campos de la bbdd
-            $_SESSION["name"] = $name;
-            $_SESSION["age"] = $age;
-            // Guardamos los datos del username en variables de session
-        }
+        // Leemos la fila y la mostramos
+        $fila = mysqli_fetch_array($userData);
+        extract($fila);
+        // SIEMPRE después de un extract, las variables
+        // tienen el nombre de los campos de la bbdd
+        $_SESSION["name"] = $name;
+        $_SESSION["age"] = $age;
+        // Guardamos los datos del username en variables de session
+        
         header("Location: home.php");
     }  else 
         echo "<p>Usuario o contraseña incorrectos.</p>";
@@ -47,15 +47,15 @@ if (isset($_POST["register-submit"])) {
                 $_SESSION["username"] = $username;
                 // Llamamos al método que devuelve todos los datos de los usuarios
                 $userData = userData($_SESSION["username"]);
-                // Mientras haya datos, leemos la fila y la mostramos
-                while ($fila = mysqli_fetch_array($userData)) {
-                    extract($fila);
-                    // SIEMPRE después de un extract, las variables
-                    // tienen el nombre de los campos de la bbdd
-                    $_SESSION["name"] = $name;
-                    $_SESSION["age"] = $age;
-                    // Guardamos los datos del username en variables de session
-                }
+                // Leemos la fila y la mostramos
+                $fila = mysqli_fetch_array($userData);
+                extract($fila);
+                // SIEMPRE después de un extract, las variables
+                // tienen el nombre de los campos de la bbdd
+                $_SESSION["name"] = $name;
+                $_SESSION["age"] = $age;
+                // Guardamos los datos del username en variables de session
+                    
                 header("Location: home.php");
             }  else 
                 echo "<p>Usuario o contraseña incorrectos.</p>";

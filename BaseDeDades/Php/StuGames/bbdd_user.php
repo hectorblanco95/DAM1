@@ -47,20 +47,6 @@ function userData($username) {
     return $resultado;
 }
 
-// Función que cambia la password del usuario en la bbdd
-function setPass($username, $pass) {
-    $con = conectar();
-    $passCif = password_hash($pass, PASSWORD_DEFAULT);
-    $query = "UPDATE user SET pass = '$passCif' WHERE username = '$username';;";
-    if (mysqli_query($con, $query)) {
-        echo "Contraseña modificada.";
-        header("refresh:3;url=home.php");
-    } else {
-        echo mysqli_error($con);
-    }
-    desconectar($con);
-}
-
 // Función que comprueba si un username ya existe en la bbdd
 // Devuelve true si existe, false si no existe
 function existUser($username) {
@@ -74,18 +60,22 @@ function existUser($username) {
     return $num_rows != 0;
 }
 
-// Función que recibe un username y 
-// borra el usuario de la bbdd
-function borrarUser($usuario) {
+function AvgPoints($usuario) {
     $con = conectar();
-    $delete = "delete from user where username='$usuario';";
-    if (mysqli_query($con, $delete)) {
-        echo "Usuario borrado.";
-        header("refresh:3;url=home.php");
-    } else {
-        echo mysqli_error($con);
-    }
+    $res = mysqli_query($con, "SELECT AVG(points) FROM play WHERE user = '$usuario';");
     desconectar($con);
+    $row = mysqli_fetch_row($res);
+    return $row[0];
+}
+
+function selectGamesVoted($usuario) {
+    $con = conectar();
+    $res = mysqli_query($con, "SELECT idplay, tittle FROM play INNER JOIN game ON game = idgame WHERE user = '$usuario';");
+    desconectar($con);
+    $filas = mysqli_num_rows($res);
+    if ($filas > 0) {
+        return $res;
+    }
 }
 
 // Función que inserta un usuario en la bbdd
